@@ -1,3 +1,7 @@
+# Misc for this project
+log\.txt
+*.exp
+
 # Object files
 *.o
 *.ko
