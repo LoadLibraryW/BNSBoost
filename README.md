@@ -1,6 +1,6 @@
 ## BNSBoost
 
-BNSBoost is a simple loader for starting NCSoft's Blade and Soul.
+BNSBoost is a simple loader for starting NCSoft's Blade and Soul. Not endorsed by them in any way, shape, or form; Blade and Soul, etc. are all trademarks of NCSoft.
 
 BNSBoost:
 
