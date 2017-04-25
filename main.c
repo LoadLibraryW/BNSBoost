@@ -1,8 +1,11 @@
-// cl main.cpp Advapi32.lib /Feinjector.exe
+// cl main.c Advapi32.lib Shlwapi.lib /FeBNSBoost.exe
+#define UNICODE
+
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
-#include "Strsafe.h"
+#include <Strsafe.h>
+#include <Shlwapi.h>
 
 BYTE asmX86[] = {
 	/* 0000 */ 0x55,             // push ebp
@@ -31,7 +34,7 @@ inline void writeDword(BYTE *buf, DWORD dword)
 BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
 {
     // Mostly from the DMOJ's Windows sandbox; https://github.com/DMOJ/judge
-    HMODULE hKernel32 = GetModuleHandleW(L"kernel32.dll");
+    HMODULE hKernel32 = GetModuleHandle(L"kernel32.dll");
     printf("LoadLibraryW @ %04X\n", (UINT32) (INT_PTR) GetProcAddress(hKernel32, "LoadLibraryW"));
     printf("GetProcAddress @ %04X\n", (UINT32) (INT_PTR) GetProcAddress(hKernel32, "GetProcAddress"));
     writeDword(asmX86 + 9, (UINT32) (INT_PTR) GetProcAddress(hKernel32, "LoadLibraryW"));
@@ -117,28 +120,29 @@ int main(int argc, char *argv[])
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-    wchar_t launcherBaseDir[255];
+    wchar_t launcherBaseDir[MAX_PATH];
     DWORD BufferSize = sizeof launcherBaseDir;
-	RegGetValueW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\NCWest\\NCLauncher\\", L"BaseDir", RRF_RT_ANY, NULL, (PVOID) &launcherBaseDir, &BufferSize);
+	RegGetValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\NCWest\\NCLauncher\\", L"BaseDir", RRF_RT_ANY, NULL, (PVOID) &launcherBaseDir, &BufferSize);
 	wprintf(L"Using launcher dir: %ls\n", &launcherBaseDir[0]);
 
     LPWSTR launcherFlags = L"\\ncLauncherR.exe\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"";
-    DWORD dwSize = (lstrlenW(launcherBaseDir) + lstrlenW(launcherFlags) + 2) * sizeof(wchar_t);
+    DWORD dwSize = (lstrlen(launcherBaseDir) + lstrlen(launcherFlags) + 2) * sizeof(wchar_t);
     LPWSTR ncLauncherCommandLine = (LPWSTR) malloc(dwSize);
-    StringCbCopyW(ncLauncherCommandLine, dwSize, L"\"");
-    StringCbCatW(ncLauncherCommandLine, dwSize, launcherBaseDir);
-    StringCbCatW(ncLauncherCommandLine, dwSize, launcherFlags);
+    ZeroMemory(ncLauncherCommandLine, dwSize);
+    StringCbCopy(ncLauncherCommandLine, dwSize, L"\"");
+    StringCbCat(ncLauncherCommandLine, dwSize, launcherBaseDir);
+    StringCbCat(ncLauncherCommandLine, dwSize, launcherFlags);
 
-    if(!CreateProcessW(NULL,
-                       ncLauncherCommandLine,
-                       NULL,
-                       NULL,
-                       TRUE,
-                       CREATE_SUSPENDED,
-                       NULL,
-                       NULL,
-                       &si,
-                       &pi))
+    if(!CreateProcess(NULL,
+                      ncLauncherCommandLine,
+                      NULL,
+                      NULL,
+                      TRUE,
+                      CREATE_SUSPENDED,
+                      NULL,
+                      NULL,
+                      &si,
+                      &pi))
     {
         printf("CreateProcess failed (%d).\n", GetLastError());
         return 0;
@@ -148,10 +152,12 @@ int main(int argc, char *argv[])
 
     printf("Launcher PID: %d\n", pi.dwProcessId);
 
-    dwSize = 255 * sizeof (wchar_t);
+    dwSize = MAX_PATH * sizeof (wchar_t);
     LPWSTR agentPath = (LPWSTR) malloc(dwSize);
-    DWORD cwdSz = GetCurrentDirectoryW(lstrlenW(agentPath), agentPath);
-    StringCbCatW(agentPath, dwSize, L"\\agent.dll");
+    ZeroMemory(agentPath, dwSize);
+    GetModuleFileName(GetModuleHandle(NULL), agentPath, dwSize);
+    PathRemoveFileSpec(agentPath);
+    StringCbCat(agentPath, dwSize, L"\\agent.dll");
 
     wprintf(L"Using agent: %ls\n", agentPath);
 
