@@ -28,7 +28,7 @@ inline void writeDword(BYTE *buf, DWORD dword)
     buf[3] = (dword >> 24) & 0xFF;
 }
 
-bool inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
+BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
 {
     // Mostly from the DMOJ's Windows sandbox; https://github.com/DMOJ/judge
     HMODULE hKernel32 = GetModuleHandleW(L"kernel32.dll");
@@ -48,26 +48,26 @@ bool inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
 	if (!lpDllPath)
     {
         printf("Could not allocate DLL path memory: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
 	if (!WriteProcessMemory(hProcess, lpDllPath, szDllPath, cbDllPath, NULL))
     {
         printf("Could not write DLL path memory: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
 	lpFunctionName = VirtualAllocEx(hProcess, NULL, cbFunctionName, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 	if (!lpFunctionName)
     {
         printf("Could not allocate function name memory: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
 	if (!WriteProcessMemory(hProcess, lpFunctionName, szFunctionName, cbFunctionName, NULL))
     {
         printf("Could not write function name memory: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
     DWORD dwDllPath, dwFunctionName;
@@ -83,20 +83,20 @@ bool inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
 	if (!lpCode)
     {
         printf("Could not allocate injection memory: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
 	if (!WriteProcessMemory(hProcess, lpCode, asmCode, sizeof asmCode, NULL))
     {
         printf("Could not write injection memory: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
 
 	if (!(hInject = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE) lpCode, NULL, 0, NULL)))
     {
         printf("Could not create remote thread: %d\n", GetLastError());
-        return false;
+        return FALSE;
     }
 
 
@@ -105,7 +105,7 @@ bool inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
 	VirtualFreeEx(hProcess, lpDllPath, cbDllPath, MEM_RELEASE);
 	VirtualFreeEx(hProcess, lpFunctionName, cbFunctionName, MEM_RELEASE);
 	VirtualFreeEx(hProcess, lpCode, sizeof asmCode, MEM_RELEASE);
-	return true;
+	return TRUE;
 }
 
 int main(int argc, char *argv[])
