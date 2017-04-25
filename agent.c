@@ -1,9 +1,11 @@
 // cl /LD agent.c user32.lib kernel32.lib Shlwapi.lib /link /def:agent.def
+#define UNICODE
+
 #include <stdio.h>
 #include <windows.h>
 #include <Psapi.h>
-#include "Shlwapi.h"
-#include "Strsafe.h"
+#include <Shlwapi.h>
+#include <Strsafe.h>
 
 void Patch(const char *function, void *hook, HANDLE module)
 {
@@ -48,38 +50,38 @@ HANDLE WINAPI MyCreateFile(
   _In_     DWORD                 dwFlagsAndAttributes,
   _In_opt_ HANDLE                hTemplateFile
 ) {
-    DWORD dwSize = (lstrlenW(lpFileName) + 1) * sizeof(wchar_t);
+    DWORD dwSize = (lstrlen(lpFileName) + 1) * sizeof(wchar_t);
     LPCWSTR filename = malloc(dwSize);
     LPCWSTR filepath = malloc(dwSize);
     LPCWSTR unpatched = L"/unpatched/";
     
-    StringCbCopyW(filename, dwSize, lpFileName);
-    StringCbCopyW(filepath, dwSize, lpFileName);
+    StringCbCopy(filename, dwSize, lpFileName);
+    StringCbCopy(filepath, dwSize, lpFileName);
     
-    PathStripPathW(filename);
-    PathRemoveFileSpecW(filepath);
+    PathStripPath(filename);
+    PathRemoveFileSpec(filepath);
     
-    dwSize = (lstrlenW(filename) + lstrlenW(filepath) + lstrlenW(unpatched) + 1) * sizeof(wchar_t);
+    dwSize = (lstrlen(filename) + lstrlen(filepath) + lstrlen(unpatched) + 1) * sizeof(wchar_t);
     LPCWSTR patchedFile = (LPCWSTR) malloc(dwSize);
-    StringCbCopyW(patchedFile, dwSize, filepath);
-    StringCbCatW(patchedFile, dwSize, unpatched);
-    StringCbCatW(patchedFile, dwSize, filename);
+    StringCbCopy(patchedFile, dwSize, filepath);
+    StringCbCat(patchedFile, dwSize, unpatched);
+    StringCbCat(patchedFile, dwSize, filename);
     
     wprintf(L"CreateFile: %ls\n", lpFileName);
     
-    if (PathFileExistsW(patchedFile)) {
+    if (PathFileExists(patchedFile)) {
         wprintf(L"\t Patched to ");
         wprintf(L"%ls\n", patchedFile);
         lpFileName = patchedFile;
     }
     
-    HANDLE ret = CreateFileW(lpFileName,
-                             dwDesiredAccess,
-                             dwShareMode,
-                             lpSecurityAttributes,
-                             dwCreationDisposition,
-                             dwFlagsAndAttributes,
-                             hTemplateFile);
+    HANDLE ret = CreateFile(lpFileName,
+                            dwDesiredAccess,
+                            dwShareMode,
+                            lpSecurityAttributes,
+                            dwCreationDisposition,
+                            dwFlagsAndAttributes,
+                            hTemplateFile);
                        
     free(filename);
     free(filepath);
@@ -106,23 +108,23 @@ BOOL WINAPI MyCreateProcess(
     fflush(stdout);
     
     LPWSTR flags = L" -NOTEXTURESTREAMING -UNATTENDED -USEALLAVAILABLECORES";
-    DWORD dwSize = (lstrlenW(lpCommandLine) + lstrlenW(flags) + 1) * sizeof(wchar_t);
+    DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(flags) + 1) * sizeof(wchar_t);
     LPWSTR newCommandLine = malloc(dwSize);
-    StringCbCopyW(newCommandLine, dwSize, lpCommandLine);
-    StringCbCatW(newCommandLine, dwSize, flags);
+    StringCbCopy(newCommandLine, dwSize, lpCommandLine);
+    StringCbCat(newCommandLine, dwSize, flags);
     
     wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, newCommandLine); 
 
-    BOOL ret = CreateProcessW(lpApplicationName,
-                              newCommandLine,
-                              lpProcessAttributes,
-                              lpThreadAttributes,
-                              bInheritHandles,
-                              dwCreationFlags,
-                              lpEnvironment,
-                              lpCurrentDirectory,
-                              lpStartupInfo,
-                              lpProcessInformation);
+    BOOL ret = CreateProcess(lpApplicationName,
+                             newCommandLine,
+                             lpProcessAttributes,
+                             lpThreadAttributes,
+                             bInheritHandles,
+                             dwCreationFlags,
+                             lpEnvironment,
+                             lpCurrentDirectory,
+                             lpStartupInfo,
+                             lpProcessInformation);
 
     free(newCommandLine);
     return ret;
@@ -133,7 +135,7 @@ HMODULE WINAPI MyLoadLibrary(
 ) {    
     wprintf(L"LoadLibrary: %ls\n", lpFileName);
     fflush(stdout);
-    HMODULE mod = LoadLibraryW(lpFileName);
+    HMODULE mod = LoadLibrary(lpFileName);
     Patch("CreateFileW", &MyCreateFile, mod);
     return mod;
 }
