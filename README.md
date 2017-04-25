@@ -27,15 +27,19 @@ Depending on your computer, you may also hear an audible beep.
 
 ### Using BNSBoost to run patched files
 
-To enable e.g. the DPS meter, locate the directory containing your install's config files: that's the one containing `xml(64).dat` and `config(64).dat`.
-For example, it may be something like `D:\Blade and Soul\BnS\contents\Local\NCWEST\data`.
-
-**Ensuring you have unpatched game files** (vanilla BNS), create a folder in that directory called `unpatched`, and copy the `xml*` and `config*` files into it.
+Before you patch any file, navigate to its directory first, and create a subdirectory called `unpatched`, then copy the file(s) you wish to patch into `unpatched`.
 Then, you can use whatever game file editor you wish to patch the files however you wish. BNSBoost will make the game *launcher* read
 from the `unpatched` folder, while the regular game *client* will read from the regular folder.
 
 This'll trick the launcher's verifier into thinking you're running an unmodified game, and allow the game to start.
 The game does no further verification.
+
+#### Enabling the DPS meter
+To enable the DPS meter, locate the directory containing your install's config files: that's the one with `xml(64).dat` and `config(64).dat`.
+For example, it may be something like `D:\Blade and Soul\BnS\contents\Local\NCWEST\data`.
+
+**Ensuring you have unpatched game files** (vanilla BNS), create a folder in that directory called `unpatched`, and copy the `xml*` and `config*` files into it.
+Then, just use BNSBuddy to patch the files as you normally would.
 
 ## How it works
 
