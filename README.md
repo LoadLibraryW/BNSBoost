@@ -45,7 +45,7 @@ The code itself is pretty short and fairly easy to follow, but in general:
 * Launches it suspended
 * Writes the agent DLL into the memory of the launcher, and runs it
   * At this point there will likely be an audible beep, and BNSBoost can be safely closed
-* Unsuspends the game' NCSoft login page shows up
+* Unsuspends the game; NCSoft login page shows up
 * The agent modifies the game's [import address table (IAT)](https://en.wikipedia.org/wiki/Portable_Executable#Import_Table)
   * Redirects all calls to `CreateFile`, `CreateProcess` and `LoadLibrary`
   * Relevant calls to `CreateFile` are sourced from the `unpatched` directory
