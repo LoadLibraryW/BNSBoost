@@ -52,7 +52,23 @@ The code itself is pretty short and fairly easy to follow, but for the curious n
   * `CreateProcess` hook adds no texture streaming and use all CPU core flags to the game
   * `LoadLibrary` hook applies the `CreateFile` hook to any libraries loaded later
 
+The injection procedure itself is mostly sourced from the [DMOJ's](https://dmoj.ca/) Windows sandbox, which is [also open source](https://github.com/DMOJ/judge).
+
 BNSBoost never touches the game client (Client.exe), only its launcher.
+
+## Reporting an issue
+
+I should say that I wrote this project for myself, and it works for me &mdash; in that sense, the goal of this project is complete.
+However, since I figure this may be useful for others, I'll be happy to provide a best-effort attempt at helping out with any
+errors caused by BNSBoost.
+
+You can use the [ticket tracker](https://github.com/Xyene/BNSBoost/issues/) to [report issues](https://github.com/Xyene/BNSBoost/issues/new), and I'll probably get to them fairly quickly. 
+
+Where possible, include a copy of your `log.txt` from the folder containing BNSBoost.
+If that's not possible because BNSBoost is crashing too early (e.g., a flickering black window), open an **administrator**
+command prompt, `cd` to your BNSBoost directory, and run `BNSBoost.exe` from there. There'll probably be some extra info printed there.
+
+Good luck!
 
 ## Compilation
 
