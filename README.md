@@ -27,13 +27,12 @@ Depending on your computer, you may also hear an audible beep.
 
 ### Using BNSBoost to run patched files
 
-To enable e.g. the DPS meter, locate the directory containing your install's config files.
-That's the one containing `xml(64).dat` and `config(64).dat`.
+To enable e.g. the DPS meter, locate the directory containing your install's config files: that's the one containing `xml(64).dat` and `config(64).dat`.
 For example, it may be something like `D:\Blade and Soul\BnS\contents\Local\NCWEST\data`.
 
-Ensuring you have unpatched game files (vanilla BNS), create a folder in that directory called `unpatched`, and copy the `xml*` and `config*` files into it.
+**Ensuring you have unpatched game files** (vanilla BNS), create a folder in that directory called `unpatched`, and copy the `xml*` and `config*` files into it.
 Then, you can use whatever game file editor you wish to patch the files however you wish. BNSBoost will make the game *launcher* read
-from the `unpatched` folder, while the regular game _client_ will read from the regular folder.
+from the `unpatched` folder, while the regular game *client* will read from the regular folder.
 
 This'll trick the launcher's verifier into thinking you're running an unmodified game, and allow the game to start.
 The game does no further verification.
@@ -46,6 +45,7 @@ The code itself is pretty short and fairly easy to follow, but for the curious n
 * Launches it suspended
 * Writes the agent DLL into the memory of the launcher, and runs it
   * At this point there will likely be an audible beep, and BNSBoost can be safely closed
+* Unsuspends the game' NCSoft login page shows up
 * The agent modifies the game's [import address table (IAT)](https://en.wikipedia.org/wiki/Portable_Executable#Import_Table)
   * Redirects all calls to `CreateFile`, `CreateProcess` and `LoadLibrary`
   * Relevant calls to `CreateFile` are sourced from the `unpatched` directory
@@ -54,7 +54,7 @@ The code itself is pretty short and fairly easy to follow, but for the curious n
 
 The injection procedure itself is mostly sourced from the [DMOJ's](https://dmoj.ca/) Windows sandbox, which is [also open source](https://github.com/DMOJ/judge).
 
-BNSBoost never touches the game client (Client.exe), only its launcher.
+BNSBoost never touches the game client (`Client.exe`), only its launcher.
 
 ## Reporting an issue
 
@@ -73,4 +73,5 @@ Good luck!
 ## Compilation
 
 You might want to compile BNSBoost yourself, in which case the compilation commands are located in the first line of each file.
+
 I'll make a Makefile sometime, but not today.
