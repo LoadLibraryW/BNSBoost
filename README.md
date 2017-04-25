@@ -19,7 +19,7 @@ whitelist BNSBoost before proceeding. If you're jumpy about security, you can al
 yourself.
 
 ## Usage 
-Just run the BNSBoost.exe you got from the release archive. **Make sure you run BNSBoost.exe with administrator privileges!**
+Just run the `BNSBoost.exe` you got from the release archive. **Make sure you run BNSBoost.exe with administrator privileges!**
 
 This will start the game set to use all cores and with texture streaming disabled.
 BNSBoost will open in one of those nice DOS-style windows, which will be safe to close as soon as you've logged in.
