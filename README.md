@@ -39,7 +39,7 @@ The game does no further verification.
 
 ## How it works
 
-The code itself is pretty short and fairly easy to follow, but for the curious non-programmer types:
+The code itself is pretty short and fairly easy to follow, but in general:
 
 * BNSBoost detects your launcher path from the registry
 * Launches it suspended
