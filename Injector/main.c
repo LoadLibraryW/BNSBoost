@@ -110,7 +110,7 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
     return TRUE;
 }
 
-__declspec(dllexport) VOID WINAPI Launch()
+__declspec(dllexport) VOID WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtraClientFlags)
 {
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -119,14 +119,15 @@ __declspec(dllexport) VOID WINAPI Launch()
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-    DWORD dwSize = MAX_PATH * sizeof (wchar_t);
+/*    DWORD dwSize = MAX_PATH * sizeof (wchar_t);
     LPWSTR lpLauncherBaseDir = malloc(dwSize);
     ZeroMemory(lpLauncherBaseDir, dwSize);
     RegGetValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\NCWest\\NCLauncher\\", L"BaseDir", RRF_RT_ANY, NULL, (PVOID) lpLauncherBaseDir, &dwSize);
-    wprintf(L"Using launcher dir: %ls\n", lpLauncherBaseDir);
+  */
+	wprintf(L"Using launcher dir: %ls\n", lpLauncherBaseDir);
 
-    LPWSTR lpLauncherFlags = L"\\ncLauncherR.exe\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"";
-    dwSize = (lstrlen(lpLauncherBaseDir) + lstrlen(lpLauncherFlags) + 2) * sizeof(wchar_t);
+    LPWSTR lpLauncherFlags = L"\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"";
+    DWORD dwSize = (lstrlen(lpLauncherBaseDir) + lstrlen(lpLauncherFlags) + 2) * sizeof(wchar_t);
     LPWSTR lpNCLauncherCommandLine = malloc(dwSize);
     ZeroMemory(lpNCLauncherCommandLine, dwSize);
     StringCbCopy(lpNCLauncherCommandLine, dwSize, L"\"");
