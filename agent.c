@@ -51,28 +51,29 @@ HANDLE WINAPI MyCreateFile(
   _In_opt_ HANDLE                hTemplateFile
 ) {
     DWORD dwSize = (lstrlen(lpFileName) + 1) * sizeof(wchar_t);
-    LPCWSTR filename = malloc(dwSize);
-    LPCWSTR filepath = malloc(dwSize);
-    LPCWSTR unpatched = L"/unpatched/";
+    LPCWSTR lpBaseDir = malloc(dwSize);
+    LPCWSTR lpFileSpec = malloc(dwSize);
+    LPCWSTR lpUnpatchedDir = L"/unpatched/";
     
-    StringCbCopy(filename, dwSize, lpFileName);
-    StringCbCopy(filepath, dwSize, lpFileName);
+    StringCbCopy(lpBaseDir, dwSize, lpFileName);
+    StringCbCopy(lpFileSpec, dwSize, lpFileName);
     
-    PathStripPath(filename);
-    PathRemoveFileSpec(filepath);
+    PathStripPath(lpBaseDir);
+    PathRemoveFileSpec(lpFileSpec);
     
-    dwSize = (lstrlen(filename) + lstrlen(filepath) + lstrlen(unpatched) + 1) * sizeof(wchar_t);
-    LPCWSTR patchedFile = (LPCWSTR) malloc(dwSize);
-    StringCbCopy(patchedFile, dwSize, filepath);
-    StringCbCat(patchedFile, dwSize, unpatched);
-    StringCbCat(patchedFile, dwSize, filename);
+    dwSize = (lstrlen(lpBaseDir) + lstrlen(lpFileSpec) + lstrlen(lpUnpatchedDir) + 1) * sizeof(wchar_t);
+    
+    LPCWSTR lpUnpatchedFileName = (LPCWSTR) malloc(dwSize);
+    StringCbCopy(lpUnpatchedFileName, dwSize, lpBaseDir);
+    StringCbCat(lpUnpatchedFileName, dwSize, lpUnpatchedDir);
+    StringCbCat(lpUnpatchedFileName, dwSize, lpFileSpec);
     
     wprintf(L"CreateFile: %ls\n", lpFileName);
     
-    if (PathFileExists(patchedFile)) {
+    if (PathFileExists(lpUnpatchedFileName)) {
         wprintf(L"\t Patched to ");
-        wprintf(L"%ls\n", patchedFile);
-        lpFileName = patchedFile;
+        wprintf(L"%ls\n", lpUnpatchedFileName);
+        lpFileName = lpUnpatchedFileName;
     }
     
     HANDLE ret = CreateFile(lpFileName,
@@ -83,9 +84,9 @@ HANDLE WINAPI MyCreateFile(
                             dwFlagsAndAttributes,
                             hTemplateFile);
                        
-    free(filename);
-    free(filepath);
-    free(patchedFile);
+    free(lpBaseDir);
+    free(lpFileSpec);
+    free(lpUnpatchedFileName);
 
     fflush(stdout);
 
@@ -107,16 +108,16 @@ BOOL WINAPI MyCreateProcess(
     wprintf(L"CreateProcess: %ls (%ls)\n", lpApplicationName, lpCommandLine); 
     fflush(stdout);
     
-    LPWSTR flags = L" -NOTEXTURESTREAMING -UNATTENDED -USEALLAVAILABLECORES";
-    DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(flags) + 1) * sizeof(wchar_t);
-    LPWSTR newCommandLine = malloc(dwSize);
-    StringCbCopy(newCommandLine, dwSize, lpCommandLine);
-    StringCbCat(newCommandLine, dwSize, flags);
+    LPWSTR lpFlags = L" -NOTEXTURESTREAMING -UNATTENDED -USEALLAVAILABLECORES";
+    DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(lpFlags) + 1) * sizeof(wchar_t);
+    LPWSTR lpNewCommandLine = malloc(dwSize);
+    StringCbCopy(lpNewCommandLine, dwSize, lpCommandLine);
+    StringCbCat(lpNewCommandLine, dwSize, lpFlags);
     
-    wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, newCommandLine); 
+    wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, lpNewCommandLine); 
 
     BOOL ret = CreateProcess(lpApplicationName,
-                             newCommandLine,
+                             lpNewCommandLine,
                              lpProcessAttributes,
                              lpThreadAttributes,
                              bInheritHandles,
@@ -126,7 +127,7 @@ BOOL WINAPI MyCreateProcess(
                              lpStartupInfo,
                              lpProcessInformation);
 
-    free(newCommandLine);
+    free(lpNewCommandLine);
     return ret;
 }
 
@@ -142,8 +143,8 @@ HMODULE WINAPI MyLoadLibrary(
 
 __declspec(dllexport) VOID WINAPI InjectMain()
 {
-	freopen("log.txt", "w", stdout);
-	printf("Entered injector!\n");
+    freopen("log.txt", "w", stdout);
+    printf("Entered injector!\n");
     MessageBeep(-1);
     Patch("CreateFileW", &MyCreateFile, GetModuleHandle(NULL));
     Patch("LoadLibraryW", &MyLoadLibrary, GetModuleHandle(NULL));
@@ -161,5 +162,5 @@ INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
             break;
     }
 
-	return TRUE;
+    return TRUE;
 }
