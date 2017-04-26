@@ -108,12 +108,12 @@ BOOL WINAPI MyCreateProcess(
     wprintf(L"CreateProcess: %ls (%ls)\n", lpApplicationName, lpCommandLine); 
     fflush(stdout);
     
-    LPWSTR lpFlags = L" -NOTEXTURESTREAMING -UNATTENDED -USEALLAVAILABLECORES";
+    LPWSTR lpFlags = L" -NOTEXTURESTREAMING -USEALLAVAILABLECORES";
     DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(lpFlags) + 1) * sizeof(wchar_t);
     LPWSTR lpNewCommandLine = malloc(dwSize);
     StringCbCopy(lpNewCommandLine, dwSize, lpCommandLine);
     StringCbCat(lpNewCommandLine, dwSize, lpFlags);
-    
+
     wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, lpNewCommandLine); 
 
     BOOL ret = CreateProcess(lpApplicationName,
@@ -128,7 +128,7 @@ BOOL WINAPI MyCreateProcess(
                              lpProcessInformation);
 
     free(lpNewCommandLine);
-    return ret;
+    exit(0xB00573D);
 }
 
 HMODULE WINAPI MyLoadLibrary(
