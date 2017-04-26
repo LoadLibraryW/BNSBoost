@@ -110,7 +110,7 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
     return TRUE;
 }
 
-int main(int argc, char *argv[])
+__declspec(dllexport) VOID WINAPI Launch()
 {
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
                       &pi))
     {
         printf("CreateProcess failed (%d).\n", GetLastError());
-        return -1;
+        return;
     }
 
     free(lpNCLauncherCommandLine);
@@ -172,5 +172,5 @@ int main(int argc, char *argv[])
     printf("Exited with: %04X\n", exitcode);
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
-    return 0;
+    return;
 }
