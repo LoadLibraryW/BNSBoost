@@ -1,5 +1,6 @@
 // cl /LD agent.c user32.lib kernel32.lib Shlwapi.lib /link /def:agent.def
 #define UNICODE
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <windows.h>
