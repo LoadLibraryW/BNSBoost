@@ -27,20 +27,29 @@ namespace BNSBoost
 
         private void LaunchButton_Click(object sender, EventArgs e)
         {
-            string ExtraClientFlags = "";
+            string extraClientFlags = "";
             if (UseAllCoresCheckbox.Checked)
-                ExtraClientFlags += " -USEALLAVAILABLECORES";
+                extraClientFlags += " -USEALLAVAILABLECORES";
             if (DisableTextureStreamingCheckbox.Checked)
-                ExtraClientFlags += " -USEALLAVAILABLECORES";
+                extraClientFlags += " -USEALLAVAILABLECORES";
 
-            string LauncherPath = LauncherPathTextBox.Text;
+            string launcherPath = LauncherPathTextBox.Text;
             new Thread(() => {
                 Invoke((MethodInvoker) delegate { Hide(); });
-                int exitcode = Program.Launch(LauncherPath, ExtraClientFlags);
+                int exitcode = Program.Launch(launcherPath, extraClientFlags);
                 if (exitcode == 0)
                     Application.Exit();
                 else
-                    Invoke((MethodInvoker) delegate { Show(); });
+                    Invoke((MethodInvoker) delegate {
+                        string message;
+                        if (exitcode == 740)
+                            message = "You must run BNSBoost with administrator rights.";
+                        else
+                            message = "Launcher exited with error: " + exitcode;
+                        MessageBox.Show(message);
+                        Show();
+                        Focus();
+                    });
             }).Start();
         }
 
