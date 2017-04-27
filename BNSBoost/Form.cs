@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace BNSBoost
             if (defaultLauncherPath == "")
             {
                 string[] searchDirs = {
-                (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
+                    (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
                     "%ProgramFiles(x86)%\\NCWest\\NCLauncher",
                     AppDomain.CurrentDomain.BaseDirectory
                 };
@@ -43,6 +44,16 @@ namespace BNSBoost
 
                 LauncherPathTextBox.Text = defaultLauncherPath;
             }
+
+            string defaultGamePath = GameDirectoryPathTextBox.Text;
+            if (defaultGamePath == "")
+            {
+                defaultGamePath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\BnS", "BaseDir", null);
+                if (defaultGamePath != null)
+                {
+                    GameDirectoryPathTextBox.Text = defaultGamePath;
+                }
+            };
         }
 
         private void LaunchButton_Click(object sender, EventArgs e)
@@ -54,6 +65,28 @@ namespace BNSBoost
                 extraClientFlags += " -USEALLAVAILABLECORES";
             if (DisableTextureStreamingCheckbox.Checked)
                 extraClientFlags += " -USEALLAVAILABLECORES";
+
+            string cookedPCBase = Properties.Settings.Default.GameDirectoryPath + "\\contents\\Local\\NCWEST\\ENGLISH\\CookedPC\\";
+            string origLoadingPkgFile = cookedPCBase + "Loading.pkg";
+            string unpatchedDir = cookedPCBase + "unpatched\\";
+            string movedLoadingPkgFile = unpatchedDir + "Loading.pkg";
+
+            Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
+            if (Properties.Settings.Default.NoLoadingScreens)
+            {
+                System.Diagnostics.Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
+                if (File.Exists(origLoadingPkgFile))
+                {
+                    Directory.CreateDirectory(unpatchedDir);
+                    File.Move(origLoadingPkgFile, movedLoadingPkgFile);
+                }
+            } else
+            {
+                if (File.Exists(movedLoadingPkgFile))
+                {
+                    File.Move(movedLoadingPkgFile, origLoadingPkgFile);
+                }
+            }
 
             string launcherPath = LauncherPathTextBox.Text;
             new Thread(() => {
