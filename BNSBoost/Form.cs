@@ -22,27 +22,33 @@ namespace BNSBoost
         }
         private void Form_Load(object sender, EventArgs e)
         {
-            string defaultLauncherPath = "unknown, please specify NCLauncherR.exe path";
-            string[] searchDirs = {
-                (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
-                "%ProgramFiles(x86)%\\NCWest\\NCLauncher",
-                AppDomain.CurrentDomain.BaseDirectory
-            };
-            foreach(string dir in searchDirs)
-            {
-                string path = Environment.ExpandEnvironmentVariables(dir + "\\NCLauncherR.exe");
-                if (File.Exists(path))
-                {
-                    defaultLauncherPath = path;
-                    break;
-                }
-            }
+            string defaultLauncherPath = LauncherPathTextBox.Text;
 
-            LauncherPathTextBox.Text = defaultLauncherPath;
+            if (defaultLauncherPath == "")
+            {
+                string[] searchDirs = {
+                (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
+                    "%ProgramFiles(x86)%\\NCWest\\NCLauncher",
+                    AppDomain.CurrentDomain.BaseDirectory
+                };
+                foreach (string dir in searchDirs)
+                {
+                    string path = Environment.ExpandEnvironmentVariables(dir + "\\NCLauncherR.exe");
+                    if (File.Exists(path))
+                    {
+                        defaultLauncherPath = path;
+                        break;
+                    }
+                }
+
+                LauncherPathTextBox.Text = defaultLauncherPath;
+            }
         }
 
         private void LaunchButton_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Save();
+
             string extraClientFlags = "";
             if (UseAllCoresCheckbox.Checked)
                 extraClientFlags += " -USEALLAVAILABLECORES";
