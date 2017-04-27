@@ -29,13 +29,19 @@ namespace BNSBoost
         {
             string ExtraClientFlags = "";
             if (UseAllCoresCheckbox.Checked)
-                ExtraClientFlags += "-USEALLAVAILABLECORES ";
+                ExtraClientFlags += " -USEALLAVAILABLECORES";
             if (DisableTextureStreamingCheckbox.Checked)
-                ExtraClientFlags += "-USEALLAVAILABLECORES";
-            ExtraClientFlags = ExtraClientFlags.Trim();
+                ExtraClientFlags += " -USEALLAVAILABLECORES";
 
             string LauncherPath = LauncherPathTextBox.Text;
-            new Thread(() => Program.Launch(LauncherPath, ExtraClientFlags)).Start();
+            new Thread(() => {
+                Invoke((MethodInvoker) delegate { Hide(); });
+                int exitcode = Program.Launch(LauncherPath, ExtraClientFlags);
+                if (exitcode == 0)
+                    Application.Exit();
+                else
+                    Invoke((MethodInvoker) delegate { Show(); });
+            }).Start();
         }
     }
 }

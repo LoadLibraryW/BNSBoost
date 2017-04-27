@@ -51,7 +51,6 @@
             this.UseAllCoresCheckbox.AutoSize = true;
             this.UseAllCoresCheckbox.Checked = true;
             this.UseAllCoresCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.UseAllCoresCheckbox.Enabled = false;
             this.UseAllCoresCheckbox.Location = new System.Drawing.Point(26, 28);
             this.UseAllCoresCheckbox.Name = "UseAllCoresCheckbox";
             this.UseAllCoresCheckbox.Size = new System.Drawing.Size(216, 36);
@@ -64,7 +63,6 @@
             this.DisableTextureStreamingCheckbox.AutoSize = true;
             this.DisableTextureStreamingCheckbox.Checked = true;
             this.DisableTextureStreamingCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.DisableTextureStreamingCheckbox.Enabled = false;
             this.DisableTextureStreamingCheckbox.Location = new System.Drawing.Point(26, 84);
             this.DisableTextureStreamingCheckbox.Name = "DisableTextureStreamingCheckbox";
             this.DisableTextureStreamingCheckbox.Size = new System.Drawing.Size(375, 36);

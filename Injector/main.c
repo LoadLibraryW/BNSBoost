@@ -17,6 +17,7 @@ BYTE asmX86[] = {
     /* 0014 */ 0x50,             // push eax
     /* 0015 */ 0xB9, 0, 0, 0, 0, // mov  ecx, GetProcAddress
     /* 001A */ 0xFF, 0xD1,       // call ecx
+	/*      */ 0x68, 0, 0, 0, 0, // push <extra client flags (UTF-16),
     /* 001C */ 0xFF, 0xD0,       // call eax
     /* 001E */ 0x33, 0xC0,       // xor  eax, eax
     /* 0020 */ 0x5D,             // pop  ebp
@@ -31,7 +32,7 @@ inline void writeDword(BYTE *buf, DWORD dword)
     buf[3] = (dword >> 24) & 0xFF;
 }
 
-BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
+BOOL Inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName, LPCWSTR szExtraClientFlags)
 {
     // Mostly from the DMOJ's Windows sandbox; https://github.com/DMOJ/judge
     HMODULE hKernel32 = GetModuleHandle(L"kernel32.dll");
@@ -42,10 +43,11 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
 
     HANDLE hInject;
     BYTE asmCode[sizeof asmX86];
-    LPVOID lpDllPath, lpFunctionName, lpCode;
-    DWORD cbDllPath, cbFunctionName = lstrlenA(szFunctionName) + 1;
+    LPVOID lpDllPath, lpFunctionName, lpExtraClientFlags, lpCode;
+    DWORD cbDllPath, cbExtraClientFlags, cbFunctionName = lstrlenA(szFunctionName) + 1;
 
-    cbDllPath = (lstrlenW(szDllPath) + 1) * sizeof(WCHAR);
+    cbDllPath = (lstrlen(szDllPath) + 1) * sizeof(WCHAR);
+	cbExtraClientFlags = (lstrlen(szExtraClientFlags) + 1) * sizeof(WCHAR);
 
     lpDllPath = VirtualAllocEx(hProcess, NULL, cbDllPath, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (!lpDllPath)
@@ -60,6 +62,19 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
         return FALSE;
     }
 
+	lpExtraClientFlags = VirtualAllocEx(hProcess, NULL, cbExtraClientFlags, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+	if (!lpExtraClientFlags)
+	{
+		printf("Could not allocate extra flag memory: %d\n", GetLastError());
+		return FALSE;
+	}
+
+	if (!WriteProcessMemory(hProcess, lpExtraClientFlags, szExtraClientFlags, cbExtraClientFlags, NULL))
+	{
+		printf("Could not write extra flag memory: %d\n", GetLastError());
+		return FALSE;
+	}
+
     lpFunctionName = VirtualAllocEx(hProcess, NULL, cbFunctionName, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (!lpFunctionName)
     {
@@ -73,14 +88,16 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
         return FALSE;
     }
 
-    DWORD dwDllPath, dwFunctionName;
+    DWORD dwDllPath, dwFunctionName, dwExtraClientFlags;
 
     memcpy(asmCode, asmX86, sizeof asmX86);
     dwDllPath = (DWORD) (INT_PTR) lpDllPath;
     dwFunctionName = (DWORD) (INT_PTR) lpFunctionName;
+	dwExtraClientFlags = (DWORD)(INT_PTR) lpExtraClientFlags;
 
     writeDword(asmCode + 4, dwDllPath);
     writeDword(asmCode + 16, dwFunctionName);
+	writeDword(asmCode + 29, dwExtraClientFlags);
 
     lpCode = VirtualAllocEx(hProcess, NULL, sizeof asmCode, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
     if (!lpCode)
@@ -94,7 +111,6 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
         printf("Could not write injection memory: %d\n", GetLastError());
         return FALSE;
     }
-
 
     if (!(hInject = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE) lpCode, NULL, 0, NULL)))
     {
@@ -110,7 +126,7 @@ BOOL inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName)
     return TRUE;
 }
 
-__declspec(dllexport) VOID WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtraClientFlags)
+__declspec(dllexport) INT WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtraClientFlags)
 {
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -119,11 +135,6 @@ __declspec(dllexport) VOID WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtr
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-/*    DWORD dwSize = MAX_PATH * sizeof (wchar_t);
-    LPWSTR lpLauncherBaseDir = malloc(dwSize);
-    ZeroMemory(lpLauncherBaseDir, dwSize);
-    RegGetValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\NCWest\\NCLauncher\\", L"BaseDir", RRF_RT_ANY, NULL, (PVOID) lpLauncherBaseDir, &dwSize);
-  */
 	wprintf(L"Using launcher dir: %ls\n", lpLauncherBaseDir);
 
     LPWSTR lpLauncherFlags = L"\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"";
@@ -146,7 +157,7 @@ __declspec(dllexport) VOID WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtr
                       &pi))
     {
         printf("CreateProcess failed (%d).\n", GetLastError());
-        return;
+        return GetLastError();
     }
 
     free(lpNCLauncherCommandLine);
@@ -162,7 +173,7 @@ __declspec(dllexport) VOID WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtr
 
     wprintf(L"Using agent: %ls\n", lpAgentPath);
 
-    inject(pi.hProcess, lpAgentPath, "InjectMain");
+    Inject(pi.hProcess, lpAgentPath, "InjectMain", lpExtraClientFlags);
     free(lpAgentPath);
 
     ResumeThread(pi.hThread);
@@ -173,5 +184,9 @@ __declspec(dllexport) VOID WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtr
     printf("Exited with: %04X\n", exitcode);
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
-    return;
+
+	// Our own exit
+	if (exitcode == 0xB00573D)
+		exitcode = 0;
+    return exitcode;
 }
