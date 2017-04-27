@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -21,8 +22,23 @@ namespace BNSBoost
         }
         private void Form_Load(object sender, EventArgs e)
         {
-            string DefaultLauncherPath = (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", "???") + "\\ncLauncherR.exe";
-            LauncherPathTextBox.Text = DefaultLauncherPath;
+            string defaultLauncherPath = "unknown, please specify NCLauncherR.exe path";
+            string[] searchDirs = {
+                (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
+                "%ProgramFiles(x86)%\\NCWest\\NCLauncher",
+                AppDomain.CurrentDomain.BaseDirectory
+            };
+            foreach(string dir in searchDirs)
+            {
+                string path = Environment.ExpandEnvironmentVariables(dir + "\\NCLauncherR.exe");
+                if (File.Exists(path))
+                {
+                    defaultLauncherPath = path;
+                    break;
+                }
+            }
+
+            LauncherPathTextBox.Text = defaultLauncherPath;
         }
 
         private void LaunchButton_Click(object sender, EventArgs e)
@@ -51,16 +67,6 @@ namespace BNSBoost
                         Focus();
                     });
             }).Start();
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
