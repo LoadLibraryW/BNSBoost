@@ -58,5 +58,29 @@ namespace BNSBoost.Properties {
                 this["NoTextureStreaming"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GameDirectoryPath {
+            get {
+                return ((string)(this["GameDirectoryPath"]));
+            }
+            set {
+                this["GameDirectoryPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool NoLoadingScreens {
+            get {
+                return ((bool)(this["NoLoadingScreens"]));
+            }
+            set {
+                this["NoLoadingScreens"] = value;
+            }
+        }
     }
 }
