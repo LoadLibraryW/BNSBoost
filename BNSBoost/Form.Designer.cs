@@ -79,8 +79,9 @@
             // DisableTextureStreamingCheckbox
             // 
             this.DisableTextureStreamingCheckbox.AutoSize = true;
-            this.DisableTextureStreamingCheckbox.Checked = true;
+            this.DisableTextureStreamingCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.NoTextureStreaming;
             this.DisableTextureStreamingCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DisableTextureStreamingCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "NoTextureStreaming", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DisableTextureStreamingCheckbox.Location = new System.Drawing.Point(9, 45);
             this.DisableTextureStreamingCheckbox.Name = "DisableTextureStreamingCheckbox";
             this.DisableTextureStreamingCheckbox.Size = new System.Drawing.Size(375, 36);
@@ -91,8 +92,9 @@
             // UseAllCoresCheckbox
             // 
             this.UseAllCoresCheckbox.AutoSize = true;
-            this.UseAllCoresCheckbox.Checked = true;
+            this.UseAllCoresCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.UseAllCores;
             this.UseAllCoresCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UseAllCoresCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "UseAllCores", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.UseAllCoresCheckbox.Location = new System.Drawing.Point(9, 3);
             this.UseAllCoresCheckbox.Name = "UseAllCoresCheckbox";
             this.UseAllCoresCheckbox.Size = new System.Drawing.Size(216, 36);
@@ -114,10 +116,12 @@
             // 
             this.LauncherPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.LauncherPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "NCLauncherRPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.LauncherPathTextBox.Location = new System.Drawing.Point(9, 129);
             this.LauncherPathTextBox.Name = "LauncherPathTextBox";
             this.LauncherPathTextBox.Size = new System.Drawing.Size(855, 38);
             this.LauncherPathTextBox.TabIndex = 15;
+            this.LauncherPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.NCLauncherRPath;
             // 
             // LauncherPathLabel
             // 
