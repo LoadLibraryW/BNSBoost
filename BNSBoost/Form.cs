@@ -43,5 +43,10 @@ namespace BNSBoost
                     Invoke((MethodInvoker) delegate { Show(); });
             }).Start();
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
