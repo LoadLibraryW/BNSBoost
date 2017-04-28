@@ -61,8 +61,8 @@ HANDLE WINAPI MyCreateFile(
     StringCbCopy(lpBaseDir, dwSize, lpFileName);
     StringCbCopy(lpFileSpec, dwSize, lpFileName);
     
-    PathStripPath(lpBaseDir);
-    PathRemoveFileSpec(lpFileSpec);
+    PathStripPath(lpFileSpec);
+    PathRemoveFileSpec(lpBaseDir);
     
     dwSize = (lstrlen(lpBaseDir) + lstrlen(lpFileSpec) + lstrlen(lpUnpatchedDir) + 1) * sizeof(wchar_t);
     
@@ -71,14 +71,14 @@ HANDLE WINAPI MyCreateFile(
     StringCbCat(lpUnpatchedFileName, dwSize, lpUnpatchedDir);
     StringCbCat(lpUnpatchedFileName, dwSize, lpFileSpec);
     
-    wprintf(L"CreateFile: %ls\n", lpFileName);
-    
+    wprintf(L"CreateFile: %ls (checked %ls)\n", lpFileName, lpUnpatchedFileName);
+	fflush(stdout);
     if (PathFileExists(lpUnpatchedFileName)) {
-        wprintf(L"\t Patched to ");
-        wprintf(L"%ls\n", lpUnpatchedFileName);
+        wprintf(L"\t Patched %ls to %ls\n", lpFileName, lpUnpatchedFileName);
+		fflush(stdout);
         lpFileName = lpUnpatchedFileName;
     }
-    
+
     HANDLE ret = CreateFile(lpFileName,
                             dwDesiredAccess,
                             dwShareMode,
@@ -90,8 +90,6 @@ HANDLE WINAPI MyCreateFile(
     free(lpBaseDir);
     free(lpFileSpec);
     free(lpUnpatchedFileName);
-
-    fflush(stdout);
 
     return ret;
 }
