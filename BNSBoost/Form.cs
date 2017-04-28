@@ -67,10 +67,11 @@ namespace BNSBoost
             if (DisableTextureStreamingCheckbox.Checked)
                 extraClientFlags += " -USEALLAVAILABLECORES";
 
-            string cookedPCBase = Properties.Settings.Default.GameDirectoryPath + "\\contents\\Local\\NCWEST\\ENGLISH\\CookedPC\\";
-            string origLoadingPkgFile = cookedPCBase + "Loading.pkg";
-            string unpatchedDir = cookedPCBase + "unpatched\\";
-            string movedLoadingPkgFile = unpatchedDir + "Loading.pkg";
+            string cookedPCBase = Path.Combine(Properties.Settings.Default.GameDirectoryPath, "contents", "Local", "NCWEST", "ENGLISH", "CookedPC");
+
+            string origLoadingPkgFile = Path.Combine(cookedPCBase, "Loading.pkg");
+            string unpatchedDir = Path.Combine(cookedPCBase, "unpatched");
+            string movedLoadingPkgFile = Path.Combine(cookedPCBase, "Loading.pkg");
 
             Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
             if (Properties.Settings.Default.NoLoadingScreens)
