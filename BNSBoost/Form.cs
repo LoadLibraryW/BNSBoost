@@ -39,7 +39,8 @@ namespace BNSBoost
             {
                 string regBaseDir;
                 using (var reg = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
-                using (var key = reg.OpenSubKey("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher") {
+                using (var key = reg.OpenSubKey("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher"))
+                {
                     regBaseDir = (string)reg.GetValue("BaseDir");
                 }
 
