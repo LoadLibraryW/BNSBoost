@@ -128,6 +128,7 @@ BOOL Inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName, LPCWSTR s
 
 __declspec(dllexport) INT WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtraClientFlags)
 {
+	freopen("log.txt", "w", stdout);
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
 

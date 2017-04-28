@@ -144,7 +144,6 @@ HMODULE WINAPI MyLoadLibrary(
 __declspec(dllexport) VOID WINAPI InjectMain(LPWSTR ExtraClientFlags)
 {
 	lpExtraClientFlags = ExtraClientFlags;
-    freopen("log.txt", "w", stdout);
     printf("Entered injector!\n");
     MessageBeep(-1);
     Patch("CreateFileW", &MyCreateFile, GetModuleHandle(NULL));
@@ -154,6 +153,7 @@ __declspec(dllexport) VOID WINAPI InjectMain(LPWSTR ExtraClientFlags)
 }
 
 INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
+	freopen("log.txt", "a", stdout);
     switch(Reason) {
         case DLL_PROCESS_ATTACH:
             printf("Agent attached!\n");
@@ -162,6 +162,7 @@ INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
             printf("Agent detached!\n");
             break;
     }
+	fflush(stdout);
 
     return TRUE;
 }
