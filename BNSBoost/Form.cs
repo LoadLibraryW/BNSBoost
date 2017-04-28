@@ -57,7 +57,7 @@ namespace BNSBoost
             };
         }
 
-        private void LaunchButton_Click(object sender, EventArgs e)
+        private async void LaunchButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
 
@@ -91,23 +91,32 @@ namespace BNSBoost
             }
 
             string launcherPath = LauncherPathTextBox.Text;
-            new Thread(() => {
-                Invoke((MethodInvoker) delegate { Hide(); });
-                int exitcode = Program.Launch(launcherPath, extraClientFlags);
-                if (exitcode == 0)
+
+            this.Hide();
+            int exitcode = await LaunchAsync(launcherPath, extraClientFlags);
+            string message;
+            switch (exitcode)
+            {
+                case 0:
                     Application.Exit();
-                else
-                    Invoke((MethodInvoker) delegate {
-                        string message;
-                        if (exitcode == 740)
-                            message = "You must run BNSBoost with administrator rights.";
-                        else
-                            message = "Launcher exited with error: " + exitcode;
-                        MessageBox.Show(message);
-                        Show();
-                        Focus();
-                    });
-            }).Start();
+                    return;
+                case 740:
+                    message = "You must run BNSBoost with administrator rights.";
+                    break;
+                default:
+                    message = "Launcher exited with error: " + exitcode;
+                    break;
+            }
+            this.Show();
+            this.Focus();
+            MessageBox.Show(message);
+        }
+
+        private async Task<int> LaunchAsync(string launcherPath, string extraClientFlags)
+        {
+            return await Task.Run(() => { return NativeMethods.Launch(launcherPath, extraClientFlags); });
+        }
+
         }
     }
 }
