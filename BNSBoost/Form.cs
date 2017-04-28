@@ -33,15 +33,15 @@ namespace BNSBoost
 
         private void Form_Load(object sender, EventArgs e)
         {
-            string defaultLauncherPath = LauncherPathTextBox.Text;
+            string defaultLauncherPath = Properties.Settings.Default.NCLauncherRPath;
 
             if (defaultLauncherPath == "")
             {
                 string regBaseDir;
                 using (var reg = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
-                using (var key = reg.OpenSubKey("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher"))
+                using (var key = reg.OpenSubKey("SOFTWARE\\NCWest\\NCLauncher"))
                 {
-                    regBaseDir = (string)reg.GetValue("BaseDir");
+                    regBaseDir = (string)key.GetValue("BaseDir");
                 }
 
                 string[] searchDirs = {
@@ -63,7 +63,7 @@ namespace BNSBoost
                 LauncherPathTextBox.Text = defaultLauncherPath;
             }
 
-            string defaultGamePath = GameDirectoryPathTextBox.Text;
+            string defaultGamePath = Properties.Settings.Default.GameDirectoryPath;
             if (defaultGamePath == "")
             {
                 defaultGamePath = (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\BnS", "BaseDir", null);
@@ -76,6 +76,8 @@ namespace BNSBoost
 
         private async void LaunchButton_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.NCLauncherRPath = LauncherPathTextBox.Text;
+            Properties.Settings.Default.GameDirectoryPath = GameDirectoryPathTextBox.Text;
             Properties.Settings.Default.Save();
 
             string extraClientFlags = "";
