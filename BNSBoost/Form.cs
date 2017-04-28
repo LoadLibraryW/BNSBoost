@@ -29,8 +29,9 @@ namespace BNSBoost
             {
                 string[] searchDirs = {
                     (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
-                    "%ProgramFiles(x86)%\\NCWest\\NCLauncher",
-                    AppDomain.CurrentDomain.BaseDirectory
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "NCWest\\NCLauncher"),
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    Environment.CurrentDirectory
                 };
                 foreach (string dir in searchDirs)
                 {
