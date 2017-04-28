@@ -37,8 +37,14 @@ namespace BNSBoost
 
             if (defaultLauncherPath == "")
             {
+                string regBaseDir;
+                using (var reg = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
+                using (var key = reg.OpenSubKey("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher") {
+                    regBaseDir = (string)reg.GetValue("BaseDir");
+                }
+
                 string[] searchDirs = {
-                    (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
+                    regBaseDir,
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "NCWest\\NCLauncher"),
                     AppDomain.CurrentDomain.BaseDirectory,
                     Environment.CurrentDirectory
