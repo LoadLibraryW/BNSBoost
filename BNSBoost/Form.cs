@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,11 +17,20 @@ namespace BNSBoost
 {
     public partial class BNSBoostForm : Form
     {
+        private static class NativeMethods
+        {
+            [DllImport("Injector.dll")]
+            public static extern int Launch(
+                [MarshalAs(UnmanagedType.LPWStr)] string lpLauncherBaseDir,
+                [MarshalAs(UnmanagedType.LPWStr)] string lpExtraClientFlags
+            );
+        }
+
         public BNSBoostForm()
         {
             InitializeComponent();
-            CenterToScreen();
         }
+
         private void Form_Load(object sender, EventArgs e)
         {
             string defaultLauncherPath = LauncherPathTextBox.Text;
@@ -28,7 +38,7 @@ namespace BNSBoost
             if (defaultLauncherPath == "")
             {
                 string[] searchDirs = {
-                    (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
+                    (string)Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\NCWest\\NCLauncher", "BaseDir", null),
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "NCWest\\NCLauncher"),
                     AppDomain.CurrentDomain.BaseDirectory,
                     Environment.CurrentDirectory
@@ -117,6 +127,19 @@ namespace BNSBoost
             return await Task.Run(() => { return NativeMethods.Launch(launcherPath, extraClientFlags); });
         }
 
+        private void UseAllCoresCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.UseAllCores = UseAllCoresCheckbox.Checked;
+        }
+
+        private void DisableTextureStreamingCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.NoTextureStreaming = DisableTextureStreamingCheckbox.Checked;
+        }
+
+        private void DisableLoadingScreensCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.NoLoadingScreens = DisableLoadingScreensCheckBox.Checked;
         }
     }
 }

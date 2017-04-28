@@ -11,10 +11,6 @@ namespace BNSBoost
 {
     static class Program
     {
-        [DllImport("Injector.dll")]
-        public static extern int Launch([MarshalAs(UnmanagedType.LPWStr)] string lpLauncherBaseDir,
-                                        [MarshalAs(UnmanagedType.LPWStr)] string lpExtraClientFlags);
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
