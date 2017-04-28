@@ -119,7 +119,6 @@
             this.DisableLoadingScreensCheckBox.TabIndex = 19;
             this.DisableLoadingScreensCheckBox.Text = "Disable loading screens";
             this.DisableLoadingScreensCheckBox.UseVisualStyleBackColor = true;
-            this.DisableLoadingScreensCheckBox.CheckedChanged += new System.EventHandler(this.DisableLoadingScreensCheckBox_CheckedChanged);
             // 
             // LauncherPathTextBox
             // 
@@ -146,7 +145,6 @@
             this.UseAllCoresCheckbox.TabIndex = 2;
             this.UseAllCoresCheckbox.Text = "Use all cores";
             this.UseAllCoresCheckbox.UseVisualStyleBackColor = true;
-            this.UseAllCoresCheckbox.CheckedChanged += new System.EventHandler(this.UseAllCoresCheckbox_CheckedChanged);
             // 
             // LauncherPathLabel
             // 
@@ -172,7 +170,6 @@
             this.DisableTextureStreamingCheckbox.TabIndex = 2;
             this.DisableTextureStreamingCheckbox.Text = "Disable texture streaming";
             this.DisableTextureStreamingCheckbox.UseVisualStyleBackColor = true;
-            this.DisableTextureStreamingCheckbox.CheckedChanged += new System.EventHandler(this.DisableTextureStreamingCheckbox_CheckedChanged);
             // 
             // MainTabControl
             // 
