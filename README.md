@@ -1,4 +1,4 @@
-## BNSBoost
+# BNSBoost [![Build status](https://ci.appveyor.com/api/projects/status/pdx1o24nlghtx64g?svg=true)](https://ci.appveyor.com/project/Xyene/bnsboost)
 
 BNSBoost is a simple loader for starting NCSoft's Blade and Soul. Not endorsed by them in any way, shape, or form; Blade and Soul, etc. are all trademarks of NCSoft.
 
@@ -12,7 +12,7 @@ BNSBoost does not provide any editor for your game files (use BNSBuddy for that!
 
 ## Installation
 
-[Grab a release](https://github.com/Xyene/BNSBoost/releases), and unzip!
+[Grab a release](https://github.com/Xyene/BNSBoost/releases), and unzip! If you like living life on the edge, you can also pick up the latest build [from AppVeyor](https://ci.appveyor.com/project/Xyene/bnsboost).
 
 Your antivirus might complain since BNSBoost does some sketchy stuff (see below) to run, in which case you'll have to
 whitelist BNSBoost before proceeding. If you're jumpy about security, you can always compile it from the source in this repository
