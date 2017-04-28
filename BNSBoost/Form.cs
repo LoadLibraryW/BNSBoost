@@ -107,7 +107,7 @@ namespace BNSBoost
                 File.Move(movedLoadingPkgFile, origLoadingPkgFile);
             }
 
-            string launcherPath = LauncherPathTextBox.Text;
+            string launcherPath = Properties.Settings.Default.NCLauncherRPath;
 
             this.Hide();
             int exitcode = await LaunchAsync(launcherPath, extraClientFlags);
