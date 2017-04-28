@@ -72,32 +72,30 @@ namespace BNSBoost
             Properties.Settings.Default.Save();
 
             string extraClientFlags = "";
-            if (UseAllCoresCheckbox.Checked)
-                extraClientFlags += " -USEALLAVAILABLECORES";
-            if (DisableTextureStreamingCheckbox.Checked)
+            if (Properties.Settings.Default.NoTextureStreaming)
+                extraClientFlags += " -NOTEXTURESTREAMING";
+            if (Properties.Settings.Default.UseAllCores)
                 extraClientFlags += " -USEALLAVAILABLECORES";
 
             string cookedPCBase = Path.Combine(Properties.Settings.Default.GameDirectoryPath, "contents", "Local", "NCWEST", "ENGLISH", "CookedPC");
 
             string origLoadingPkgFile = Path.Combine(cookedPCBase, "Loading.pkg");
             string unpatchedDir = Path.Combine(cookedPCBase, "unpatched");
-            string movedLoadingPkgFile = Path.Combine(cookedPCBase, "Loading.pkg");
+            string movedLoadingPkgFile = Path.Combine(unpatchedDir, "Loading.pkg");
 
             Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
             if (Properties.Settings.Default.NoLoadingScreens)
             {
-                System.Diagnostics.Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
                 if (File.Exists(origLoadingPkgFile))
                 {
+                    Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
                     Directory.CreateDirectory(unpatchedDir);
                     File.Move(origLoadingPkgFile, movedLoadingPkgFile);
                 }
-            } else
+            }
+            else if (File.Exists(movedLoadingPkgFile))
             {
-                if (File.Exists(movedLoadingPkgFile))
-                {
-                    File.Move(movedLoadingPkgFile, origLoadingPkgFile);
-                }
+                File.Move(movedLoadingPkgFile, origLoadingPkgFile);
             }
 
             string launcherPath = LauncherPathTextBox.Text;
