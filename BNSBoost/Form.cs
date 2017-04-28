@@ -35,7 +35,7 @@ namespace BNSBoost
                 };
                 foreach (string dir in searchDirs)
                 {
-                    string path = Environment.ExpandEnvironmentVariables(dir + "\\NCLauncherR.exe");
+                    string path = Path.Combine(dir, "NCLauncherR.exe");
                     if (File.Exists(path))
                     {
                         defaultLauncherPath = path;
