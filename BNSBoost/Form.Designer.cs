@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BNSBoostForm));
             this.LaunchButton = new System.Windows.Forms.Button();
             this.GameTabPage = new System.Windows.Forms.TabPage();
             this.GameTabPanel = new System.Windows.Forms.Panel();
@@ -47,7 +48,7 @@
             // LaunchButton
             // 
             this.LaunchButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LaunchButton.Location = new System.Drawing.Point(11, 458);
+            this.LaunchButton.Location = new System.Drawing.Point(11, 421);
             this.LaunchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(935, 69);
@@ -63,7 +64,7 @@
             this.GameTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPage.Name = "GameTabPage";
             this.GameTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameTabPage.Size = new System.Drawing.Size(915, 390);
+            this.GameTabPage.Size = new System.Drawing.Size(915, 353);
             this.GameTabPage.TabIndex = 0;
             this.GameTabPage.Text = "Game";
             this.GameTabPage.UseVisualStyleBackColor = true;
@@ -82,7 +83,7 @@
             this.GameTabPanel.Location = new System.Drawing.Point(3, 2);
             this.GameTabPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPanel.Name = "GameTabPanel";
-            this.GameTabPanel.Size = new System.Drawing.Size(909, 386);
+            this.GameTabPanel.Size = new System.Drawing.Size(909, 349);
             this.GameTabPanel.TabIndex = 7;
             // 
             // GameDirectoryPathTextBox
@@ -177,17 +178,18 @@
             this.MainTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(935, 448);
+            this.MainTabControl.Size = new System.Drawing.Size(935, 411);
             this.MainTabControl.TabIndex = 7;
             // 
             // BNSBoostForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(957, 537);
+            this.ClientSize = new System.Drawing.Size(957, 500);
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.LaunchButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "BNSBoostForm";
             this.Padding = new System.Windows.Forms.Padding(11, 10, 11, 10);
