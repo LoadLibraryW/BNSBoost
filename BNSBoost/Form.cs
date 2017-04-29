@@ -5,11 +5,13 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BNSBoost
 {
+
     public partial class BNSBoostForm : Form
     {
         private static class NativeMethods
@@ -139,17 +141,30 @@ namespace BNSBoost
             if (dat.Parent != null) return;
             if (dat.Nodes[0].Text == "Decompiling...")
             {
-                Debug.WriteLine(GameDirectoryPathTextBox);
-                Debug.WriteLine(GameDirectoryPathTextBox.Text);
-                string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Text);
-                new BNSDat().Extract(datFile, datFile.Contains("64"));
-                dat.Nodes.Clear();
-                foreach (string decompFile in Directory.GetFiles(datFile + ".files"))
+                new Thread(() =>
                 {
-                    TreeNode n = new TreeNode();
-                    n.Text = Path.GetFileName(decompFile);
-                    dat.Nodes.Add(n);
-                }
+                    Debug.WriteLine(GameDirectoryPathTextBox);
+                    Debug.WriteLine(GameDirectoryPathTextBox.Text);
+                    string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Text);
+                    new BNSDat().Extract(datFile, (number, of) =>
+                    {
+                        FileDataTreeView.Invoke((MethodInvoker)delegate
+                        {
+                            dat.Nodes[0].Text = "Decompiling... " + number + "/" + of;
+                        });
+                    }, datFile.Contains("64"));
+
+                    FileDataTreeView.Invoke((MethodInvoker)delegate
+                    {
+                        dat.Nodes.Clear();
+                        foreach (string decompFile in Directory.GetFiles(datFile + ".files"))
+                        {
+                            TreeNode n = new TreeNode();
+                            n.Text = Path.GetFileName(decompFile);
+                            dat.Nodes.Add(n);
+                        }
+                    });
+                }).Start();
             }
         }
 
@@ -192,7 +207,7 @@ namespace BNSBoost
                     File.Copy(patchedFile, backupFile);
                 }
                 new BNSDat().Compress(decompFile, datName.Contains("64"));
-                Directory.Delete(decompFile, true);
+                //Directory.Delete(decompFile, true);
             }
         }
 
@@ -218,5 +233,20 @@ namespace BNSBoost
                 }
             }
         }
+    }
+
+    class BufferedTreeView : TreeView
+    {
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            SendMessage(this.Handle, TVM_SETEXTENDEDSTYLE, (IntPtr)TVS_EX_DOUBLEBUFFER, (IntPtr)TVS_EX_DOUBLEBUFFER);
+            base.OnHandleCreated(e);
+        }
+        // Pinvoke:
+        private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
+        private const int TVM_GETEXTENDEDSTYLE = 0x1100 + 45;
+        private const int TVS_EX_DOUBLEBUFFER = 0x0004;
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
     }
 }

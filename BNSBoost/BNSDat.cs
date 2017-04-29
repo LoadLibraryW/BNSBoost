@@ -33,6 +33,12 @@ namespace BNSBoost
 
     }
 
+    public class ExtractEventListener
+    {
+        public Action<int> NumberOfFiles;
+        public Action ProcessedFile;
+
+    }
     public class BNSDat
     {
 
@@ -166,7 +172,7 @@ namespace BNSBoost
             return output;
         }
 
-        public void Extract(string FileName, bool is64 = false)
+        public void Extract(string FileName, Action<int, int> processedEvent, bool is64 = false)
         {
             FileStream fs = new FileStream(FileName, FileMode.Open);
             BinaryReader br = new BinaryReader(fs);
@@ -238,6 +244,7 @@ namespace BNSBoost
                     File.WriteAllBytes(file_path, buffer_unpacked);
                     buffer_unpacked = null;
                 }
+                processedEvent(i, FileCount);
             }
 
 

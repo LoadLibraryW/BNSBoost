@@ -52,17 +52,17 @@
             this.LauncherPathLabel = new System.Windows.Forms.Label();
             this.DisableTextureStreamingCheckbox = new System.Windows.Forms.CheckBox();
             this.MainTabControl = new System.Windows.Forms.TabControl();
-            this.DatEditorTabPage = new System.Windows.Forms.TabPage();
-            this.FileDataTreeView = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.DatEditorTabPage = new System.Windows.Forms.TabPage();
+            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
-            this.DatEditorTabPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.DatEditorTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // LaunchButton
@@ -202,49 +202,6 @@
             this.MainTabControl.Size = new System.Drawing.Size(873, 411);
             this.MainTabControl.TabIndex = 7;
             // 
-            // DatEditorTabPage
-            // 
-            this.DatEditorTabPage.Controls.Add(this.tableLayoutPanel1);
-            this.DatEditorTabPage.Controls.Add(this.FileDataTreeView);
-            this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
-            this.DatEditorTabPage.Name = "DatEditorTabPage";
-            this.DatEditorTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 353);
-            this.DatEditorTabPage.TabIndex = 1;
-            this.DatEditorTabPage.Text = "DAT Editor";
-            this.DatEditorTabPage.UseVisualStyleBackColor = true;
-            // 
-            // FileDataTreeView
-            // 
-            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.FileDataTreeView.Location = new System.Drawing.Point(4, 4);
-            this.FileDataTreeView.Name = "FileDataTreeView";
-            treeNode1.Name = "Node4";
-            treeNode1.Text = "Decompiling...";
-            treeNode2.Name = "config";
-            treeNode2.Text = "config.dat";
-            treeNode3.Name = "Node5";
-            treeNode3.Text = "Decompiling...";
-            treeNode4.Name = "config64";
-            treeNode4.Text = "config64.dat";
-            treeNode5.Name = "Node6";
-            treeNode5.Text = "Decompiling...";
-            treeNode6.Name = "xml";
-            treeNode6.Text = "xml.dat";
-            treeNode7.Name = "Node7";
-            treeNode7.Text = "Decompiling...";
-            treeNode8.Name = "xml64";
-            treeNode8.Text = "xml64.dat";
-            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode6,
-            treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(603, 343);
-            this.FileDataTreeView.TabIndex = 0;
-            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -264,16 +221,16 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(234, 341);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // button1
+            // button3
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(228, 164);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Open";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button3.Location = new System.Drawing.Point(3, 258);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(228, 80);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Restore all";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -286,16 +243,60 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // button1
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(3, 258);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(228, 80);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Restore all";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(228, 164);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Open";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // DatEditorTabPage
+            // 
+            this.DatEditorTabPage.Controls.Add(this.FileDataTreeView);
+            this.DatEditorTabPage.Controls.Add(this.tableLayoutPanel1);
+            this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
+            this.DatEditorTabPage.Name = "DatEditorTabPage";
+            this.DatEditorTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 353);
+            this.DatEditorTabPage.TabIndex = 1;
+            this.DatEditorTabPage.Text = "DAT Editor";
+            this.DatEditorTabPage.UseVisualStyleBackColor = true;
+            // 
+            // FileDataTreeView
+            // 
+            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
+            this.FileDataTreeView.Name = "FileDataTreeView";
+            treeNode1.Name = "Node4";
+            treeNode1.Text = "Decompiling...";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "config.dat";
+            treeNode3.Name = "Node5";
+            treeNode3.Text = "Decompiling...";
+            treeNode4.Name = "Node1";
+            treeNode4.Text = "config64.dat";
+            treeNode5.Name = "Node6";
+            treeNode5.Text = "Decompiling...";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "xml.dat";
+            treeNode7.Name = "Node7";
+            treeNode7.Text = "Decompiling...";
+            treeNode8.Name = "Node3";
+            treeNode8.Text = "xml64.dat";
+            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode6,
+            treeNode8});
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 341);
+            this.FileDataTreeView.TabIndex = 2;
+            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
             // BNSBoostForm
             // 
@@ -316,8 +317,8 @@
             this.GameTabPanel.ResumeLayout(false);
             this.GameTabPanel.PerformLayout();
             this.MainTabControl.ResumeLayout(false);
-            this.DatEditorTabPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.DatEditorTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -336,11 +337,11 @@
         private System.Windows.Forms.Label GameDirectoryPathLabel;
         private System.Windows.Forms.CheckBox DisableLoadingScreensCheckBox;
         private System.Windows.Forms.TabPage DatEditorTabPage;
+        private BufferedTreeView FileDataTreeView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TreeView FileDataTreeView;
     }
 }
 
