@@ -82,5 +82,29 @@ namespace BNSBoost.Properties {
                 this["NoLoadingScreens"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NA")]
+        public string Region {
+            get {
+                return ((string)(this["Region"]));
+            }
+            set {
+                this["Region"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("System preferred")]
+        public string TextEditor {
+            get {
+                return ((string)(this["TextEditor"]));
+            }
+            set {
+                this["TextEditor"] = value;
+            }
+        }
     }
 }
