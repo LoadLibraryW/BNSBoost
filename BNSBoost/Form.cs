@@ -96,11 +96,13 @@ namespace BNSBoost
                 {
                     Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
                     Directory.CreateDirectory(unpatchedDir);
+                    File.Delete(movedLoadingPkgFile);
                     File.Move(origLoadingPkgFile, movedLoadingPkgFile);
                 }
             }
             else if (File.Exists(movedLoadingPkgFile))
             {
+                File.Delete(origLoadingPkgFile);
                 File.Move(movedLoadingPkgFile, origLoadingPkgFile);
             }
 
