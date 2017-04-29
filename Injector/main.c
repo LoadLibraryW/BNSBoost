@@ -1,5 +1,9 @@
 // cl main.c Advapi32.lib Shlwapi.lib /FeBNSBoost.exe
+#ifndef UNICODE
 #define UNICODE
+#endif
+
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <windows.h>
 #include <stdio.h>
@@ -17,7 +21,7 @@ BYTE asmX86[] = {
     /* 0014 */ 0x50,             // push eax
     /* 0015 */ 0xB9, 0, 0, 0, 0, // mov  ecx, GetProcAddress
     /* 001A */ 0xFF, 0xD1,       // call ecx
-	/*      */ 0x68, 0, 0, 0, 0, // push <extra client flags (UTF-16),
+    /*      */ 0x68, 0, 0, 0, 0, // push <extra client flags (UTF-16),
     /* 001C */ 0xFF, 0xD0,       // call eax
     /* 001E */ 0x33, 0xC0,       // xor  eax, eax
     /* 0020 */ 0x5D,             // pop  ebp
@@ -47,7 +51,7 @@ BOOL Inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName, LPCWSTR s
     DWORD cbDllPath, cbExtraClientFlags, cbFunctionName = lstrlenA(szFunctionName) + 1;
 
     cbDllPath = (lstrlen(szDllPath) + 1) * sizeof(WCHAR);
-	cbExtraClientFlags = (lstrlen(szExtraClientFlags) + 1) * sizeof(WCHAR);
+    cbExtraClientFlags = (lstrlen(szExtraClientFlags) + 1) * sizeof(WCHAR);
 
     lpDllPath = VirtualAllocEx(hProcess, NULL, cbDllPath, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (!lpDllPath)
@@ -62,18 +66,18 @@ BOOL Inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName, LPCWSTR s
         return FALSE;
     }
 
-	lpExtraClientFlags = VirtualAllocEx(hProcess, NULL, cbExtraClientFlags, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-	if (!lpExtraClientFlags)
-	{
-		printf("Could not allocate extra flag memory: %d\n", GetLastError());
-		return FALSE;
-	}
+    lpExtraClientFlags = VirtualAllocEx(hProcess, NULL, cbExtraClientFlags, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    if (!lpExtraClientFlags)
+    {
+        printf("Could not allocate extra flag memory: %d\n", GetLastError());
+        return FALSE;
+    }
 
-	if (!WriteProcessMemory(hProcess, lpExtraClientFlags, szExtraClientFlags, cbExtraClientFlags, NULL))
-	{
-		printf("Could not write extra flag memory: %d\n", GetLastError());
-		return FALSE;
-	}
+    if (!WriteProcessMemory(hProcess, lpExtraClientFlags, szExtraClientFlags, cbExtraClientFlags, NULL))
+    {
+        printf("Could not write extra flag memory: %d\n", GetLastError());
+        return FALSE;
+    }
 
     lpFunctionName = VirtualAllocEx(hProcess, NULL, cbFunctionName, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (!lpFunctionName)
@@ -93,11 +97,11 @@ BOOL Inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName, LPCWSTR s
     memcpy(asmCode, asmX86, sizeof asmX86);
     dwDllPath = (DWORD) (INT_PTR) lpDllPath;
     dwFunctionName = (DWORD) (INT_PTR) lpFunctionName;
-	dwExtraClientFlags = (DWORD)(INT_PTR) lpExtraClientFlags;
+    dwExtraClientFlags = (DWORD)(INT_PTR) lpExtraClientFlags;
 
     writeDword(asmCode + 4, dwDllPath);
     writeDword(asmCode + 16, dwFunctionName);
-	writeDword(asmCode + 29, dwExtraClientFlags);
+    writeDword(asmCode + 29, dwExtraClientFlags);
 
     lpCode = VirtualAllocEx(hProcess, NULL, sizeof asmCode, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
     if (!lpCode)
@@ -128,7 +132,7 @@ BOOL Inject(HANDLE hProcess, LPCWSTR szDllPath, LPCSTR szFunctionName, LPCWSTR s
 
 __declspec(dllexport) INT WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtraClientFlags)
 {
-	freopen("log.txt", "w", stdout);
+    freopen("log.txt", "w", stdout);
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
 
@@ -136,7 +140,7 @@ __declspec(dllexport) INT WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtra
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-	wprintf(L"Using launcher dir: %ls\n", lpLauncherBaseDir);
+    wprintf(L"Using launcher dir: %ls\n", lpLauncherBaseDir);
 
     LPWSTR lpLauncherFlags = L"\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"";
     DWORD dwSize = (lstrlen(lpLauncherBaseDir) + lstrlen(lpLauncherFlags) + 2) * sizeof(wchar_t);
@@ -186,8 +190,8 @@ __declspec(dllexport) INT WINAPI Launch(LPWSTR lpLauncherBaseDir, LPWSTR lpExtra
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
-	// Our own exit
-	if (exitcode == 0xB00573D)
-		exitcode = 0;
+    // Our own exit
+    if (exitcode == 0xB00573D)
+        exitcode = 0;
     return exitcode;
 }

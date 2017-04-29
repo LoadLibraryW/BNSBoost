@@ -32,14 +32,14 @@
             this.LaunchButton = new System.Windows.Forms.Button();
             this.GameTabPage = new System.Windows.Forms.TabPage();
             this.GameTabPanel = new System.Windows.Forms.Panel();
-            this.GameDirectoryPathTextBox = new System.Windows.Forms.TextBox();
             this.GameDirectoryPathLabel = new System.Windows.Forms.Label();
+            this.LauncherPathLabel = new System.Windows.Forms.Label();
+            this.MainTabControl = new System.Windows.Forms.TabControl();
+            this.GameDirectoryPathTextBox = new System.Windows.Forms.TextBox();
             this.DisableLoadingScreensCheckBox = new System.Windows.Forms.CheckBox();
             this.LauncherPathTextBox = new System.Windows.Forms.TextBox();
             this.UseAllCoresCheckbox = new System.Windows.Forms.CheckBox();
-            this.LauncherPathLabel = new System.Windows.Forms.Label();
             this.DisableTextureStreamingCheckbox = new System.Windows.Forms.CheckBox();
-            this.MainTabControl = new System.Windows.Forms.TabControl();
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
@@ -51,7 +51,7 @@
             this.LaunchButton.Location = new System.Drawing.Point(11, 421);
             this.LaunchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LaunchButton.Name = "LaunchButton";
-            this.LaunchButton.Size = new System.Drawing.Size(935, 69);
+            this.LaunchButton.Size = new System.Drawing.Size(873, 69);
             this.LaunchButton.TabIndex = 0;
             this.LaunchButton.Text = "Launch!";
             this.LaunchButton.UseVisualStyleBackColor = true;
@@ -64,7 +64,7 @@
             this.GameTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPage.Name = "GameTabPage";
             this.GameTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameTabPage.Size = new System.Drawing.Size(915, 353);
+            this.GameTabPage.Size = new System.Drawing.Size(853, 353);
             this.GameTabPage.TabIndex = 0;
             this.GameTabPage.Text = "Game";
             this.GameTabPage.UseVisualStyleBackColor = true;
@@ -83,20 +83,8 @@
             this.GameTabPanel.Location = new System.Drawing.Point(3, 2);
             this.GameTabPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPanel.Name = "GameTabPanel";
-            this.GameTabPanel.Size = new System.Drawing.Size(909, 349);
+            this.GameTabPanel.Size = new System.Drawing.Size(847, 349);
             this.GameTabPanel.TabIndex = 7;
-            // 
-            // GameDirectoryPathTextBox
-            // 
-            this.GameDirectoryPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameDirectoryPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "GameDirectoryPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GameDirectoryPathTextBox.Location = new System.Drawing.Point(8, 279);
-            this.GameDirectoryPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameDirectoryPathTextBox.Name = "GameDirectoryPathTextBox";
-            this.GameDirectoryPathTextBox.Size = new System.Drawing.Size(881, 38);
-            this.GameDirectoryPathTextBox.TabIndex = 21;
-            this.GameDirectoryPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.GameDirectoryPath;
             // 
             // GameDirectoryPathLabel
             // 
@@ -106,6 +94,39 @@
             this.GameDirectoryPathLabel.Size = new System.Drawing.Size(279, 32);
             this.GameDirectoryPathLabel.TabIndex = 20;
             this.GameDirectoryPathLabel.Text = "Game directory path:";
+            // 
+            // LauncherPathLabel
+            // 
+            this.LauncherPathLabel.AutoSize = true;
+            this.LauncherPathLabel.Location = new System.Drawing.Point(3, 145);
+            this.LauncherPathLabel.Name = "LauncherPathLabel";
+            this.LauncherPathLabel.Size = new System.Drawing.Size(205, 32);
+            this.LauncherPathLabel.TabIndex = 18;
+            this.LauncherPathLabel.Text = "Launcher path:";
+            this.LauncherPathLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // MainTabControl
+            // 
+            this.MainTabControl.Controls.Add(this.GameTabPage);
+            this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTabControl.Location = new System.Drawing.Point(11, 10);
+            this.MainTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MainTabControl.Name = "MainTabControl";
+            this.MainTabControl.SelectedIndex = 0;
+            this.MainTabControl.Size = new System.Drawing.Size(873, 411);
+            this.MainTabControl.TabIndex = 7;
+            // 
+            // GameDirectoryPathTextBox
+            // 
+            this.GameDirectoryPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GameDirectoryPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "GameDirectoryPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GameDirectoryPathTextBox.Location = new System.Drawing.Point(8, 279);
+            this.GameDirectoryPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GameDirectoryPathTextBox.Name = "GameDirectoryPathTextBox";
+            this.GameDirectoryPathTextBox.Size = new System.Drawing.Size(819, 38);
+            this.GameDirectoryPathTextBox.TabIndex = 21;
+            this.GameDirectoryPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.GameDirectoryPath;
             // 
             // DisableLoadingScreensCheckBox
             // 
@@ -128,7 +149,7 @@
             this.LauncherPathTextBox.Location = new System.Drawing.Point(8, 179);
             this.LauncherPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LauncherPathTextBox.Name = "LauncherPathTextBox";
-            this.LauncherPathTextBox.Size = new System.Drawing.Size(879, 38);
+            this.LauncherPathTextBox.Size = new System.Drawing.Size(817, 38);
             this.LauncherPathTextBox.TabIndex = 15;
             this.LauncherPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.NCLauncherRPath;
             // 
@@ -146,16 +167,6 @@
             this.UseAllCoresCheckbox.Text = "Use all cores";
             this.UseAllCoresCheckbox.UseVisualStyleBackColor = true;
             // 
-            // LauncherPathLabel
-            // 
-            this.LauncherPathLabel.AutoSize = true;
-            this.LauncherPathLabel.Location = new System.Drawing.Point(3, 145);
-            this.LauncherPathLabel.Name = "LauncherPathLabel";
-            this.LauncherPathLabel.Size = new System.Drawing.Size(205, 32);
-            this.LauncherPathLabel.TabIndex = 18;
-            this.LauncherPathLabel.Text = "Launcher path:";
-            this.LauncherPathLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // DisableTextureStreamingCheckbox
             // 
             this.DisableTextureStreamingCheckbox.AutoSize = true;
@@ -170,23 +181,12 @@
             this.DisableTextureStreamingCheckbox.Text = "Disable texture streaming";
             this.DisableTextureStreamingCheckbox.UseVisualStyleBackColor = true;
             // 
-            // MainTabControl
-            // 
-            this.MainTabControl.Controls.Add(this.GameTabPage);
-            this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTabControl.Location = new System.Drawing.Point(11, 10);
-            this.MainTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MainTabControl.Name = "MainTabControl";
-            this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(935, 411);
-            this.MainTabControl.TabIndex = 7;
-            // 
             // BNSBoostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(957, 500);
+            this.ClientSize = new System.Drawing.Size(895, 500);
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.LaunchButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
