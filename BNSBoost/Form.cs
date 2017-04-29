@@ -77,7 +77,7 @@ namespace BNSBoost
         {
             Properties.Settings.Default.Save();
 
-            string extraClientFlags = "";
+            string extraClientFlags = " -UNATTENDED";
             if (DisableTextureStreamingCheckbox.Checked)
                 extraClientFlags += " -NOTEXTURESTREAMING";
             if (UseAllCoresCheckbox.Checked)
