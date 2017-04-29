@@ -17,6 +17,7 @@ namespace BNSBoost
         [STAThread]
         static void Main()
         {
+            //new BNSDat().Extract(@"D:\Blade and Soul\BnS\contents\Local\NCWEST\data\config.dat", false);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new BNSBoostForm());
