@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Decompiling...");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("config.dat", new System.Windows.Forms.TreeNode[] {
             treeNode1});
@@ -44,6 +45,8 @@
             this.LaunchButton = new System.Windows.Forms.Button();
             this.GameTabPage = new System.Windows.Forms.TabPage();
             this.GameTabPanel = new System.Windows.Forms.Panel();
+            this.RegionComboBox = new System.Windows.Forms.ComboBox();
+            this.RegionLabel = new System.Windows.Forms.Label();
             this.GameDirectoryPathTextBox = new System.Windows.Forms.TextBox();
             this.GameDirectoryPathLabel = new System.Windows.Forms.Label();
             this.DisableLoadingScreensCheckBox = new System.Windows.Forms.CheckBox();
@@ -52,23 +55,30 @@
             this.LauncherPathLabel = new System.Windows.Forms.Label();
             this.DisableTextureStreamingCheckbox = new System.Windows.Forms.CheckBox();
             this.MainTabControl = new System.Windows.Forms.TabControl();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.DatEditorTabPage = new System.Windows.Forms.TabPage();
             this.FileDataTreeView = new BNSBoost.BufferedTreeView();
+            this.DatEditorButtonTable = new System.Windows.Forms.TableLayoutPanel();
+            this.OpenDatFileButton = new System.Windows.Forms.Button();
+            this.RecompileDatButton = new System.Windows.Forms.Button();
+            this.RestoreDatButton = new System.Windows.Forms.Button();
+            this.SettingsTabPage = new System.Windows.Forms.TabPage();
+            this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
+            this.TextEditorComboBox = new System.Windows.Forms.ComboBox();
+            this.TextEditorLabel = new System.Windows.Forms.Label();
+            this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.DatEditorTabPage.SuspendLayout();
+            this.DatEditorButtonTable.SuspendLayout();
+            this.SettingsTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bNSBoostFormBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // LaunchButton
             // 
             this.LaunchButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LaunchButton.Location = new System.Drawing.Point(11, 421);
+            this.LaunchButton.Location = new System.Drawing.Point(11, 521);
             this.LaunchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(873, 69);
@@ -84,7 +94,7 @@
             this.GameTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPage.Name = "GameTabPage";
             this.GameTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameTabPage.Size = new System.Drawing.Size(853, 353);
+            this.GameTabPage.Size = new System.Drawing.Size(853, 453);
             this.GameTabPage.TabIndex = 0;
             this.GameTabPage.Text = "Game";
             this.GameTabPage.UseVisualStyleBackColor = true;
@@ -92,6 +102,8 @@
             // GameTabPanel
             // 
             this.GameTabPanel.BackColor = System.Drawing.Color.Transparent;
+            this.GameTabPanel.Controls.Add(this.RegionComboBox);
+            this.GameTabPanel.Controls.Add(this.RegionLabel);
             this.GameTabPanel.Controls.Add(this.GameDirectoryPathTextBox);
             this.GameTabPanel.Controls.Add(this.GameDirectoryPathLabel);
             this.GameTabPanel.Controls.Add(this.DisableLoadingScreensCheckBox);
@@ -103,8 +115,31 @@
             this.GameTabPanel.Location = new System.Drawing.Point(3, 2);
             this.GameTabPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPanel.Name = "GameTabPanel";
-            this.GameTabPanel.Size = new System.Drawing.Size(847, 349);
+            this.GameTabPanel.Size = new System.Drawing.Size(847, 449);
             this.GameTabPanel.TabIndex = 7;
+            // 
+            // RegionComboBox
+            // 
+            this.RegionComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RegionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RegionComboBox.FormattingEnabled = true;
+            this.RegionComboBox.Items.AddRange(new object[] {
+            "NA"});
+            this.RegionComboBox.Location = new System.Drawing.Point(121, 362);
+            this.RegionComboBox.Name = "RegionComboBox";
+            this.RegionComboBox.Size = new System.Drawing.Size(133, 39);
+            this.RegionComboBox.TabIndex = 23;
+            this.RegionComboBox.Tag = "";
+            // 
+            // RegionLabel
+            // 
+            this.RegionLabel.AutoSize = true;
+            this.RegionLabel.Location = new System.Drawing.Point(1, 369);
+            this.RegionLabel.Name = "RegionLabel";
+            this.RegionLabel.Size = new System.Drawing.Size(114, 32);
+            this.RegionLabel.TabIndex = 22;
+            this.RegionLabel.Text = "Region:";
             // 
             // GameDirectoryPathTextBox
             // 
@@ -194,74 +229,23 @@
             // 
             this.MainTabControl.Controls.Add(this.GameTabPage);
             this.MainTabControl.Controls.Add(this.DatEditorTabPage);
+            this.MainTabControl.Controls.Add(this.SettingsTabPage);
             this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTabControl.Location = new System.Drawing.Point(11, 10);
             this.MainTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(873, 411);
+            this.MainTabControl.Size = new System.Drawing.Size(873, 511);
             this.MainTabControl.TabIndex = 7;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(613, 6);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(234, 341);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // button3
-            // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(3, 258);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(228, 80);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Restore all";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(3, 173);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(228, 79);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Recompile all";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(228, 164);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Open";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // DatEditorTabPage
             // 
             this.DatEditorTabPage.Controls.Add(this.FileDataTreeView);
-            this.DatEditorTabPage.Controls.Add(this.tableLayoutPanel1);
+            this.DatEditorTabPage.Controls.Add(this.DatEditorButtonTable);
             this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
             this.DatEditorTabPage.Name = "DatEditorTabPage";
             this.DatEditorTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 353);
+            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 453);
             this.DatEditorTabPage.TabIndex = 1;
             this.DatEditorTabPage.Text = "DAT Editor";
             this.DatEditorTabPage.UseVisualStyleBackColor = true;
@@ -294,16 +278,120 @@
             treeNode4,
             treeNode6,
             treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 341);
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 441);
             this.FileDataTreeView.TabIndex = 2;
             this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
+            // 
+            // DatEditorButtonTable
+            // 
+            this.DatEditorButtonTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatEditorButtonTable.ColumnCount = 1;
+            this.DatEditorButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.DatEditorButtonTable.Controls.Add(this.OpenDatFileButton, 0, 0);
+            this.DatEditorButtonTable.Controls.Add(this.RecompileDatButton, 0, 1);
+            this.DatEditorButtonTable.Controls.Add(this.RestoreDatButton, 0, 2);
+            this.DatEditorButtonTable.Location = new System.Drawing.Point(613, 6);
+            this.DatEditorButtonTable.Name = "DatEditorButtonTable";
+            this.DatEditorButtonTable.RowCount = 3;
+            this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 441);
+            this.DatEditorButtonTable.TabIndex = 1;
+            // 
+            // OpenDatFileButton
+            // 
+            this.OpenDatFileButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OpenDatFileButton.Location = new System.Drawing.Point(3, 3);
+            this.OpenDatFileButton.Name = "OpenDatFileButton";
+            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 214);
+            this.OpenDatFileButton.TabIndex = 0;
+            this.OpenDatFileButton.Text = "Open";
+            this.OpenDatFileButton.UseVisualStyleBackColor = true;
+            this.OpenDatFileButton.Click += new System.EventHandler(this.OpenDatFileButton_Click);
+            // 
+            // RecompileDatButton
+            // 
+            this.RecompileDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RecompileDatButton.Location = new System.Drawing.Point(3, 223);
+            this.RecompileDatButton.Name = "RecompileDatButton";
+            this.RecompileDatButton.Size = new System.Drawing.Size(228, 104);
+            this.RecompileDatButton.TabIndex = 1;
+            this.RecompileDatButton.Text = "Recompile all";
+            this.RecompileDatButton.UseVisualStyleBackColor = true;
+            this.RecompileDatButton.Click += new System.EventHandler(this.RecompileDatButton_Click);
+            // 
+            // RestoreDatButton
+            // 
+            this.RestoreDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RestoreDatButton.Location = new System.Drawing.Point(3, 333);
+            this.RestoreDatButton.Name = "RestoreDatButton";
+            this.RestoreDatButton.Size = new System.Drawing.Size(228, 105);
+            this.RestoreDatButton.TabIndex = 2;
+            this.RestoreDatButton.Text = "Restore all";
+            this.RestoreDatButton.UseVisualStyleBackColor = true;
+            this.RestoreDatButton.Click += new System.EventHandler(this.RestoreDatButton_Click);
+            // 
+            // SettingsTabPage
+            // 
+            this.SettingsTabPage.Controls.Add(this.UpdateCheckBox);
+            this.SettingsTabPage.Controls.Add(this.TextEditorComboBox);
+            this.SettingsTabPage.Controls.Add(this.TextEditorLabel);
+            this.SettingsTabPage.Location = new System.Drawing.Point(10, 48);
+            this.SettingsTabPage.Name = "SettingsTabPage";
+            this.SettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.SettingsTabPage.Size = new System.Drawing.Size(853, 453);
+            this.SettingsTabPage.TabIndex = 2;
+            this.SettingsTabPage.Text = "Settings";
+            this.SettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // UpdateCheckBox
+            // 
+            this.UpdateCheckBox.AutoSize = true;
+            this.UpdateCheckBox.Enabled = false;
+            this.UpdateCheckBox.Location = new System.Drawing.Point(15, 77);
+            this.UpdateCheckBox.Name = "UpdateCheckBox";
+            this.UpdateCheckBox.Size = new System.Drawing.Size(282, 36);
+            this.UpdateCheckBox.TabIndex = 26;
+            this.UpdateCheckBox.Text = "Check for updates";
+            this.UpdateCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // TextEditorComboBox
+            // 
+            this.TextEditorComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextEditorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TextEditorComboBox.FormattingEnabled = true;
+            this.TextEditorComboBox.Items.AddRange(new object[] {
+            "System default",
+            "wordpad.exe"});
+            this.TextEditorComboBox.Location = new System.Drawing.Point(164, 18);
+            this.TextEditorComboBox.Name = "TextEditorComboBox";
+            this.TextEditorComboBox.Size = new System.Drawing.Size(263, 39);
+            this.TextEditorComboBox.TabIndex = 25;
+            this.TextEditorComboBox.Tag = "";
+            // 
+            // TextEditorLabel
+            // 
+            this.TextEditorLabel.AutoSize = true;
+            this.TextEditorLabel.Location = new System.Drawing.Point(9, 25);
+            this.TextEditorLabel.Name = "TextEditorLabel";
+            this.TextEditorLabel.Size = new System.Drawing.Size(157, 32);
+            this.TextEditorLabel.TabIndex = 24;
+            this.TextEditorLabel.Text = "Text editor:";
+            // 
+            // bNSBoostFormBindingSource
+            // 
+            this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
             // 
             // BNSBoostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(895, 500);
+            this.ClientSize = new System.Drawing.Size(895, 600);
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.LaunchButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -317,8 +405,11 @@
             this.GameTabPanel.ResumeLayout(false);
             this.GameTabPanel.PerformLayout();
             this.MainTabControl.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.DatEditorTabPage.ResumeLayout(false);
+            this.DatEditorButtonTable.ResumeLayout(false);
+            this.SettingsTabPage.ResumeLayout(false);
+            this.SettingsTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bNSBoostFormBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -338,10 +429,17 @@
         private System.Windows.Forms.CheckBox DisableLoadingScreensCheckBox;
         private System.Windows.Forms.TabPage DatEditorTabPage;
         private BufferedTreeView FileDataTreeView;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TableLayoutPanel DatEditorButtonTable;
+        private System.Windows.Forms.Button OpenDatFileButton;
+        private System.Windows.Forms.Button RecompileDatButton;
+        private System.Windows.Forms.Button RestoreDatButton;
+        private System.Windows.Forms.Label RegionLabel;
+        private System.Windows.Forms.BindingSource bNSBoostFormBindingSource;
+        private System.Windows.Forms.ComboBox RegionComboBox;
+        private System.Windows.Forms.TabPage SettingsTabPage;
+        private System.Windows.Forms.ComboBox TextEditorComboBox;
+        private System.Windows.Forms.Label TextEditorLabel;
+        private System.Windows.Forms.CheckBox UpdateCheckBox;
     }
 }
 

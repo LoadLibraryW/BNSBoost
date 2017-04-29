@@ -26,6 +26,9 @@ namespace BNSBoost
         public BNSBoostForm()
         {
             InitializeComponent();
+            // Form autogeneration doesn't handle this properly for some reason
+            RegionComboBox.SelectedItem = Properties.Settings.Default.Region;
+            TextEditorComboBox.SelectedItem = Properties.Settings.Default.TextEditor;
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -77,6 +80,9 @@ namespace BNSBoost
 
         private async void LaunchButton_Click(object sender, EventArgs e)
         {
+            // Need to save ourself since form doesn't do it automatically :/
+            Properties.Settings.Default.Region = (string)RegionComboBox.SelectedItem;
+            Properties.Settings.Default.TextEditor = (string)TextEditorComboBox.SelectedItem;
             Properties.Settings.Default.Save();
 
             string extraClientFlags = " -UNATTENDED";
@@ -168,7 +174,7 @@ namespace BNSBoost
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void OpenDatFileButton_Click(object sender, EventArgs e)
         {
             TreeNode dat = FileDataTreeView.SelectedNode;
             if (dat.Parent == null) dat.Expand();
@@ -178,12 +184,15 @@ namespace BNSBoost
                 {
                     string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Parent.Text + @".files\", dat.Text);
                     Debug.WriteLine(datFile);
-                    System.Diagnostics.Process.Start(datFile);
+                    if (TextEditorComboBox.SelectedItem.Equals("System preferred"))
+                        System.Diagnostics.Process.Start(datFile);
+                    else
+                        System.Diagnostics.Process.Start("wordpad.exe", "\"" + datFile + "\"");
                 }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void RecompileDatButton_Click(object sender, EventArgs e)
         {
             string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
             string unpatchedDir = Path.Combine(baseDatDir, @"unpatched\");
@@ -211,7 +220,7 @@ namespace BNSBoost
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void RestoreDatButton_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show("Are you sure you want to reset your patches?\nThis action cannot be reverted.",
                                                 "Delete patches?",
