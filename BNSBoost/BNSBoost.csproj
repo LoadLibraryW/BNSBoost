@@ -91,7 +91,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,16 +106,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Agent\Agent.vcxproj">
-      <Project>{778a6631-b639-40e5-9105-39f046bcc05d}</Project>
-      <Name>Agent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Injector\Injector.vcxproj">
-      <Project>{678b62f1-f8dc-4c03-a95a-f0d5375c1250}</Project>
-      <Name>Injector</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -129,8 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BNSBoost.ico" />
-    <Content Include="icon_scP_icon.ico" />
-    <Content Include="icon_U5f_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

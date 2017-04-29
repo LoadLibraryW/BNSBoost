@@ -1,5 +1,8 @@
 // cl /LD agent.c user32.lib kernel32.lib Shlwapi.lib /link /def:agent.def
+#ifndef UNICODE
 #define UNICODE
+#endif
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -54,8 +57,8 @@ HANDLE WINAPI MyCreateFile(
   _In_opt_ HANDLE                hTemplateFile
 ) {
     DWORD dwSize = (lstrlen(lpFileName) + 1) * sizeof(wchar_t);
-    LPCWSTR lpBaseDir = malloc(dwSize);
-    LPCWSTR lpFileSpec = malloc(dwSize);
+    LPWSTR lpBaseDir = malloc(dwSize);
+    LPWSTR lpFileSpec = malloc(dwSize);
     LPCWSTR lpUnpatchedDir = L"/unpatched/";
     
     StringCbCopy(lpBaseDir, dwSize, lpFileName);
@@ -66,16 +69,16 @@ HANDLE WINAPI MyCreateFile(
     
     dwSize = (lstrlen(lpBaseDir) + lstrlen(lpFileSpec) + lstrlen(lpUnpatchedDir) + 1) * sizeof(wchar_t);
     
-    LPCWSTR lpUnpatchedFileName = (LPCWSTR) malloc(dwSize);
+    LPWSTR lpUnpatchedFileName = malloc(dwSize);
     StringCbCopy(lpUnpatchedFileName, dwSize, lpBaseDir);
     StringCbCat(lpUnpatchedFileName, dwSize, lpUnpatchedDir);
     StringCbCat(lpUnpatchedFileName, dwSize, lpFileSpec);
     
     wprintf(L"CreateFile: %ls (checked %ls)\n", lpFileName, lpUnpatchedFileName);
-	fflush(stdout);
+    fflush(stdout);
     if (PathFileExists(lpUnpatchedFileName)) {
         wprintf(L"\t Patched %ls to %ls\n", lpFileName, lpUnpatchedFileName);
-		fflush(stdout);
+        fflush(stdout);
         lpFileName = lpUnpatchedFileName;
     }
 
@@ -143,7 +146,7 @@ HMODULE WINAPI MyLoadLibrary(
 
 __declspec(dllexport) VOID WINAPI InjectMain(LPWSTR ExtraClientFlags)
 {
-	lpExtraClientFlags = ExtraClientFlags;
+    lpExtraClientFlags = ExtraClientFlags;
     printf("Entered injector!\n");
     MessageBeep(-1);
     Patch("CreateFileW", &MyCreateFile, GetModuleHandle(NULL));
@@ -153,7 +156,7 @@ __declspec(dllexport) VOID WINAPI InjectMain(LPWSTR ExtraClientFlags)
 }
 
 INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
-	freopen("log.txt", "a", stdout);
+    freopen("log.txt", "a", stdout);
     switch(Reason) {
         case DLL_PROCESS_ATTACH:
             printf("Agent attached!\n");
@@ -162,7 +165,7 @@ INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
             printf("Agent detached!\n");
             break;
     }
-	fflush(stdout);
+    fflush(stdout);
 
     return TRUE;
 }
