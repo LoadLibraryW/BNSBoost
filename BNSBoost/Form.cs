@@ -191,7 +191,7 @@ namespace BNSBoost
                 {
                     string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Parent.Text + @".files\", dat.Text);
                     Debug.WriteLine(datFile);
-                    if (TextEditorComboBox.SelectedItem.Equals("System preferred"))
+                    if ("System preferred".Equals(TextEditorComboBox.SelectedItem))
                         System.Diagnostics.Process.Start(datFile);
                     else
                         System.Diagnostics.Process.Start("wordpad.exe", "\"" + datFile + "\"");
