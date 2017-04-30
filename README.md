@@ -2,13 +2,9 @@
 
 BNSBoost is a simple loader for starting NCSoft's Blade and Soul. Not endorsed by them in any way, shape, or form; Blade and Soul, etc. are all trademarks of NCSoft.
 
-BNSBoost:
+BNSBoost bypasses NCSoft's file verification, so you can run a patched game straight from the official launcher.
 
-* Fakes file verification, so you can run patched game files
-* Starts the game using all cores
-* Disables texture streaming for smoother loads
-
-BNSBoost does not provide any editor for your game files (use BNSBuddy for that!)
+![](https://cloud.githubusercontent.com/assets/1403503/25560753/7538c358-2d2a-11e7-8ae2-b9eae9a9dd26.png)
 
 ## Installation
 
@@ -19,13 +15,11 @@ whitelist BNSBoost before proceeding. If you're jumpy about security, you can al
 yourself.
 
 ## Usage 
-Just run the `BNSBoost.exe` you got from the release archive. **Make sure you run BNSBoost.exe with administrator privileges!**
-
-This will start the game set to use all cores and with texture streaming disabled.
-BNSBoost will open in one of those nice DOS-style windows, which will be safe to close as soon as you've logged in.
-Depending on your computer, you may also hear an audible beep.
+Just run the `BNSBoost.exe` you got from the release archive!
 
 ### Using BNSBoost to run patched files
+
+When using the built-in DAT editor, BNSBoost takes care of patching details iteslf.
 
 Before you patch any file, navigate to its directory first, and create a subdirectory called `unpatched`, then copy the file(s) you wish to patch into `unpatched`.
 Then, you can use whatever game file editor you wish to patch the files however you wish. BNSBoost will make the game *launcher* read
@@ -34,12 +28,7 @@ from the `unpatched` folder, while the regular game *client* will read from the 
 This'll trick the launcher's verifier into thinking you're running an unmodified game, and allow the game to start.
 The game does no further verification.
 
-#### Enabling the DPS meter
-To enable the DPS meter, locate the directory containing your install's config files: that's the one with `xml(64).dat` and `config(64).dat`.
-For example, it may be something like `D:\Blade and Soul\BnS\contents\Local\NCWEST\data`.
-
-**Ensuring you have unpatched game files** (vanilla BNS), create a folder in that directory called `unpatched`, and copy the `xml*` and `config*` files into it.
-Then, just use BNSBuddy to patch the files as you normally would.
+You can use this to run your own version of `xinput.dll`, run custom voice packs, and so on.
 
 ## How it works
 
@@ -73,9 +62,3 @@ If that's not possible because BNSBoost is crashing too early (e.g., a flickerin
 command prompt, `cd` to your BNSBoost directory, and run `BNSBoost.exe` from there. There'll probably be some extra info printed there.
 
 Good luck!
-
-## Compilation
-
-You might want to compile BNSBoost yourself, in which case the compilation commands are located in the first line of each file.
-
-I'll make a Makefile sometime, but not today.
