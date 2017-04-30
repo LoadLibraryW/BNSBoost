@@ -85,6 +85,13 @@ namespace BNSBoost
             Properties.Settings.Default.TextEditor = (string)TextEditorComboBox.SelectedItem;
             Properties.Settings.Default.Save();
 
+            string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
+            foreach (string decompFile in Directory.GetDirectories(baseDatDir))
+            {
+                if (!decompFile.EndsWith(".files")) continue;
+                Directory.Delete(decompFile, true);
+            }
+
             string extraClientFlags = " -UNATTENDED";
             if (DisableTextureStreamingCheckbox.Checked)
                 extraClientFlags += " -NOTEXTURESTREAMING";
