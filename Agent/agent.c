@@ -59,10 +59,21 @@ HANDLE WINAPI MyCreateFile(
     DWORD dwSize = (lstrlen(lpFileName) + 1) * sizeof(wchar_t);
     LPWSTR lpBaseDir = malloc(dwSize);
     LPWSTR lpFileSpec = malloc(dwSize);
-    LPCWSTR lpUnpatchedDir = L"/unpatched/";
-    
-    StringCbCopy(lpBaseDir, dwSize, lpFileName);
-    StringCbCopy(lpFileSpec, dwSize, lpFileName);
+    LPWSTR lpRealFileName = malloc(dwSize);
+    LPCWSTR lpUnpatchedDir = L"\\unpatched\\";
+
+    StringCbCopy(lpRealFileName, dwSize, lpFileName);
+
+    // Convert all / into \, since otherwise PathStripPath and PathRemoveFileSpec
+    // treat e.g. "C:\\Program Files (x86)\\NCWest\\NCLauncher/Message.pak" as
+    // lpBaseDir: C:\Program Files (x86)\NCWest
+    // lpFileSpec: NCLauncher/Message.pak
+    wchar_t *slash;
+	while (lstrlen(slash = wcsstr(lpRealFileName, L"/")))
+		*slash = L'\\';
+
+    StringCbCopy(lpBaseDir, dwSize, lpRealFileName);
+    StringCbCopy(lpFileSpec, dwSize, lpRealFileName);
     
     PathStripPath(lpFileSpec);
     PathRemoveFileSpec(lpBaseDir);
