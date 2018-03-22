@@ -69,8 +69,8 @@ HANDLE WINAPI MyCreateFile(
     // lpBaseDir: C:\Program Files (x86)\NCWest
     // lpFileSpec: NCLauncher/Message.pak
     wchar_t *slash;
-	while (lstrlen(slash = wcsstr(lpRealFileName, L"/")))
-		*slash = L'\\';
+    while (lstrlen(slash = wcsstr(lpRealFileName, L"/")))
+        *slash = L'\\';
 
     StringCbCopy(lpBaseDir, dwSize, lpRealFileName);
     StringCbCopy(lpFileSpec, dwSize, lpRealFileName);
