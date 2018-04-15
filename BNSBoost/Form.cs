@@ -158,14 +158,24 @@ namespace BNSBoost
                 {
                     Debug.WriteLine(GameDirectoryPathTextBox);
                     Debug.WriteLine(GameDirectoryPathTextBox.Text);
-                    string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Text);
-                    new BNSDat().Extract(datFile, (number, of) =>
+                    string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\",
+                        dat.Text);
+                    try
                     {
-                        FileDataTreeView.Invoke((MethodInvoker)delegate
+                        new BNSDat().Extract(datFile, (number, of) =>
                         {
-                            dat.Nodes[0].Text = "Decompiling... " + number + "/" + of;
-                        });
-                    }, datFile.Contains("64"));
+                            FileDataTreeView.Invoke((MethodInvoker)delegate
+                           {
+                               dat.Nodes[0].Text = "Decompiling... " + number + "/" + of;
+                           });
+                        }, datFile.Contains("64"));
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        dat.Nodes.Clear();
+                        return;
+                    }
 
                     FileDataTreeView.Invoke((MethodInvoker)delegate
                     {
