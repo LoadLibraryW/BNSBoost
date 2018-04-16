@@ -81,16 +81,14 @@ namespace BNSBoost
 
         private void ToggleX3(bool shouldPatch)
         {
-            Dictionary<string, string> patches = new Dictionary<string, string>
-            {
-                {@"bin\XignCode\x3.xem", @"X3\bin\x3.xem"},
-                {@"bin64\XignCode\x3.xem", @"X3\bin64\x3.xem"}
+            string[] patches = {
+                @"bin\XignCode\x3.xem", @"bin64\XignCode\x3.xem"
             };
 
-            foreach (KeyValuePair<string, string> patch in patches)
+            foreach (string patchTarget in patches)
             {
-                string gameX3 = Path.Combine(GameDirectoryPathTextBox.Text, patch.Key);
-                string ourX3 = patch.Value;
+                string gameX3 = Path.Combine(GameDirectoryPathTextBox.Text, patchTarget);
+                string ourX3 = "x3.xem";
                 bool isPatched = File.ReadAllBytes(gameX3).SequenceEqual(File.ReadAllBytes(ourX3));
 
                 Debug.WriteLine("checking " + gameX3 + " == " + ourX3 + " : " + isPatched);
@@ -98,7 +96,7 @@ namespace BNSBoost
                 string unpatched = Path.Combine(Path.GetDirectoryName(gameX3), "unpatched");
                 string unpatchedX3 = Path.Combine(unpatched, "x3.xem");
 
-                if (shouldPatch && isPatched)
+                if (shouldPatch == isPatched)
                 {
                     Debug.WriteLine("X3 is already patched out");
                 }
