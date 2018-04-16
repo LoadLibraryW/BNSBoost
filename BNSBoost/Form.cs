@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -78,26 +79,58 @@ namespace BNSBoost
             reg.Dispose();
         }
 
-        private async void LaunchButton_Click(object sender, EventArgs e)
+        private void ToggleX3(bool shouldPatch)
         {
-            // Need to save ourself since form doesn't do it automatically :/
-            Properties.Settings.Default.Region = (string)RegionComboBox.SelectedItem;
-            Properties.Settings.Default.TextEditor = (string)TextEditorComboBox.SelectedItem;
-            Properties.Settings.Default.Save();
-
-            string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
-            foreach (string decompFile in Directory.GetDirectories(baseDatDir))
+            Dictionary<string, string> patches = new Dictionary<string, string>
             {
-                if (!decompFile.EndsWith(".files")) continue;
-                Directory.Delete(decompFile, true);
+                {@"bin\XignCode\x3.xem", @"X3\bin\x3.xem"},
+                {@"bin64\XignCode\x3.xem", @"X3\bin64\x3.xem"}
+            };
+
+            foreach (KeyValuePair<string, string> patch in patches)
+            {
+                string gameX3 = Path.Combine(GameDirectoryPathTextBox.Text, patch.Key);
+                string ourX3 = patch.Value;
+                bool isPatched = File.ReadAllBytes(gameX3).SequenceEqual(File.ReadAllBytes(ourX3));
+
+                Debug.WriteLine("checking " + gameX3 + " == " + ourX3 + " : " + isPatched);
+
+                string unpatched = Path.Combine(Path.GetDirectoryName(gameX3), "unpatched");
+                string unpatchedX3 = Path.Combine(unpatched, "x3.xem");
+
+                if (shouldPatch && isPatched)
+                {
+                    Debug.WriteLine("X3 is already patched out");
+                }
+                else if (shouldPatch && !isPatched)
+                {
+                    Debug.WriteLine("Patching out X3");
+
+                    if (Directory.Exists(unpatched)) Directory.Delete(unpatched, true);
+                    Directory.CreateDirectory(unpatched);
+
+                    File.Move(gameX3, unpatchedX3);
+                    File.Copy(ourX3, gameX3, true);
+                }
+                else if (isPatched && !shouldPatch)
+                {
+                    Debug.WriteLine("Restoring original X3");
+                    if (Directory.Exists(unpatched))
+                    {
+                        File.Delete(gameX3);
+                        File.Move(unpatchedX3, gameX3);
+                        Directory.Delete(unpatched, true);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("X3 was not patched");
+                    }
+                }
             }
+        }
 
-            string extraClientFlags = " -UNATTENDED";
-            if (DisableTextureStreamingCheckbox.Checked)
-                extraClientFlags += " -NOTEXTURESTREAMING";
-            if (UseAllCoresCheckbox.Checked)
-                extraClientFlags += " -USEALLAVAILABLECORES";
-
+        private void ToggleLoadingScreens(bool disabled)
+        {
             string cookedPCBase = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\ENGLISH\CookedPC");
 
             string origLoadingPkgFile = Path.Combine(cookedPCBase, "Loading.pkg");
@@ -105,7 +138,7 @@ namespace BNSBoost
             string movedLoadingPkgFile = Path.Combine(unpatchedDir, "Loading.pkg");
 
             Debug.WriteLine(origLoadingPkgFile + " --> " + movedLoadingPkgFile);
-            if (DisableLoadingScreensCheckBox.Checked)
+            if (disabled)
             {
                 if (File.Exists(origLoadingPkgFile))
                 {
@@ -120,10 +153,36 @@ namespace BNSBoost
                 File.Delete(origLoadingPkgFile);
                 File.Move(movedLoadingPkgFile, origLoadingPkgFile);
             }
+        }
+
+        private async void LaunchButton_Click(object sender, EventArgs e)
+        {
+            // Need to save ourself since form doesn't do it automatically :/
+            Properties.Settings.Default.Region = (string)RegionComboBox.SelectedItem;
+            Properties.Settings.Default.TextEditor = (string)TextEditorComboBox.SelectedItem;
+            Properties.Settings.Default.Save();
+
+            ToggleX3(Properties.Settings.Default.DisableX3);
+
+            string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
+            foreach (string decompFile in Directory.GetDirectories(baseDatDir))
+            {
+                if (!decompFile.EndsWith(".files")) continue;
+                Directory.Delete(decompFile, true);
+            }
+
+            string extraClientFlags = " -UNATTENDED";
+            if (DisableTextureStreamingCheckbox.Checked)
+                extraClientFlags += " -NOTEXTURESTREAMING";
+            if (UseAllCoresCheckbox.Checked)
+                extraClientFlags += " -USEALLAVAILABLECORES";
+
+            ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
 
             string launcherPath = LauncherPathTextBox.Text;
 
-            this.Hide();
+            Hide();
+
             int exitcode = await LaunchAsync(launcherPath, extraClientFlags);
             string message;
             switch (exitcode)
@@ -138,8 +197,9 @@ namespace BNSBoost
                     message = "Launcher exited with error: " + exitcode;
                     break;
             }
-            this.Show();
-            this.Focus();
+
+            Show();
+            Focus();
             MessageBox.Show(message);
         }
 
