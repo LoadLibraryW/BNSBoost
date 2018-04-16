@@ -23,5 +23,8 @@
     <Setting Name="TextEditor" Type="System.String" Scope="User">
       <Value Profile="(Default)">System preferred</Value>
     </Setting>
+    <Setting Name="DisableX3" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
