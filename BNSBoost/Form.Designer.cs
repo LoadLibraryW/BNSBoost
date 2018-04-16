@@ -47,16 +47,10 @@
             this.GameTabPanel = new System.Windows.Forms.Panel();
             this.RegionComboBox = new System.Windows.Forms.ComboBox();
             this.RegionLabel = new System.Windows.Forms.Label();
-            this.GameDirectoryPathTextBox = new System.Windows.Forms.TextBox();
             this.GameDirectoryPathLabel = new System.Windows.Forms.Label();
-            this.DisableLoadingScreensCheckBox = new System.Windows.Forms.CheckBox();
-            this.LauncherPathTextBox = new System.Windows.Forms.TextBox();
-            this.UseAllCoresCheckbox = new System.Windows.Forms.CheckBox();
             this.LauncherPathLabel = new System.Windows.Forms.Label();
-            this.DisableTextureStreamingCheckbox = new System.Windows.Forms.CheckBox();
             this.MainTabControl = new System.Windows.Forms.TabControl();
             this.DatEditorTabPage = new System.Windows.Forms.TabPage();
-            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.DatEditorButtonTable = new System.Windows.Forms.TableLayoutPanel();
             this.OpenDatFileButton = new System.Windows.Forms.Button();
             this.RecompileDatButton = new System.Windows.Forms.Button();
@@ -65,7 +59,14 @@
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.TextEditorComboBox = new System.Windows.Forms.ComboBox();
             this.TextEditorLabel = new System.Windows.Forms.Label();
+            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.DisableX3Checkbox = new System.Windows.Forms.CheckBox();
+            this.GameDirectoryPathTextBox = new System.Windows.Forms.TextBox();
+            this.DisableLoadingScreensCheckBox = new System.Windows.Forms.CheckBox();
+            this.LauncherPathTextBox = new System.Windows.Forms.TextBox();
+            this.UseAllCoresCheckbox = new System.Windows.Forms.CheckBox();
+            this.DisableTextureStreamingCheckbox = new System.Windows.Forms.CheckBox();
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
@@ -78,7 +79,7 @@
             // LaunchButton
             // 
             this.LaunchButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LaunchButton.Location = new System.Drawing.Point(11, 521);
+            this.LaunchButton.Location = new System.Drawing.Point(11, 544);
             this.LaunchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(873, 69);
@@ -94,7 +95,7 @@
             this.GameTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPage.Name = "GameTabPage";
             this.GameTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameTabPage.Size = new System.Drawing.Size(853, 453);
+            this.GameTabPage.Size = new System.Drawing.Size(853, 476);
             this.GameTabPage.TabIndex = 0;
             this.GameTabPage.Text = "Game";
             this.GameTabPage.UseVisualStyleBackColor = true;
@@ -102,6 +103,7 @@
             // GameTabPanel
             // 
             this.GameTabPanel.BackColor = System.Drawing.Color.Transparent;
+            this.GameTabPanel.Controls.Add(this.DisableX3Checkbox);
             this.GameTabPanel.Controls.Add(this.RegionComboBox);
             this.GameTabPanel.Controls.Add(this.RegionLabel);
             this.GameTabPanel.Controls.Add(this.GameDirectoryPathTextBox);
@@ -115,7 +117,7 @@
             this.GameTabPanel.Location = new System.Drawing.Point(3, 2);
             this.GameTabPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPanel.Name = "GameTabPanel";
-            this.GameTabPanel.Size = new System.Drawing.Size(847, 449);
+            this.GameTabPanel.Size = new System.Drawing.Size(847, 472);
             this.GameTabPanel.TabIndex = 7;
             // 
             // RegionComboBox
@@ -126,7 +128,7 @@
             this.RegionComboBox.FormattingEnabled = true;
             this.RegionComboBox.Items.AddRange(new object[] {
             "NA"});
-            this.RegionComboBox.Location = new System.Drawing.Point(121, 362);
+            this.RegionComboBox.Location = new System.Drawing.Point(121, 400);
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(133, 39);
             this.RegionComboBox.TabIndex = 23;
@@ -135,95 +137,30 @@
             // RegionLabel
             // 
             this.RegionLabel.AutoSize = true;
-            this.RegionLabel.Location = new System.Drawing.Point(1, 369);
+            this.RegionLabel.Location = new System.Drawing.Point(1, 407);
             this.RegionLabel.Name = "RegionLabel";
             this.RegionLabel.Size = new System.Drawing.Size(114, 32);
             this.RegionLabel.TabIndex = 22;
             this.RegionLabel.Text = "Region:";
             // 
-            // GameDirectoryPathTextBox
-            // 
-            this.GameDirectoryPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameDirectoryPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "GameDirectoryPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GameDirectoryPathTextBox.Location = new System.Drawing.Point(8, 279);
-            this.GameDirectoryPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameDirectoryPathTextBox.Name = "GameDirectoryPathTextBox";
-            this.GameDirectoryPathTextBox.Size = new System.Drawing.Size(819, 38);
-            this.GameDirectoryPathTextBox.TabIndex = 21;
-            this.GameDirectoryPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.GameDirectoryPath;
-            // 
             // GameDirectoryPathLabel
             // 
             this.GameDirectoryPathLabel.AutoSize = true;
-            this.GameDirectoryPathLabel.Location = new System.Drawing.Point(0, 243);
+            this.GameDirectoryPathLabel.Location = new System.Drawing.Point(0, 281);
             this.GameDirectoryPathLabel.Name = "GameDirectoryPathLabel";
             this.GameDirectoryPathLabel.Size = new System.Drawing.Size(279, 32);
             this.GameDirectoryPathLabel.TabIndex = 20;
             this.GameDirectoryPathLabel.Text = "Game directory path:";
             // 
-            // DisableLoadingScreensCheckBox
-            // 
-            this.DisableLoadingScreensCheckBox.AutoSize = true;
-            this.DisableLoadingScreensCheckBox.Checked = global::BNSBoost.Properties.Settings.Default.NoLoadingScreens;
-            this.DisableLoadingScreensCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "NoLoadingScreens", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DisableLoadingScreensCheckBox.Location = new System.Drawing.Point(8, 86);
-            this.DisableLoadingScreensCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.DisableLoadingScreensCheckBox.Name = "DisableLoadingScreensCheckBox";
-            this.DisableLoadingScreensCheckBox.Size = new System.Drawing.Size(356, 36);
-            this.DisableLoadingScreensCheckBox.TabIndex = 19;
-            this.DisableLoadingScreensCheckBox.Text = "Disable loading screens";
-            this.DisableLoadingScreensCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // LauncherPathTextBox
-            // 
-            this.LauncherPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LauncherPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "NCLauncherRPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.LauncherPathTextBox.Location = new System.Drawing.Point(8, 179);
-            this.LauncherPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.LauncherPathTextBox.Name = "LauncherPathTextBox";
-            this.LauncherPathTextBox.Size = new System.Drawing.Size(817, 38);
-            this.LauncherPathTextBox.TabIndex = 15;
-            this.LauncherPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.NCLauncherRPath;
-            // 
-            // UseAllCoresCheckbox
-            // 
-            this.UseAllCoresCheckbox.AutoSize = true;
-            this.UseAllCoresCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.UseAllCores;
-            this.UseAllCoresCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.UseAllCoresCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "UseAllCores", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.UseAllCoresCheckbox.Location = new System.Drawing.Point(8, 2);
-            this.UseAllCoresCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.UseAllCoresCheckbox.Name = "UseAllCoresCheckbox";
-            this.UseAllCoresCheckbox.Size = new System.Drawing.Size(216, 36);
-            this.UseAllCoresCheckbox.TabIndex = 2;
-            this.UseAllCoresCheckbox.Text = "Use all cores";
-            this.UseAllCoresCheckbox.UseVisualStyleBackColor = true;
-            // 
             // LauncherPathLabel
             // 
             this.LauncherPathLabel.AutoSize = true;
-            this.LauncherPathLabel.Location = new System.Drawing.Point(3, 145);
+            this.LauncherPathLabel.Location = new System.Drawing.Point(3, 183);
             this.LauncherPathLabel.Name = "LauncherPathLabel";
             this.LauncherPathLabel.Size = new System.Drawing.Size(205, 32);
             this.LauncherPathLabel.TabIndex = 18;
             this.LauncherPathLabel.Text = "Launcher path:";
             this.LauncherPathLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // DisableTextureStreamingCheckbox
-            // 
-            this.DisableTextureStreamingCheckbox.AutoSize = true;
-            this.DisableTextureStreamingCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.NoTextureStreaming;
-            this.DisableTextureStreamingCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.DisableTextureStreamingCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "NoTextureStreaming", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DisableTextureStreamingCheckbox.Location = new System.Drawing.Point(8, 45);
-            this.DisableTextureStreamingCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.DisableTextureStreamingCheckbox.Name = "DisableTextureStreamingCheckbox";
-            this.DisableTextureStreamingCheckbox.Size = new System.Drawing.Size(375, 36);
-            this.DisableTextureStreamingCheckbox.TabIndex = 2;
-            this.DisableTextureStreamingCheckbox.Text = "Disable texture streaming";
-            this.DisableTextureStreamingCheckbox.UseVisualStyleBackColor = true;
             // 
             // MainTabControl
             // 
@@ -235,7 +172,7 @@
             this.MainTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(873, 511);
+            this.MainTabControl.Size = new System.Drawing.Size(873, 534);
             this.MainTabControl.TabIndex = 7;
             // 
             // DatEditorTabPage
@@ -245,43 +182,10 @@
             this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
             this.DatEditorTabPage.Name = "DatEditorTabPage";
             this.DatEditorTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 453);
+            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 476);
             this.DatEditorTabPage.TabIndex = 1;
             this.DatEditorTabPage.Text = "DAT Editor";
             this.DatEditorTabPage.UseVisualStyleBackColor = true;
-            // 
-            // FileDataTreeView
-            // 
-            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FileDataTreeView.HideSelection = false;
-            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
-            this.FileDataTreeView.Name = "FileDataTreeView";
-            treeNode1.Name = "Node4";
-            treeNode1.Text = "Decompiling...";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "config.dat";
-            treeNode3.Name = "Node5";
-            treeNode3.Text = "Decompiling...";
-            treeNode4.Name = "Node1";
-            treeNode4.Text = "config64.dat";
-            treeNode5.Name = "Node6";
-            treeNode5.Text = "Decompiling...";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "xml.dat";
-            treeNode7.Name = "Node7";
-            treeNode7.Text = "Decompiling...";
-            treeNode8.Name = "Node3";
-            treeNode8.Text = "xml64.dat";
-            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode6,
-            treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 441);
-            this.FileDataTreeView.TabIndex = 2;
-            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
             // DatEditorButtonTable
             // 
@@ -299,7 +203,7 @@
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 441);
+            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 464);
             this.DatEditorButtonTable.TabIndex = 1;
             // 
             // OpenDatFileButton
@@ -307,7 +211,7 @@
             this.OpenDatFileButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OpenDatFileButton.Location = new System.Drawing.Point(3, 3);
             this.OpenDatFileButton.Name = "OpenDatFileButton";
-            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 214);
+            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 226);
             this.OpenDatFileButton.TabIndex = 0;
             this.OpenDatFileButton.Text = "Open";
             this.OpenDatFileButton.UseVisualStyleBackColor = true;
@@ -316,9 +220,9 @@
             // RecompileDatButton
             // 
             this.RecompileDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecompileDatButton.Location = new System.Drawing.Point(3, 223);
+            this.RecompileDatButton.Location = new System.Drawing.Point(3, 235);
             this.RecompileDatButton.Name = "RecompileDatButton";
-            this.RecompileDatButton.Size = new System.Drawing.Size(228, 104);
+            this.RecompileDatButton.Size = new System.Drawing.Size(228, 110);
             this.RecompileDatButton.TabIndex = 1;
             this.RecompileDatButton.Text = "Recompile all";
             this.RecompileDatButton.UseVisualStyleBackColor = true;
@@ -327,9 +231,9 @@
             // RestoreDatButton
             // 
             this.RestoreDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RestoreDatButton.Location = new System.Drawing.Point(3, 333);
+            this.RestoreDatButton.Location = new System.Drawing.Point(3, 351);
             this.RestoreDatButton.Name = "RestoreDatButton";
-            this.RestoreDatButton.Size = new System.Drawing.Size(228, 105);
+            this.RestoreDatButton.Size = new System.Drawing.Size(228, 110);
             this.RestoreDatButton.TabIndex = 2;
             this.RestoreDatButton.Text = "Restore all";
             this.RestoreDatButton.UseVisualStyleBackColor = true;
@@ -343,7 +247,7 @@
             this.SettingsTabPage.Location = new System.Drawing.Point(10, 48);
             this.SettingsTabPage.Name = "SettingsTabPage";
             this.SettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SettingsTabPage.Size = new System.Drawing.Size(853, 453);
+            this.SettingsTabPage.Size = new System.Drawing.Size(853, 476);
             this.SettingsTabPage.TabIndex = 2;
             this.SettingsTabPage.Text = "Settings";
             this.SettingsTabPage.UseVisualStyleBackColor = true;
@@ -383,16 +287,126 @@
             this.TextEditorLabel.TabIndex = 24;
             this.TextEditorLabel.Text = "Text editor:";
             // 
+            // FileDataTreeView
+            // 
+            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileDataTreeView.HideSelection = false;
+            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
+            this.FileDataTreeView.Name = "FileDataTreeView";
+            treeNode1.Name = "Node4";
+            treeNode1.Text = "Decompiling...";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "config.dat";
+            treeNode3.Name = "Node5";
+            treeNode3.Text = "Decompiling...";
+            treeNode4.Name = "Node1";
+            treeNode4.Text = "config64.dat";
+            treeNode5.Name = "Node6";
+            treeNode5.Text = "Decompiling...";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "xml.dat";
+            treeNode7.Name = "Node7";
+            treeNode7.Text = "Decompiling...";
+            treeNode8.Name = "Node3";
+            treeNode8.Text = "xml64.dat";
+            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode6,
+            treeNode8});
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 464);
+            this.FileDataTreeView.TabIndex = 2;
+            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
+            // 
             // bNSBoostFormBindingSource
             // 
             this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
+            // 
+            // DisableX3Checkbox
+            // 
+            this.DisableX3Checkbox.AutoSize = true;
+            this.DisableX3Checkbox.Checked = global::BNSBoost.Properties.Settings.Default.DisableX3;
+            this.DisableX3Checkbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "DisableX3", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DisableX3Checkbox.Location = new System.Drawing.Point(8, 127);
+            this.DisableX3Checkbox.Name = "DisableX3Checkbox";
+            this.DisableX3Checkbox.Size = new System.Drawing.Size(321, 36);
+            this.DisableX3Checkbox.TabIndex = 24;
+            this.DisableX3Checkbox.Text = "Disable XIGNCODE3";
+            this.DisableX3Checkbox.UseVisualStyleBackColor = true;
+            // 
+            // GameDirectoryPathTextBox
+            // 
+            this.GameDirectoryPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GameDirectoryPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "GameDirectoryPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.GameDirectoryPathTextBox.Location = new System.Drawing.Point(8, 317);
+            this.GameDirectoryPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GameDirectoryPathTextBox.Name = "GameDirectoryPathTextBox";
+            this.GameDirectoryPathTextBox.Size = new System.Drawing.Size(819, 38);
+            this.GameDirectoryPathTextBox.TabIndex = 21;
+            this.GameDirectoryPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.GameDirectoryPath;
+            // 
+            // DisableLoadingScreensCheckBox
+            // 
+            this.DisableLoadingScreensCheckBox.AutoSize = true;
+            this.DisableLoadingScreensCheckBox.Checked = global::BNSBoost.Properties.Settings.Default.NoLoadingScreens;
+            this.DisableLoadingScreensCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "NoLoadingScreens", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DisableLoadingScreensCheckBox.Location = new System.Drawing.Point(8, 87);
+            this.DisableLoadingScreensCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DisableLoadingScreensCheckBox.Name = "DisableLoadingScreensCheckBox";
+            this.DisableLoadingScreensCheckBox.Size = new System.Drawing.Size(356, 36);
+            this.DisableLoadingScreensCheckBox.TabIndex = 19;
+            this.DisableLoadingScreensCheckBox.Text = "Disable loading screens";
+            this.DisableLoadingScreensCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // LauncherPathTextBox
+            // 
+            this.LauncherPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LauncherPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "NCLauncherRPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.LauncherPathTextBox.Location = new System.Drawing.Point(8, 217);
+            this.LauncherPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LauncherPathTextBox.Name = "LauncherPathTextBox";
+            this.LauncherPathTextBox.Size = new System.Drawing.Size(817, 38);
+            this.LauncherPathTextBox.TabIndex = 15;
+            this.LauncherPathTextBox.Text = global::BNSBoost.Properties.Settings.Default.NCLauncherRPath;
+            // 
+            // UseAllCoresCheckbox
+            // 
+            this.UseAllCoresCheckbox.AutoSize = true;
+            this.UseAllCoresCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.UseAllCores;
+            this.UseAllCoresCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UseAllCoresCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "UseAllCores", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.UseAllCoresCheckbox.Location = new System.Drawing.Point(8, 2);
+            this.UseAllCoresCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.UseAllCoresCheckbox.Name = "UseAllCoresCheckbox";
+            this.UseAllCoresCheckbox.Size = new System.Drawing.Size(216, 36);
+            this.UseAllCoresCheckbox.TabIndex = 2;
+            this.UseAllCoresCheckbox.Text = "Use all cores";
+            this.UseAllCoresCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // DisableTextureStreamingCheckbox
+            // 
+            this.DisableTextureStreamingCheckbox.AutoSize = true;
+            this.DisableTextureStreamingCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.NoTextureStreaming;
+            this.DisableTextureStreamingCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DisableTextureStreamingCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "NoTextureStreaming", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DisableTextureStreamingCheckbox.Location = new System.Drawing.Point(8, 45);
+            this.DisableTextureStreamingCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DisableTextureStreamingCheckbox.Name = "DisableTextureStreamingCheckbox";
+            this.DisableTextureStreamingCheckbox.Size = new System.Drawing.Size(375, 36);
+            this.DisableTextureStreamingCheckbox.TabIndex = 2;
+            this.DisableTextureStreamingCheckbox.Text = "Disable texture streaming";
+            this.DisableTextureStreamingCheckbox.UseVisualStyleBackColor = true;
             // 
             // BNSBoostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(895, 600);
+            this.ClientSize = new System.Drawing.Size(895, 623);
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.LaunchButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -441,6 +455,7 @@
         private System.Windows.Forms.ComboBox TextEditorComboBox;
         private System.Windows.Forms.Label TextEditorLabel;
         private System.Windows.Forms.CheckBox UpdateCheckBox;
+        private System.Windows.Forms.CheckBox DisableX3Checkbox;
     }
 }
 
