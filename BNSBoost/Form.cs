@@ -232,6 +232,7 @@ namespace BNSBoost
                     {
                         MessageBox.Show(ex.Message);
                         dat.Nodes.Clear();
+                        dat.Nodes.Add("Decompiling...");
                         return;
                     }
 
