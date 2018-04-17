@@ -32,7 +32,6 @@ namespace BNSBoost
             InitializeComponent();
             // Form autogeneration doesn't handle this properly for some reason
             RegionComboBox.SelectedItem = Properties.Settings.Default.Region;
-            TextEditorComboBox.SelectedItem = Properties.Settings.Default.TextEditor;
             SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
         }
 
@@ -97,7 +96,7 @@ namespace BNSBoost
                 while (Visible)
                 {
                     // This is only NA IP, but that's all we support right now
-                    // > netstat - atn | grep 10100
+                    // > netstat -atn | grep 10100
                     //   TCP    192.168.20.103:64029   64.25.37.235:10100     ESTABLISHED InHost
                     string ip = "64.25.37.235";
 
@@ -218,7 +217,6 @@ namespace BNSBoost
         {
             // Need to save ourself since form doesn't do it automatically :/
             Properties.Settings.Default.Region = (string)RegionComboBox.SelectedItem;
-            Properties.Settings.Default.TextEditor = (string)TextEditorComboBox.SelectedItem;
             Properties.Settings.Default.Save();
 
             ToggleX3(Properties.Settings.Default.DisableX3);
@@ -321,10 +319,7 @@ namespace BNSBoost
                 {
                     string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Parent.Text + @".files\", dat.Text);
                     Debug.WriteLine(datFile);
-                    if ("System preferred".Equals(TextEditorComboBox.SelectedItem))
-                        System.Diagnostics.Process.Start(datFile);
-                    else
-                        System.Diagnostics.Process.Start("wordpad.exe", "\"" + datFile + "\"");
+                    Process.Start(datFile);
                 }
             }
         }
