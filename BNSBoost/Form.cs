@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -26,10 +27,13 @@ namespace BNSBoost
         }
 
         private double? Ping;
+        private int WorkerNumerator;
+        private int WorkerDenominator;
 
         public BNSBoostForm()
         {
             InitializeComponent();
+
             // Form autogeneration doesn't handle this properly for some reason
             RegionComboBox.SelectedItem = Properties.Settings.Default.Region;
             SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
@@ -263,9 +267,6 @@ namespace BNSBoost
             return await Task.Run(() => { return NativeMethods.Launch(launcherPath, extraClientFlags); });
         }
 
-        private int DecompressionNumerator = 0;
-        private int DecompressionDenominator = 0;
-
         private void FileDataTreeView_AfterExpand(object sender, TreeViewEventArgs e)
         {
             TreeNode dat = e.Node;
@@ -276,41 +277,32 @@ namespace BNSBoost
                 RecompileDatButton.Enabled = false;
                 RestoreDatButton.Enabled = false;
 
-                new Thread(() =>
+                string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Text);
+
+                Debug.WriteLine(GameDirectoryPathTextBox);
+                Debug.WriteLine(GameDirectoryPathTextBox.Text);
+
+                var worker = new BackgroundWorker();
+                worker.DoWork += (_, arg) =>
                 {
-                    Debug.WriteLine(GameDirectoryPathTextBox);
-                    Debug.WriteLine(GameDirectoryPathTextBox.Text);
-                    string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Text);
-                    try
+                    new BNSDat().Extract(datFile, (number, of) => worker.ReportProgress(0, new DATState
                     {
-                        new BNSDat().Extract(datFile, (number, of) =>
-                        {
-                            DecompressionNumerator++;
+                        node = dat,
+                        number = number,
+                        of = of
+                    }), datFile.Contains("64"));
+                };
 
-                            if (number == 1) DecompressionDenominator += of;
-                            else if (number == of)
-                            {
-                                DecompressionDenominator -= of;
-                                DecompressionNumerator -= of;
-                            }
-
-                            FileDataTreeView.Invoke((MethodInvoker)delegate
-                            {
-                                dat.Nodes[0].Text = "Decompiling... " + number + "/" + of;
-                                DATProgressBar.Value = DecompressionDenominator == 0 ? 100 : (int)Math.Round(100.0 * DecompressionNumerator / DecompressionDenominator);
-                            });
-                        }, datFile.Contains("64"));
-                    }
-                    catch (IOException ex)
+                worker.RunWorkerCompleted += (_, arg) =>
+                {
+                    if (arg.Error != null)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show(arg.Error.Message);
                         dat.Collapse();
                         dat.Nodes.Clear();
                         dat.Nodes.Add("Decompiling...");
-                        return;
                     }
-
-                    FileDataTreeView.Invoke((MethodInvoker)delegate
+                    else
                     {
                         dat.Nodes.Clear();
                         foreach (string decompFile in Directory.GetFiles(datFile + ".files"))
@@ -319,15 +311,19 @@ namespace BNSBoost
                             dat.Nodes.Add(new TreeNode { Text = name, Name = name });
                         }
 
-                        if (DecompressionDenominator == 0)
+                        if (WorkerDenominator == 0)
                         {
                             // Allow restoration and recompilation now
                             RecompileDatButton.Enabled = true;
                             RestoreDatButton.Enabled = true;
                             LaunchButton.Enabled = true;
                         }
-                    });
-                }).Start();
+                    }
+                };
+
+                worker.ProgressChanged += Editor_ProgressChanged;
+                worker.WorkerReportsProgress = true;
+                worker.RunWorkerAsync();
             }
         }
 
@@ -348,6 +344,8 @@ namespace BNSBoost
 
         private void RecompileDatButton_Click(object sender, EventArgs e)
         {
+            LaunchButton.Enabled = false;
+
             string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
             string unpatchedDir = Path.Combine(baseDatDir, @"unpatched\");
             Debug.WriteLine("Unpatched base dir: " + unpatchedDir);
@@ -359,51 +357,52 @@ namespace BNSBoost
                 string datName = Path.GetFileName(decompFile).Replace(".files", "");
                 Debug.WriteLine("DAT file name: " + datName);
 
-                string backupFile = Path.Combine(unpatchedDir, datName);
-                string patchedFile = Path.Combine(baseDatDir, datName);
+                var dat = FileDataTreeView.Nodes.Find(datName, true)[0];
 
-
-                Debug.WriteLine("Does backup " + backupFile + " exist?");
-                if (!File.Exists(backupFile))
+                var worker = new BackgroundWorker();
+                worker.DoWork += (_, arg) =>
                 {
-                    Debug.WriteLine("Backed up file!");
-                    File.Copy(patchedFile, backupFile);
-                }
+                    string backupFile = Path.Combine(unpatchedDir, datName);
+                    string patchedFile = Path.Combine(baseDatDir, datName);
 
-                LaunchButton.Enabled = false;
+                    Debug.WriteLine("Does backup " + backupFile + " exist?");
+                    if (!File.Exists(backupFile))
+                    {
+                        Debug.WriteLine("Backed up file!");
+                        File.Copy(patchedFile, backupFile);
+                    }
 
-                new Thread(() =>
+                    new BNSDat().Compress(decompFile, (number, of) => worker.ReportProgress(0, new DATState
+                    {
+                        node = dat,
+                        number = number,
+                        of = of,
+                        recompressing = true
+                    }), datName.Contains("64"));
+                };
+
+                worker.RunWorkerCompleted += (_, arg) =>
                 {
-                    new BNSDat().Compress(decompFile, (number, of) =>
-                    {
-                        DecompressionNumerator++;
-                        if (number == 1) DecompressionDenominator += of;
-                        else if (number == of)
-                        {
-                            DecompressionDenominator -= of;
-                            DecompressionNumerator -= of;
-                        }
-                        DATProgressBar.Invoke((MethodInvoker)delegate
-                        {
-                            DATProgressBar.Value = DecompressionDenominator == 0 ? 100 : (int)Math.Round(100.0 * DecompressionNumerator / DecompressionDenominator);
-                        });
-                    }, datName.Contains("64"));
+                    LaunchButton.Enabled = WorkerDenominator == 0;
 
-                    LaunchButton.Invoke((MethodInvoker)delegate
+                    if (arg.Error == null)
                     {
-                        if (DecompressionDenominator == 0)
-                        {
-                            LaunchButton.Enabled = true;
-                        }
-                        Debug.WriteLine(datName);
-                        var dat = FileDataTreeView.Nodes.Find(datName, true)[0];
                         dat.Collapse();
                         dat.Nodes.Clear();
                         dat.Nodes.Add("Decompiling...");
-                    });
 
-                    Directory.Delete(decompFile, true);
-                }).Start();
+                        Directory.Delete(decompFile, true);
+                    }
+                    else
+                    {
+                        MessageBox.Show(arg.Error.Message);
+                    }
+                };
+
+                worker.ProgressChanged += Editor_ProgressChanged;
+                worker.WorkerReportsProgress = true;
+
+                worker.RunWorkerAsync();
             }
         }
 
@@ -433,6 +432,32 @@ namespace BNSBoost
         private void EnableSkillbookDelayCheckbox_CheckStateChanged(object sender, EventArgs e)
         {
             SkillbookDelayUpDown.Enabled = EnableSkillbookDelayCheckbox.CheckState == CheckState.Checked;
+        }
+
+        class DATState
+        {
+            public TreeNode node;
+            public int number, of;
+            public bool recompressing;
+        }
+
+        private void Editor_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            DATState state = (DATState)e.UserState;
+
+            WorkerNumerator++;
+
+            if (state.number == 1) WorkerDenominator += state.of;
+            else if (state.number == state.of)
+            {
+                WorkerDenominator -= state.of;
+                WorkerNumerator -= state.of;
+            }
+
+            if (state.node.Nodes.Count == 1)
+                state.node.Nodes[0].Text = "Decompiling... " + state.number + "/" + state.of;
+
+            DATProgressBar.Value = WorkerDenominator == 0 ? 100 : (int)Math.Round(100.0 * WorkerNumerator / WorkerDenominator);
         }
     }
 
