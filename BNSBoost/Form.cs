@@ -318,6 +318,11 @@ namespace BNSBoost
                 }
             }
         }
+
+        private void EnableSkillbookDelayCheckbox_CheckStateChanged(object sender, EventArgs e)
+        {
+            SkillbookDelayUpDown.Enabled = EnableSkillbookDelayCheckbox.CheckState == CheckState.Checked;
+        }
     }
 
     class BufferedTreeView : TreeView

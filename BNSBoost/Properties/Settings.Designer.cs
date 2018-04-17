@@ -118,5 +118,65 @@ namespace BNSBoost.Properties {
                 this["DisableX3"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowDPSMeter {
+            get {
+                return ((bool)(this["ShowDPSMeter"]));
+            }
+            set {
+                this["ShowDPSMeter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableOptimizedMode {
+            get {
+                return ((bool)(this["EnableOptimizedMode"]));
+            }
+            set {
+                this["EnableOptimizedMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SkillbookDelayEnabled {
+            get {
+                return ((bool)(this["SkillbookDelayEnabled"]));
+            }
+            set {
+                this["SkillbookDelayEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowAverageScore {
+            get {
+                return ((bool)(this["ShowAverageScore"]));
+            }
+            set {
+                this["ShowAverageScore"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowOpposingTeam {
+            get {
+                return ((bool)(this["ShowOpposingTeam"]));
+            }
+            set {
+                this["ShowOpposingTeam"] = value;
+            }
+        }
     }
 }
