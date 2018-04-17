@@ -50,7 +50,12 @@
             this.GameDirectoryPathLabel = new System.Windows.Forms.Label();
             this.LauncherPathLabel = new System.Windows.Forms.Label();
             this.MainTabControl = new System.Windows.Forms.TabControl();
+            this.PatchSelectTabPage = new System.Windows.Forms.TabPage();
+            this.PatchTabPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SkillbookDelayUpDown = new System.Windows.Forms.NumericUpDown();
             this.DatEditorTabPage = new System.Windows.Forms.TabPage();
+            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.DatEditorButtonTable = new System.Windows.Forms.TableLayoutPanel();
             this.OpenDatFileButton = new System.Windows.Forms.Button();
             this.RecompileDatButton = new System.Windows.Forms.Button();
@@ -59,7 +64,6 @@
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.TextEditorComboBox = new System.Windows.Forms.ComboBox();
             this.TextEditorLabel = new System.Windows.Forms.Label();
-            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.DisableX3Checkbox = new System.Windows.Forms.CheckBox();
             this.GameDirectoryPathTextBox = new System.Windows.Forms.TextBox();
@@ -67,9 +71,17 @@
             this.LauncherPathTextBox = new System.Windows.Forms.TextBox();
             this.UseAllCoresCheckbox = new System.Windows.Forms.CheckBox();
             this.DisableTextureStreamingCheckbox = new System.Windows.Forms.CheckBox();
+            this.ShowOpposingTeamCheckbox = new System.Windows.Forms.CheckBox();
+            this.ShowAverageScoreCheckbox = new System.Windows.Forms.CheckBox();
+            this.EnableSkillbookDelayCheckbox = new System.Windows.Forms.CheckBox();
+            this.EnableOptimizedModeCheckbox = new System.Windows.Forms.CheckBox();
+            this.ShowDPSMeterCheckbox = new System.Windows.Forms.CheckBox();
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
+            this.PatchSelectTabPage.SuspendLayout();
+            this.PatchTabPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SkillbookDelayUpDown)).BeginInit();
             this.DatEditorTabPage.SuspendLayout();
             this.DatEditorButtonTable.SuspendLayout();
             this.SettingsTabPage.SuspendLayout();
@@ -165,6 +177,7 @@
             // MainTabControl
             // 
             this.MainTabControl.Controls.Add(this.GameTabPage);
+            this.MainTabControl.Controls.Add(this.PatchSelectTabPage);
             this.MainTabControl.Controls.Add(this.DatEditorTabPage);
             this.MainTabControl.Controls.Add(this.SettingsTabPage);
             this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -174,6 +187,59 @@
             this.MainTabControl.SelectedIndex = 0;
             this.MainTabControl.Size = new System.Drawing.Size(873, 534);
             this.MainTabControl.TabIndex = 7;
+            // 
+            // PatchSelectTabPage
+            // 
+            this.PatchSelectTabPage.Controls.Add(this.PatchTabPanel);
+            this.PatchSelectTabPage.Location = new System.Drawing.Point(10, 48);
+            this.PatchSelectTabPage.Name = "PatchSelectTabPage";
+            this.PatchSelectTabPage.Size = new System.Drawing.Size(853, 476);
+            this.PatchSelectTabPage.TabIndex = 3;
+            this.PatchSelectTabPage.Text = "Patches";
+            this.PatchSelectTabPage.UseVisualStyleBackColor = true;
+            // 
+            // PatchTabPanel
+            // 
+            this.PatchTabPanel.Controls.Add(this.label1);
+            this.PatchTabPanel.Controls.Add(this.ShowOpposingTeamCheckbox);
+            this.PatchTabPanel.Controls.Add(this.ShowAverageScoreCheckbox);
+            this.PatchTabPanel.Controls.Add(this.SkillbookDelayUpDown);
+            this.PatchTabPanel.Controls.Add(this.EnableSkillbookDelayCheckbox);
+            this.PatchTabPanel.Controls.Add(this.EnableOptimizedModeCheckbox);
+            this.PatchTabPanel.Controls.Add(this.ShowDPSMeterCheckbox);
+            this.PatchTabPanel.Location = new System.Drawing.Point(4, 4);
+            this.PatchTabPanel.Name = "PatchTabPanel";
+            this.PatchTabPanel.Size = new System.Drawing.Size(846, 469);
+            this.PatchTabPanel.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(693, 32);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "These XML patches will be applied automagically.";
+            // 
+            // SkillbookDelayUpDown
+            // 
+            this.SkillbookDelayUpDown.DecimalPlaces = 2;
+            this.SkillbookDelayUpDown.Enabled = false;
+            this.SkillbookDelayUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.SkillbookDelayUpDown.Location = new System.Drawing.Point(455, 143);
+            this.SkillbookDelayUpDown.Name = "SkillbookDelayUpDown";
+            this.SkillbookDelayUpDown.Size = new System.Drawing.Size(120, 38);
+            this.SkillbookDelayUpDown.TabIndex = 3;
+            this.SkillbookDelayUpDown.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            65536});
             // 
             // DatEditorTabPage
             // 
@@ -186,6 +252,39 @@
             this.DatEditorTabPage.TabIndex = 1;
             this.DatEditorTabPage.Text = "DAT Editor";
             this.DatEditorTabPage.UseVisualStyleBackColor = true;
+            // 
+            // FileDataTreeView
+            // 
+            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileDataTreeView.HideSelection = false;
+            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
+            this.FileDataTreeView.Name = "FileDataTreeView";
+            treeNode1.Name = "Node4";
+            treeNode1.Text = "Decompiling...";
+            treeNode2.Name = "Node0";
+            treeNode2.Text = "config.dat";
+            treeNode3.Name = "Node5";
+            treeNode3.Text = "Decompiling...";
+            treeNode4.Name = "Node1";
+            treeNode4.Text = "config64.dat";
+            treeNode5.Name = "Node6";
+            treeNode5.Text = "Decompiling...";
+            treeNode6.Name = "Node2";
+            treeNode6.Text = "xml.dat";
+            treeNode7.Name = "Node7";
+            treeNode7.Text = "Decompiling...";
+            treeNode8.Name = "Node3";
+            treeNode8.Text = "xml64.dat";
+            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode6,
+            treeNode8});
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 464);
+            this.FileDataTreeView.TabIndex = 2;
+            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
             // DatEditorButtonTable
             // 
@@ -287,39 +386,6 @@
             this.TextEditorLabel.TabIndex = 24;
             this.TextEditorLabel.Text = "Text editor:";
             // 
-            // FileDataTreeView
-            // 
-            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FileDataTreeView.HideSelection = false;
-            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
-            this.FileDataTreeView.Name = "FileDataTreeView";
-            treeNode1.Name = "Node4";
-            treeNode1.Text = "Decompiling...";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "config.dat";
-            treeNode3.Name = "Node5";
-            treeNode3.Text = "Decompiling...";
-            treeNode4.Name = "Node1";
-            treeNode4.Text = "config64.dat";
-            treeNode5.Name = "Node6";
-            treeNode5.Text = "Decompiling...";
-            treeNode6.Name = "Node2";
-            treeNode6.Text = "xml.dat";
-            treeNode7.Name = "Node7";
-            treeNode7.Text = "Decompiling...";
-            treeNode8.Name = "Node3";
-            treeNode8.Text = "xml64.dat";
-            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode6,
-            treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 464);
-            this.FileDataTreeView.TabIndex = 2;
-            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
-            // 
             // bNSBoostFormBindingSource
             // 
             this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
@@ -401,6 +467,67 @@
             this.DisableTextureStreamingCheckbox.Text = "Disable texture streaming";
             this.DisableTextureStreamingCheckbox.UseVisualStyleBackColor = true;
             // 
+            // ShowOpposingTeamCheckbox
+            // 
+            this.ShowOpposingTeamCheckbox.AutoSize = true;
+            this.ShowOpposingTeamCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.ShowOpposingTeam;
+            this.ShowOpposingTeamCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "ShowOpposingTeam", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ShowOpposingTeamCheckbox.Location = new System.Drawing.Point(9, 229);
+            this.ShowOpposingTeamCheckbox.Name = "ShowOpposingTeamCheckbox";
+            this.ShowOpposingTeamCheckbox.Size = new System.Drawing.Size(428, 36);
+            this.ShowOpposingTeamCheckbox.TabIndex = 5;
+            this.ShowOpposingTeamCheckbox.Text = "Show opposing team in arena";
+            this.ShowOpposingTeamCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // ShowAverageScoreCheckbox
+            // 
+            this.ShowAverageScoreCheckbox.AutoSize = true;
+            this.ShowAverageScoreCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.ShowAverageScore;
+            this.ShowAverageScoreCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "ShowAverageScore", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ShowAverageScoreCheckbox.Location = new System.Drawing.Point(10, 186);
+            this.ShowAverageScoreCheckbox.Name = "ShowAverageScoreCheckbox";
+            this.ShowAverageScoreCheckbox.Size = new System.Drawing.Size(463, 36);
+            this.ShowAverageScoreCheckbox.TabIndex = 4;
+            this.ShowAverageScoreCheckbox.Text = "Show average team score in 6v6";
+            this.ShowAverageScoreCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // EnableSkillbookDelayCheckbox
+            // 
+            this.EnableSkillbookDelayCheckbox.AutoSize = true;
+            this.EnableSkillbookDelayCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.SkillbookDelayEnabled;
+            this.EnableSkillbookDelayCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "SkillbookDelayEnabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.EnableSkillbookDelayCheckbox.Location = new System.Drawing.Point(10, 143);
+            this.EnableSkillbookDelayCheckbox.Name = "EnableSkillbookDelayCheckbox";
+            this.EnableSkillbookDelayCheckbox.Size = new System.Drawing.Size(438, 36);
+            this.EnableSkillbookDelayCheckbox.TabIndex = 2;
+            this.EnableSkillbookDelayCheckbox.Text = "Custom skillbook switch delay:";
+            this.EnableSkillbookDelayCheckbox.UseVisualStyleBackColor = true;
+            this.EnableSkillbookDelayCheckbox.CheckStateChanged += new System.EventHandler(this.EnableSkillbookDelayCheckbox_CheckStateChanged);
+            // 
+            // EnableOptimizedModeCheckbox
+            // 
+            this.EnableOptimizedModeCheckbox.AutoSize = true;
+            this.EnableOptimizedModeCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.EnableOptimizedMode;
+            this.EnableOptimizedModeCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "EnableOptimizedMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.EnableOptimizedModeCheckbox.Location = new System.Drawing.Point(10, 100);
+            this.EnableOptimizedModeCheckbox.Name = "EnableOptimizedModeCheckbox";
+            this.EnableOptimizedModeCheckbox.Size = new System.Drawing.Size(602, 36);
+            this.EnableOptimizedModeCheckbox.TabIndex = 1;
+            this.EnableOptimizedModeCheckbox.Text = "Enable optimized mode in graphics settings";
+            this.EnableOptimizedModeCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // ShowDPSMeterCheckbox
+            // 
+            this.ShowDPSMeterCheckbox.AutoSize = true;
+            this.ShowDPSMeterCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.ShowDPSMeter;
+            this.ShowDPSMeterCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "ShowDPSMeter", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ShowDPSMeterCheckbox.Location = new System.Drawing.Point(10, 57);
+            this.ShowDPSMeterCheckbox.Name = "ShowDPSMeterCheckbox";
+            this.ShowDPSMeterCheckbox.Size = new System.Drawing.Size(268, 36);
+            this.ShowDPSMeterCheckbox.TabIndex = 0;
+            this.ShowDPSMeterCheckbox.Text = "Show DPS meter";
+            this.ShowDPSMeterCheckbox.UseVisualStyleBackColor = true;
+            // 
             // BNSBoostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
@@ -420,6 +547,10 @@
             this.GameTabPanel.ResumeLayout(false);
             this.GameTabPanel.PerformLayout();
             this.MainTabControl.ResumeLayout(false);
+            this.PatchSelectTabPage.ResumeLayout(false);
+            this.PatchTabPanel.ResumeLayout(false);
+            this.PatchTabPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SkillbookDelayUpDown)).EndInit();
             this.DatEditorTabPage.ResumeLayout(false);
             this.DatEditorButtonTable.ResumeLayout(false);
             this.SettingsTabPage.ResumeLayout(false);
@@ -456,6 +587,15 @@
         private System.Windows.Forms.Label TextEditorLabel;
         private System.Windows.Forms.CheckBox UpdateCheckBox;
         private System.Windows.Forms.CheckBox DisableX3Checkbox;
+        private System.Windows.Forms.TabPage PatchSelectTabPage;
+        private System.Windows.Forms.Panel PatchTabPanel;
+        private System.Windows.Forms.CheckBox ShowOpposingTeamCheckbox;
+        private System.Windows.Forms.CheckBox ShowAverageScoreCheckbox;
+        private System.Windows.Forms.NumericUpDown SkillbookDelayUpDown;
+        private System.Windows.Forms.CheckBox EnableSkillbookDelayCheckbox;
+        private System.Windows.Forms.CheckBox EnableOptimizedModeCheckbox;
+        private System.Windows.Forms.CheckBox ShowDPSMeterCheckbox;
+        private System.Windows.Forms.Label label1;
     }
 }
 
