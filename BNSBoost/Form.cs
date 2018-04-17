@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,15 +25,18 @@ namespace BNSBoost
             );
         }
 
+        private double? Ping;
+
         public BNSBoostForm()
         {
             InitializeComponent();
             // Form autogeneration doesn't handle this properly for some reason
             RegionComboBox.SelectedItem = Properties.Settings.Default.Region;
             TextEditorComboBox.SelectedItem = Properties.Settings.Default.TextEditor;
+            SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
         }
 
-        private void Form_Load(object sender, EventArgs e)
+        private void InitializeGamePaths()
         {
             string defaultLauncherPath = LauncherPathTextBox.Text;
 
@@ -77,6 +81,63 @@ namespace BNSBoost
                 }
             };
             reg.Dispose();
+        }
+
+        private void InitializePingThread()
+        {
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer { Interval = 1000 };
+            timer.Tick += (sender, e) =>
+            {
+                PingLabel.Text = "Game delay: " + (Ping != null ? Ping?.ToString("0.00") + "ms" : "N/A");
+            };
+            timer.Start();
+
+            new Thread(() =>
+            {
+                while (Visible)
+                {
+                    // This is only NA IP, but that's all we support right now
+                    // > netstat - atn | grep 10100
+                    //   TCP    192.168.20.103:64029   64.25.37.235:10100     ESTABLISHED InHost
+                    string ip = "64.25.37.235";
+
+                    var time = new Stopwatch();
+                    time.Start();
+                    var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                    {
+                        Blocking = true
+                    };
+
+                    bool failed = false;
+
+                    try
+                    {
+                        socket.Connect(ip, 10100);
+                    }
+                    catch (SocketException ex)
+                    {
+                        Debug.WriteLine(ex);
+                        failed = true;
+                    }
+
+                    // Ping calculation is totally arbitrary based on TCP connection time,
+                    // scaled to sort of match up the delay visible in the in-game overlay
+                    if (failed) Ping = null;
+                    else Ping = time.Elapsed.TotalMilliseconds * 3 * 2; // Round trip
+
+                    socket.Close();
+
+                    Debug.WriteLine("Ping: " + Ping);
+
+                    Thread.Sleep(2000);
+                }
+            }).Start();
+        }
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+            InitializeGamePaths();
+            InitializePingThread();
         }
 
         private void ToggleX3(bool shouldPatch)
