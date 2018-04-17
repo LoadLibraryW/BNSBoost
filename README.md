@@ -6,6 +6,18 @@ BNSBoost bypasses NCSoft's file verification, so you can run a patched game stra
 
 ![](https://cloud.githubusercontent.com/assets/1403503/25560753/7538c358-2d2a-11e7-8ae2-b9eae9a9dd26.png)
 
+It features options for:
+
+* Using all cores
+* Disabling texture streaming
+* Disabling loading screens
+* Disabling XIGNCODE3<sup>*</sup>
+* Arbitrary game XML edits
+
+<sup><b>*</b></sup> If you are not disabling XIGNCODE3,  BNSBoost never touches the game client (`Client.exe`), only its launcher. If you are, it replaces the game's
+`x3.xem` from [this Reddit thread](https://www.reddit.com/r/bladeandsoul/comments/6vj9ih/does_xigncode_bypass_work_now_after_the_update/dm2nx02/). **Only use this option
+if you trust the source of the binary.** A future update will have the bypass being built alongside BNSBoost, so there are no magic binaries floating around.
+
 ## Installation
 
 [Grab a release](https://github.com/Xyene/BNSBoost/releases), and unzip! If you like living life on the edge, you can also pick up the latest build [from AppVeyor](https://ci.appveyor.com/project/Xyene/bnsboost).
@@ -46,8 +58,6 @@ The code itself is pretty short and fairly easy to follow, but in general:
   * `LoadLibrary` hook applies the `CreateFile` hook to any libraries loaded later
 
 The injection procedure itself is mostly sourced from the [DMOJ's](https://dmoj.ca/) Windows sandbox, which is [also open source](https://github.com/DMOJ/judge).
-
-BNSBoost never touches the game client (`Client.exe`), only its launcher.
 
 ## Reporting an issue
 
