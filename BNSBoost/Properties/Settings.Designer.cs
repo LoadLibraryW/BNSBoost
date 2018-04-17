@@ -97,18 +97,6 @@ namespace BNSBoost.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("System preferred")]
-        public string TextEditor {
-            get {
-                return ((string)(this["TextEditor"]));
-            }
-            set {
-                this["TextEditor"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool DisableX3 {
             get {
