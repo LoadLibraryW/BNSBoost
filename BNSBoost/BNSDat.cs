@@ -234,7 +234,13 @@ namespace BNSBoost
                     BXML bns_xml = new BXML(XOR_KEY);
                     Convert(temp2, bns_xml.DetectType(temp2), temp, BXML_TYPE.BXML_PLAIN);
                     temp2.Close();
-                    File.WriteAllBytes(file_path, temp.ToArray());
+
+                    WinFileIO writer = new WinFileIO(temp.ToArray());
+                    writer.OpenForWriting(file_path);
+                    writer.WriteBlocks((int)temp.Length);
+                    writer.Close();
+
+                    //File.WriteAllBytes(file_path, temp.ToArray());
                     temp.Close();
                     buffer_unpacked = null;
                 }
@@ -296,7 +302,7 @@ namespace BNSBoost
                 FileTableEntry.Unknown_002 = 0;
                 mosTable.Write(FileTableEntry.Unknown_002);
 
-                FileStream fis = new FileStream(files[i], FileMode.Open);
+                FileStream fis = new FileStream(files[i], FileMode.Open, FileAccess.ReadWrite, FileShare.Read, 2 << 15);
                 MemoryStream tmp = new MemoryStream();
 
                 if (file_path.EndsWith(".xml") || file_path.EndsWith(".x16"))
@@ -415,7 +421,14 @@ namespace BNSBoost
             mosFilesms = null;
             bw.Write(buffer_packed);
             buffer_packed = null;
-            File.WriteAllBytes(Folder.Replace(".files", ""), output.ToArray());
+
+            WinFileIO writer = new WinFileIO(output.ToArray());
+            writer.OpenForWriting(Folder.Replace(".files", ""));
+            writer.WriteBlocks((int)output.Length);
+            writer.Close();
+
+            //File.WriteAllBytes(Folder.Replace(".files", ""), output.ToArray());
+
             bw.Close();
             output.Close();
             bw = null;
@@ -519,7 +532,7 @@ namespace BNSBoost
             {
                 Nodes.Save(oStream);
             }
-            if (oType == BXML_TYPE.BXML_BINARY)
+            else if (oType == BXML_TYPE.BXML_BINARY)
             {
                 BinaryWriter bw = new BinaryWriter(oStream);
                 bw.Write(Signature);
@@ -551,12 +564,13 @@ namespace BNSBoost
                 Type = br.ReadInt32();
             }
 
+            dynamic[] attributes = null;
 
             if (Type == 1)
             {
-                node = Nodes.CreateElement("Text");
-
                 int ParameterCount = br.ReadInt32();
+                attributes = new dynamic[ParameterCount];
+
                 for (int i = 0; i < ParameterCount; i++)
                 {
                     int NameLength = br.ReadInt32();
@@ -567,7 +581,11 @@ namespace BNSBoost
                     byte[] Value = br.ReadBytes(2 * ValueLength);
                     Xor(Value, 2 * ValueLength);
 
-                    ((XmlElement)node).SetAttribute(Encoding.Unicode.GetString(Name), Encoding.Unicode.GetString(Value));
+                    attributes[i] = new
+                    {
+                        name = Encoding.Unicode.GetString(Name),
+                        value = Encoding.Unicode.GetString(Value)
+                    };
                 }
             }
 
@@ -591,9 +609,15 @@ namespace BNSBoost
             int TagLength = br.ReadInt32();
             byte[] Tag = br.ReadBytes(2 * TagLength);
             Xor(Tag, 2 * TagLength);
+
             if (Type == 1)
             {
-                node = RenameNode(node, Encoding.Unicode.GetString(Tag));
+
+                node = Nodes.CreateElement(Encoding.Unicode.GetString(Tag));
+                foreach (dynamic attr in attributes)
+                {
+                    ((XmlElement)node).SetAttribute(attr.name, attr.value);
+                }
             }
 
             int ChildCount = br.ReadInt32();
@@ -616,35 +640,6 @@ namespace BNSBoost
             {
                 Nodes.AppendChild(node);
             }
-        }
-
-        public static XmlNode RenameNode(XmlNode node, string Name)
-        {
-            if (node.NodeType == XmlNodeType.Element)
-            {
-                XmlElement oldElement = (XmlElement)node;
-                XmlElement newElement =
-                node.OwnerDocument.CreateElement(Name);
-
-                while (oldElement.HasAttributes)
-                {
-                    newElement.SetAttributeNode(oldElement.RemoveAttributeNode(oldElement.Attributes[0]));
-                }
-
-                while (oldElement.HasChildNodes)
-                {
-                    newElement.AppendChild(oldElement.FirstChild);
-                }
-
-                if (oldElement.ParentNode != null)
-                {
-                    oldElement.ParentNode.ReplaceChild(newElement, oldElement);
-                }
-
-                return newElement;
-            }
-            else
-                return node;
         }
 
         private bool WriteNode(Stream oStream, XmlNode parent = null)
