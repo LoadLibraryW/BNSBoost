@@ -244,7 +244,7 @@ namespace BNSBoost
                     File.WriteAllBytes(file_path, buffer_unpacked);
                     buffer_unpacked = null;
                 }
-                processedEvent(i, FileCount);
+                processedEvent(i + 1, FileCount);
             }
 
 
@@ -258,7 +258,7 @@ namespace BNSBoost
             fs = null;
         }
 
-        public void Compress(string Folder, bool is64 = false, int compression = 9)
+        public void Compress(string Folder, Action<int, int> progress, bool is64 = false, int compression = 9)
         {
             string file_path;
             byte[] buffer_packed;
@@ -276,6 +276,7 @@ namespace BNSBoost
 
             for (int i = 0; i < FileCount; i++)
             {
+                progress(i + 1, FileCount);
                 file_path = files[i].Replace(Folder, "").TrimStart('\\');
                 FileTableEntry.FilePathLength = file_path.Length;
 

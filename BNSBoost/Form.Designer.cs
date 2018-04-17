@@ -74,6 +74,7 @@
             this.EnableOptimizedModeCheckbox = new System.Windows.Forms.CheckBox();
             this.ShowDPSMeterCheckbox = new System.Windows.Forms.CheckBox();
             this.DatEditorTabPage = new System.Windows.Forms.TabPage();
+            this.DATProgressBar = new System.Windows.Forms.ProgressBar();
             this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.DatEditorButtonTable = new System.Windows.Forms.TableLayoutPanel();
             this.OpenDatFileButton = new System.Windows.Forms.Button();
@@ -483,6 +484,7 @@
             // 
             // DatEditorTabPage
             // 
+            this.DatEditorTabPage.Controls.Add(this.DATProgressBar);
             this.DatEditorTabPage.Controls.Add(this.FileDataTreeView);
             this.DatEditorTabPage.Controls.Add(this.DatEditorButtonTable);
             this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
@@ -492,6 +494,13 @@
             this.DatEditorTabPage.TabIndex = 1;
             this.DatEditorTabPage.Text = "DAT Editor";
             this.DatEditorTabPage.UseVisualStyleBackColor = true;
+            // 
+            // DATProgressBar
+            // 
+            this.DATProgressBar.Location = new System.Drawing.Point(7, 407);
+            this.DATProgressBar.Name = "DATProgressBar";
+            this.DATProgressBar.Size = new System.Drawing.Size(600, 59);
+            this.DATProgressBar.TabIndex = 3;
             // 
             // FileDataTreeView
             // 
@@ -503,26 +512,26 @@
             this.FileDataTreeView.Name = "FileDataTreeView";
             treeNode1.Name = "Node4";
             treeNode1.Text = "Decompiling...";
-            treeNode2.Name = "Node0";
+            treeNode2.Name = "config.dat";
             treeNode2.Text = "config.dat";
             treeNode3.Name = "Node5";
             treeNode3.Text = "Decompiling...";
-            treeNode4.Name = "Node1";
+            treeNode4.Name = "config64.dat";
             treeNode4.Text = "config64.dat";
             treeNode5.Name = "Node6";
             treeNode5.Text = "Decompiling...";
-            treeNode6.Name = "Node2";
+            treeNode6.Name = "xml.dat";
             treeNode6.Text = "xml.dat";
             treeNode7.Name = "Node7";
             treeNode7.Text = "Decompiling...";
-            treeNode8.Name = "Node3";
+            treeNode8.Name = "xml64.dat";
             treeNode8.Text = "xml64.dat";
             this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode4,
             treeNode6,
             treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 464);
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 395);
             this.FileDataTreeView.TabIndex = 2;
             this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
@@ -679,6 +688,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox DisableAFKDisconnectCheckbox;
+        private System.Windows.Forms.ProgressBar DATProgressBar;
     }
 }
 
