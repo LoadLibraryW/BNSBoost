@@ -166,5 +166,17 @@ namespace BNSBoost.Properties {
                 this["ShowOpposingTeam"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableAFKDisconnect {
+            get {
+                return ((bool)(this["DisableAFKDisconnect"]));
+            }
+            set {
+                this["DisableAFKDisconnect"] = value;
+            }
+        }
     }
 }
