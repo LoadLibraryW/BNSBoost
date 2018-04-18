@@ -12,6 +12,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using BNSBoost.BNSDat;
+
 namespace BNSBoost
 {
 
@@ -285,7 +287,7 @@ namespace BNSBoost
                 var worker = new BackgroundWorker();
                 worker.DoWork += (_, arg) =>
                 {
-                    new BNSDat().Extract(datFile, (number, of) => worker.ReportProgress(0, new DATState
+                    BNSDat.BNSDat.Extract(datFile, (number, of) => worker.ReportProgress(0, new DATState
                     {
                         node = dat,
                         number = number,
@@ -372,12 +374,11 @@ namespace BNSBoost
                         File.Copy(patchedFile, backupFile);
                     }
 
-                    new BNSDat().Compress(decompFile, (number, of) => worker.ReportProgress(0, new DATState
+                    BNSDat.BNSDat.Compress(decompFile, (number, of) => worker.ReportProgress(0, new DATState
                     {
                         node = dat,
                         number = number,
-                        of = of,
-                        recompressing = true
+                        of = of
                     }), datName.Contains("64"));
                 };
 
@@ -438,7 +439,6 @@ namespace BNSBoost
         {
             public TreeNode node;
             public int number, of;
-            public bool recompressing;
         }
 
         private void Editor_ProgressChanged(object sender, ProgressChangedEventArgs e)
