@@ -90,13 +90,23 @@ namespace BNSBoost
 
             try
             {
-                bool is64 = GetLauncherIni().Read("Game_64bitEnable", "Settings") == "1";
+                IniFile ini = GetLauncherIni();
+
+                bool is64 = ini.Read("Game_64bitEnable", "Settings") == "1";
                 Bit64RadioButton.Checked = is64;
                 Bit32RadioButton.Checked = !is64;
+
+                string region = ini.Read("Game_Region", "Game_Language_BnS");
+                string code;
+                if (region == "North America") code = "NA";
+                else if (region == "Europe") code = "EU";
+                else code = "???";
+
+                RegionComboBox.SelectedItem = code;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to determine client bitness: " + ex.Message);
+                MessageBox.Show("Failed to determine client settings: " + ex.Message);
             }
         }
 
@@ -164,6 +174,17 @@ namespace BNSBoost
         private void ToggleBitness(bool is64)
         {
             GetLauncherIni().Write("Game_64bitEnable", is64 ? "1" : "0", "Settings");
+        }
+
+        private void ToggleRegion(string code)
+        {
+            string region = null;
+            if (code == "NA") region = "North America";
+            else if (code == "EU") region = "Europe";
+
+            if (region != null) GetLauncherIni().Write("Game_Region", region, "Game_Language_BnS");
+
+            RegionComboBox.SelectedItem = code;
         }
 
         private void ToggleX3(bool shouldPatch)
@@ -248,6 +269,7 @@ namespace BNSBoost
 
             ToggleX3(Properties.Settings.Default.DisableX3);
             ToggleBitness(Properties.Settings.Default.Is64Bit);
+            ToggleRegion(Properties.Settings.Default.Region);
 
             string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
             foreach (string decompFile in Directory.GetDirectories(baseDatDir))
@@ -400,7 +422,7 @@ namespace BNSBoost
 
                     BNSDat.BNSDat.Compress(decompFile, (number, of) =>
                     {
-                        Debug.WriteLine("????" + number + 
+                        Debug.WriteLine("????" + number +
                            " ... " + of);
                         worker.ReportProgress(0, new DATState
                         {

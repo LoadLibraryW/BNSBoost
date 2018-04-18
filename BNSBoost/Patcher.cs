@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -11,6 +13,17 @@ namespace BNSBoost
 {
     class Patcher
     {
+        public static string GetSHA1Hash(string filePath)
+        {
+            using (var sha1 = new SHA1CryptoServiceProvider())
+            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                return Convert.ToBase64String(sha1.ComputeHash(fs)).TrimEnd('=');
+            }
+        }
+
+
+
         public static bool ApplyOption(XmlDocument document, string opt, object value)
         {
             XmlElement node = (XmlElement)document.SelectSingleNode($"//option[@name = '{opt}']");

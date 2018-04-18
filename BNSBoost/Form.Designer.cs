@@ -45,6 +45,9 @@
             this.LaunchButton = new System.Windows.Forms.Button();
             this.GameTabPage = new System.Windows.Forms.TabPage();
             this.GameTabPanel = new System.Windows.Forms.Panel();
+            this.BitnessLabel = new System.Windows.Forms.Label();
+            this.Bit64RadioButton = new System.Windows.Forms.RadioButton();
+            this.Bit32RadioButton = new System.Windows.Forms.RadioButton();
             this.PingLabel = new System.Windows.Forms.Label();
             this.DisableX3Checkbox = new System.Windows.Forms.CheckBox();
             this.RegionComboBox = new System.Windows.Forms.ComboBox();
@@ -75,17 +78,14 @@
             this.ShowDPSMeterCheckbox = new System.Windows.Forms.CheckBox();
             this.DatEditorTabPage = new System.Windows.Forms.TabPage();
             this.DATProgressBar = new System.Windows.Forms.ProgressBar();
-            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.DatEditorButtonTable = new System.Windows.Forms.TableLayoutPanel();
             this.OpenDatFileButton = new System.Windows.Forms.Button();
             this.RecompileDatButton = new System.Windows.Forms.Button();
             this.RestoreDatButton = new System.Windows.Forms.Button();
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
+            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Bit32RadioButton = new System.Windows.Forms.RadioButton();
-            this.Bit64RadioButton = new System.Windows.Forms.RadioButton();
-            this.BitnessLabel = new System.Windows.Forms.Label();
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
@@ -147,6 +147,38 @@
             this.GameTabPanel.Size = new System.Drawing.Size(847, 507);
             this.GameTabPanel.TabIndex = 7;
             // 
+            // BitnessLabel
+            // 
+            this.BitnessLabel.AutoSize = true;
+            this.BitnessLabel.Location = new System.Drawing.Point(7, 381);
+            this.BitnessLabel.Name = "BitnessLabel";
+            this.BitnessLabel.Size = new System.Drawing.Size(195, 32);
+            this.BitnessLabel.TabIndex = 28;
+            this.BitnessLabel.Text = "Client bitness:";
+            // 
+            // Bit64RadioButton
+            // 
+            this.Bit64RadioButton.AutoSize = true;
+            this.Bit64RadioButton.Checked = global::BNSBoost.Properties.Settings.Default.Is64Bit;
+            this.Bit64RadioButton.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "Is64Bit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Bit64RadioButton.Location = new System.Drawing.Point(332, 379);
+            this.Bit64RadioButton.Name = "Bit64RadioButton";
+            this.Bit64RadioButton.Size = new System.Drawing.Size(122, 36);
+            this.Bit64RadioButton.TabIndex = 27;
+            this.Bit64RadioButton.TabStop = true;
+            this.Bit64RadioButton.Text = "64 bit";
+            this.Bit64RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // Bit32RadioButton
+            // 
+            this.Bit32RadioButton.AutoSize = true;
+            this.Bit32RadioButton.Location = new System.Drawing.Point(204, 379);
+            this.Bit32RadioButton.Name = "Bit32RadioButton";
+            this.Bit32RadioButton.Size = new System.Drawing.Size(122, 36);
+            this.Bit32RadioButton.TabIndex = 26;
+            this.Bit32RadioButton.Text = "32 bit";
+            this.Bit32RadioButton.UseVisualStyleBackColor = true;
+            // 
             // PingLabel
             // 
             this.PingLabel.AutoSize = true;
@@ -175,7 +207,8 @@
             this.RegionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RegionComboBox.FormattingEnabled = true;
             this.RegionComboBox.Items.AddRange(new object[] {
-            "NA"});
+            "NA",
+            "EU"});
             this.RegionComboBox.Location = new System.Drawing.Point(128, 440);
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(133, 39);
@@ -491,8 +524,8 @@
             // DatEditorTabPage
             // 
             this.DatEditorTabPage.Controls.Add(this.DATProgressBar);
-            this.DatEditorTabPage.Controls.Add(this.FileDataTreeView);
             this.DatEditorTabPage.Controls.Add(this.DatEditorButtonTable);
+            this.DatEditorTabPage.Controls.Add(this.FileDataTreeView);
             this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
             this.DatEditorTabPage.Name = "DatEditorTabPage";
             this.DatEditorTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -507,39 +540,6 @@
             this.DATProgressBar.Name = "DATProgressBar";
             this.DATProgressBar.Size = new System.Drawing.Size(600, 59);
             this.DATProgressBar.TabIndex = 3;
-            // 
-            // FileDataTreeView
-            // 
-            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FileDataTreeView.HideSelection = false;
-            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
-            this.FileDataTreeView.Name = "FileDataTreeView";
-            treeNode1.Name = "Node4";
-            treeNode1.Text = "Decompiling...";
-            treeNode2.Name = "config.dat";
-            treeNode2.Text = "config.dat";
-            treeNode3.Name = "Node5";
-            treeNode3.Text = "Decompiling...";
-            treeNode4.Name = "config64.dat";
-            treeNode4.Text = "config64.dat";
-            treeNode5.Name = "Node6";
-            treeNode5.Text = "Decompiling...";
-            treeNode6.Name = "xml.dat";
-            treeNode6.Text = "xml.dat";
-            treeNode7.Name = "Node7";
-            treeNode7.Text = "Decompiling...";
-            treeNode8.Name = "xml64.dat";
-            treeNode8.Text = "xml64.dat";
-            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode4,
-            treeNode6,
-            treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 430);
-            this.FileDataTreeView.TabIndex = 2;
-            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
             // DatEditorButtonTable
             // 
@@ -615,41 +615,42 @@
             this.UpdateCheckBox.Text = "Check for updates";
             this.UpdateCheckBox.UseVisualStyleBackColor = true;
             // 
+            // FileDataTreeView
+            // 
+            this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileDataTreeView.HideSelection = false;
+            this.FileDataTreeView.Location = new System.Drawing.Point(6, 6);
+            this.FileDataTreeView.Name = "FileDataTreeView";
+            treeNode1.Name = "Node4";
+            treeNode1.Text = "Decompiling...";
+            treeNode2.Name = "config.dat";
+            treeNode2.Text = "config.dat";
+            treeNode3.Name = "Node5";
+            treeNode3.Text = "Decompiling...";
+            treeNode4.Name = "config64.dat";
+            treeNode4.Text = "config64.dat";
+            treeNode5.Name = "Node6";
+            treeNode5.Text = "Decompiling...";
+            treeNode6.Name = "xml.dat";
+            treeNode6.Text = "xml.dat";
+            treeNode7.Name = "Node7";
+            treeNode7.Text = "Decompiling...";
+            treeNode8.Name = "xml64.dat";
+            treeNode8.Text = "xml64.dat";
+            this.FileDataTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2,
+            treeNode4,
+            treeNode6,
+            treeNode8});
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 430);
+            this.FileDataTreeView.TabIndex = 2;
+            this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
+            // 
             // bNSBoostFormBindingSource
             // 
             this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
-            // 
-            // Bit32RadioButton
-            // 
-            this.Bit32RadioButton.AutoSize = true;
-            this.Bit32RadioButton.Location = new System.Drawing.Point(204, 379);
-            this.Bit32RadioButton.Name = "Bit32RadioButton";
-            this.Bit32RadioButton.Size = new System.Drawing.Size(122, 36);
-            this.Bit32RadioButton.TabIndex = 26;
-            this.Bit32RadioButton.Text = "32 bit";
-            this.Bit32RadioButton.UseVisualStyleBackColor = true;
-            // 
-            // Bit64RadioButton
-            // 
-            this.Bit64RadioButton.AutoSize = true;
-            this.Bit64RadioButton.Checked = global::BNSBoost.Properties.Settings.Default.Is64Bit;
-            this.Bit64RadioButton.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "Is64Bit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Bit64RadioButton.Location = new System.Drawing.Point(332, 379);
-            this.Bit64RadioButton.Name = "Bit64RadioButton";
-            this.Bit64RadioButton.Size = new System.Drawing.Size(122, 36);
-            this.Bit64RadioButton.TabIndex = 27;
-            this.Bit64RadioButton.TabStop = true;
-            this.Bit64RadioButton.Text = "64 bit";
-            this.Bit64RadioButton.UseVisualStyleBackColor = true;
-            // 
-            // BitnessLabel
-            // 
-            this.BitnessLabel.AutoSize = true;
-            this.BitnessLabel.Location = new System.Drawing.Point(7, 381);
-            this.BitnessLabel.Name = "BitnessLabel";
-            this.BitnessLabel.Size = new System.Drawing.Size(195, 32);
-            this.BitnessLabel.TabIndex = 28;
-            this.BitnessLabel.Text = "Client bitness:";
             // 
             // BNSBoostForm
             // 
