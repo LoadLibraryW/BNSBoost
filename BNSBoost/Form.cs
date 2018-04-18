@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using BNSBoost.BNSDat;
+using BNSBoost.MyProg;
 
 namespace BNSBoost
 {
@@ -86,6 +87,23 @@ namespace BNSBoost
                 }
             };
             reg.Dispose();
+
+            try
+            {
+                bool is64 = GetLauncherIni().Read("Game_64bitEnable", "Settings") == "1";
+                Bit64RadioButton.Checked = is64;
+                Bit32RadioButton.Checked = !is64;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to determine client bitness: " + ex.Message);
+            }
+        }
+
+        private IniFile GetLauncherIni()
+        {
+            string launcherIni = Path.Combine(new FileInfo(LauncherPathTextBox.Text).DirectoryName, "NCLauncher.ini");
+            return new IniFile(launcherIni);
         }
 
         private void InitializePingThread()
@@ -141,6 +159,11 @@ namespace BNSBoost
         {
             InitializeGamePaths();
             InitializePingThread();
+        }
+
+        private void ToggleBitness(bool is64)
+        {
+            GetLauncherIni().Write("Game_64bitEnable", is64 ? "1" : "0", "Settings");
         }
 
         private void ToggleX3(bool shouldPatch)
@@ -224,6 +247,7 @@ namespace BNSBoost
             Properties.Settings.Default.Save();
 
             ToggleX3(Properties.Settings.Default.DisableX3);
+            ToggleBitness(Properties.Settings.Default.Is64Bit);
 
             string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
             foreach (string decompFile in Directory.GetDirectories(baseDatDir))
