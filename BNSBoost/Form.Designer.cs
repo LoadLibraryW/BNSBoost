@@ -83,6 +83,9 @@
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Bit32RadioButton = new System.Windows.Forms.RadioButton();
+            this.Bit64RadioButton = new System.Windows.Forms.RadioButton();
+            this.BitnessLabel = new System.Windows.Forms.Label();
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
@@ -99,7 +102,7 @@
             // LaunchButton
             // 
             this.LaunchButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LaunchButton.Location = new System.Drawing.Point(11, 544);
+            this.LaunchButton.Location = new System.Drawing.Point(11, 579);
             this.LaunchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(873, 69);
@@ -115,7 +118,7 @@
             this.GameTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPage.Name = "GameTabPage";
             this.GameTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.GameTabPage.Size = new System.Drawing.Size(853, 476);
+            this.GameTabPage.Size = new System.Drawing.Size(853, 511);
             this.GameTabPage.TabIndex = 0;
             this.GameTabPage.Text = "Game";
             this.GameTabPage.UseVisualStyleBackColor = true;
@@ -123,6 +126,9 @@
             // GameTabPanel
             // 
             this.GameTabPanel.BackColor = System.Drawing.Color.Transparent;
+            this.GameTabPanel.Controls.Add(this.BitnessLabel);
+            this.GameTabPanel.Controls.Add(this.Bit64RadioButton);
+            this.GameTabPanel.Controls.Add(this.Bit32RadioButton);
             this.GameTabPanel.Controls.Add(this.PingLabel);
             this.GameTabPanel.Controls.Add(this.DisableX3Checkbox);
             this.GameTabPanel.Controls.Add(this.RegionComboBox);
@@ -138,13 +144,13 @@
             this.GameTabPanel.Location = new System.Drawing.Point(3, 2);
             this.GameTabPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameTabPanel.Name = "GameTabPanel";
-            this.GameTabPanel.Size = new System.Drawing.Size(847, 472);
+            this.GameTabPanel.Size = new System.Drawing.Size(847, 507);
             this.GameTabPanel.TabIndex = 7;
             // 
             // PingLabel
             // 
             this.PingLabel.AutoSize = true;
-            this.PingLabel.Location = new System.Drawing.Point(264, 405);
+            this.PingLabel.Location = new System.Drawing.Point(271, 445);
             this.PingLabel.Name = "PingLabel";
             this.PingLabel.Size = new System.Drawing.Size(230, 32);
             this.PingLabel.TabIndex = 25;
@@ -170,7 +176,7 @@
             this.RegionComboBox.FormattingEnabled = true;
             this.RegionComboBox.Items.AddRange(new object[] {
             "NA"});
-            this.RegionComboBox.Location = new System.Drawing.Point(121, 400);
+            this.RegionComboBox.Location = new System.Drawing.Point(128, 440);
             this.RegionComboBox.Name = "RegionComboBox";
             this.RegionComboBox.Size = new System.Drawing.Size(133, 39);
             this.RegionComboBox.TabIndex = 23;
@@ -179,7 +185,7 @@
             // RegionLabel
             // 
             this.RegionLabel.AutoSize = true;
-            this.RegionLabel.Location = new System.Drawing.Point(1, 407);
+            this.RegionLabel.Location = new System.Drawing.Point(8, 447);
             this.RegionLabel.Name = "RegionLabel";
             this.RegionLabel.Size = new System.Drawing.Size(114, 32);
             this.RegionLabel.TabIndex = 22;
@@ -190,7 +196,7 @@
             this.GameDirectoryPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GameDirectoryPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "GameDirectoryPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.GameDirectoryPathTextBox.Location = new System.Drawing.Point(8, 317);
+            this.GameDirectoryPathTextBox.Location = new System.Drawing.Point(8, 311);
             this.GameDirectoryPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GameDirectoryPathTextBox.Name = "GameDirectoryPathTextBox";
             this.GameDirectoryPathTextBox.Size = new System.Drawing.Size(819, 38);
@@ -200,7 +206,7 @@
             // GameDirectoryPathLabel
             // 
             this.GameDirectoryPathLabel.AutoSize = true;
-            this.GameDirectoryPathLabel.Location = new System.Drawing.Point(0, 281);
+            this.GameDirectoryPathLabel.Location = new System.Drawing.Point(0, 275);
             this.GameDirectoryPathLabel.Name = "GameDirectoryPathLabel";
             this.GameDirectoryPathLabel.Size = new System.Drawing.Size(279, 32);
             this.GameDirectoryPathLabel.TabIndex = 20;
@@ -224,7 +230,7 @@
             this.LauncherPathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LauncherPathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::BNSBoost.Properties.Settings.Default, "NCLauncherRPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.LauncherPathTextBox.Location = new System.Drawing.Point(8, 217);
+            this.LauncherPathTextBox.Location = new System.Drawing.Point(8, 211);
             this.LauncherPathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LauncherPathTextBox.Name = "LauncherPathTextBox";
             this.LauncherPathTextBox.Size = new System.Drawing.Size(817, 38);
@@ -248,7 +254,7 @@
             // LauncherPathLabel
             // 
             this.LauncherPathLabel.AutoSize = true;
-            this.LauncherPathLabel.Location = new System.Drawing.Point(3, 183);
+            this.LauncherPathLabel.Location = new System.Drawing.Point(3, 177);
             this.LauncherPathLabel.Name = "LauncherPathLabel";
             this.LauncherPathLabel.Size = new System.Drawing.Size(205, 32);
             this.LauncherPathLabel.TabIndex = 18;
@@ -280,7 +286,7 @@
             this.MainTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(873, 534);
+            this.MainTabControl.Size = new System.Drawing.Size(873, 569);
             this.MainTabControl.TabIndex = 7;
             // 
             // PatchSelectTabPage
@@ -288,7 +294,7 @@
             this.PatchSelectTabPage.Controls.Add(this.PatchTabPanel);
             this.PatchSelectTabPage.Location = new System.Drawing.Point(10, 48);
             this.PatchSelectTabPage.Name = "PatchSelectTabPage";
-            this.PatchSelectTabPage.Size = new System.Drawing.Size(853, 476);
+            this.PatchSelectTabPage.Size = new System.Drawing.Size(853, 511);
             this.PatchSelectTabPage.TabIndex = 3;
             this.PatchSelectTabPage.Text = "Patches";
             this.PatchSelectTabPage.UseVisualStyleBackColor = true;
@@ -311,7 +317,7 @@
             this.PatchTabPanel.Controls.Add(this.ShowDPSMeterCheckbox);
             this.PatchTabPanel.Location = new System.Drawing.Point(4, 4);
             this.PatchTabPanel.Name = "PatchTabPanel";
-            this.PatchTabPanel.Size = new System.Drawing.Size(846, 469);
+            this.PatchTabPanel.Size = new System.Drawing.Size(846, 504);
             this.PatchTabPanel.TabIndex = 0;
             // 
             // DisableAFKDisconnectCheckbox
@@ -490,14 +496,14 @@
             this.DatEditorTabPage.Location = new System.Drawing.Point(10, 48);
             this.DatEditorTabPage.Name = "DatEditorTabPage";
             this.DatEditorTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 476);
+            this.DatEditorTabPage.Size = new System.Drawing.Size(853, 511);
             this.DatEditorTabPage.TabIndex = 1;
             this.DatEditorTabPage.Text = "DAT Editor";
             this.DatEditorTabPage.UseVisualStyleBackColor = true;
             // 
             // DATProgressBar
             // 
-            this.DATProgressBar.Location = new System.Drawing.Point(7, 407);
+            this.DATProgressBar.Location = new System.Drawing.Point(7, 442);
             this.DATProgressBar.Name = "DATProgressBar";
             this.DATProgressBar.Size = new System.Drawing.Size(600, 59);
             this.DATProgressBar.TabIndex = 3;
@@ -531,7 +537,7 @@
             treeNode4,
             treeNode6,
             treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 395);
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 430);
             this.FileDataTreeView.TabIndex = 2;
             this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
@@ -551,7 +557,7 @@
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 464);
+            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 499);
             this.DatEditorButtonTable.TabIndex = 1;
             // 
             // OpenDatFileButton
@@ -559,7 +565,7 @@
             this.OpenDatFileButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OpenDatFileButton.Location = new System.Drawing.Point(3, 3);
             this.OpenDatFileButton.Name = "OpenDatFileButton";
-            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 226);
+            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 243);
             this.OpenDatFileButton.TabIndex = 0;
             this.OpenDatFileButton.Text = "Open";
             this.OpenDatFileButton.UseVisualStyleBackColor = true;
@@ -568,9 +574,9 @@
             // RecompileDatButton
             // 
             this.RecompileDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecompileDatButton.Location = new System.Drawing.Point(3, 235);
+            this.RecompileDatButton.Location = new System.Drawing.Point(3, 252);
             this.RecompileDatButton.Name = "RecompileDatButton";
-            this.RecompileDatButton.Size = new System.Drawing.Size(228, 110);
+            this.RecompileDatButton.Size = new System.Drawing.Size(228, 118);
             this.RecompileDatButton.TabIndex = 1;
             this.RecompileDatButton.Text = "Recompile all";
             this.RecompileDatButton.UseVisualStyleBackColor = true;
@@ -579,9 +585,9 @@
             // RestoreDatButton
             // 
             this.RestoreDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RestoreDatButton.Location = new System.Drawing.Point(3, 351);
+            this.RestoreDatButton.Location = new System.Drawing.Point(3, 376);
             this.RestoreDatButton.Name = "RestoreDatButton";
-            this.RestoreDatButton.Size = new System.Drawing.Size(228, 110);
+            this.RestoreDatButton.Size = new System.Drawing.Size(228, 120);
             this.RestoreDatButton.TabIndex = 2;
             this.RestoreDatButton.Text = "Restore all";
             this.RestoreDatButton.UseVisualStyleBackColor = true;
@@ -593,7 +599,7 @@
             this.SettingsTabPage.Location = new System.Drawing.Point(10, 48);
             this.SettingsTabPage.Name = "SettingsTabPage";
             this.SettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SettingsTabPage.Size = new System.Drawing.Size(853, 476);
+            this.SettingsTabPage.Size = new System.Drawing.Size(853, 511);
             this.SettingsTabPage.TabIndex = 2;
             this.SettingsTabPage.Text = "Settings";
             this.SettingsTabPage.UseVisualStyleBackColor = true;
@@ -613,12 +619,44 @@
             // 
             this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
             // 
+            // Bit32RadioButton
+            // 
+            this.Bit32RadioButton.AutoSize = true;
+            this.Bit32RadioButton.Location = new System.Drawing.Point(204, 379);
+            this.Bit32RadioButton.Name = "Bit32RadioButton";
+            this.Bit32RadioButton.Size = new System.Drawing.Size(122, 36);
+            this.Bit32RadioButton.TabIndex = 26;
+            this.Bit32RadioButton.Text = "32 bit";
+            this.Bit32RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // Bit64RadioButton
+            // 
+            this.Bit64RadioButton.AutoSize = true;
+            this.Bit64RadioButton.Checked = global::BNSBoost.Properties.Settings.Default.Is64Bit;
+            this.Bit64RadioButton.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "Is64Bit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Bit64RadioButton.Location = new System.Drawing.Point(332, 379);
+            this.Bit64RadioButton.Name = "Bit64RadioButton";
+            this.Bit64RadioButton.Size = new System.Drawing.Size(122, 36);
+            this.Bit64RadioButton.TabIndex = 27;
+            this.Bit64RadioButton.TabStop = true;
+            this.Bit64RadioButton.Text = "64 bit";
+            this.Bit64RadioButton.UseVisualStyleBackColor = true;
+            // 
+            // BitnessLabel
+            // 
+            this.BitnessLabel.AutoSize = true;
+            this.BitnessLabel.Location = new System.Drawing.Point(7, 381);
+            this.BitnessLabel.Name = "BitnessLabel";
+            this.BitnessLabel.Size = new System.Drawing.Size(195, 32);
+            this.BitnessLabel.TabIndex = 28;
+            this.BitnessLabel.Text = "Client bitness:";
+            // 
             // BNSBoostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(895, 623);
+            this.ClientSize = new System.Drawing.Size(895, 658);
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.LaunchButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -689,6 +727,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox DisableAFKDisconnectCheckbox;
         private System.Windows.Forms.ProgressBar DATProgressBar;
+        private System.Windows.Forms.Label BitnessLabel;
+        private System.Windows.Forms.RadioButton Bit64RadioButton;
+        private System.Windows.Forms.RadioButton Bit32RadioButton;
     }
 }
 

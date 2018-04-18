@@ -13,10 +13,7 @@ namespace BNSBoost.BNSDat
         public bool IsEncrypted;
         public long PackedFileEntryTableSize;
         public long UnpackedFileEntryTableSize;
-        public byte[] PackedFileEntryTable;
         public long BaseOffset;
-        public byte[] PackedFileData;
-        public byte[] UnpackedFileEntryTable;
         public BPKG_FTE[] Files;
 
         public BPKG(Stream stream, bool is64)
@@ -35,18 +32,18 @@ namespace BNSBoost.BNSDat
             br.ReadBytes(62); // Unknown
             PackedFileEntryTableSize = is64 ? br.ReadInt64() : br.ReadInt32();
             UnpackedFileEntryTableSize = is64 ? br.ReadInt64() : br.ReadInt32();
-            PackedFileEntryTable = br.ReadBytes((int)PackedFileEntryTableSize);
+            byte[] packedFileEntryTable = br.ReadBytes((int)PackedFileEntryTableSize);
 
             BaseOffset = is64 ? br.ReadInt64() : br.ReadInt32();
             BaseOffset = br.BaseStream.Position; // don't trust value, read current stream location.
 
-           // PackedFileData = br.ReadBytes((int)PackedFileDataSize);
+            // PackedFileData = br.ReadBytes((int)PackedFileDataSize);
 
-            UnpackedFileEntryTable = BNSDat.Unpack(PackedFileEntryTable, PackedFileEntryTable.Length, PackedFileEntryTable.Length, UnpackedFileEntryTableSize, IsEncrypted, IsCompressed);
+            byte[] unpackedFileEntryTable = BNSDat.Unpack(packedFileEntryTable, packedFileEntryTable.Length, packedFileEntryTable.Length, UnpackedFileEntryTableSize, IsEncrypted, IsCompressed);
 
             Files = new BPKG_FTE[FileCount];
 
-            MemoryStream ms = new MemoryStream(UnpackedFileEntryTable);
+            MemoryStream ms = new MemoryStream(unpackedFileEntryTable);
             for (int i = 0; i < FileCount; i++)
             {
                 Files[i] = new BPKG_FTE(ms, this);

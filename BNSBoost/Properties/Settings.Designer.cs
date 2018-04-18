@@ -178,5 +178,17 @@ namespace BNSBoost.Properties {
                 this["DisableAFKDisconnect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Is64Bit {
+            get {
+                return ((bool)(this["Is64Bit"]));
+            }
+            set {
+                this["Is64Bit"] = value;
+            }
+        }
     }
 }

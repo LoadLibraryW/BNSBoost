@@ -374,12 +374,17 @@ namespace BNSBoost
                         File.Copy(patchedFile, backupFile);
                     }
 
-                    BNSDat.BNSDat.Compress(decompFile, (number, of) => worker.ReportProgress(0, new DATState
+                    BNSDat.BNSDat.Compress(decompFile, (number, of) =>
                     {
-                        node = dat,
-                        number = number,
-                        of = of
-                    }), datName.Contains("64"));
+                        Debug.WriteLine("????" + number + 
+                           " ... " + of);
+                        worker.ReportProgress(0, new DATState
+                        {
+                            node = dat,
+                            number = number,
+                            of = of
+                        });
+                    }, datName.Contains("64"));
                 };
 
                 worker.RunWorkerCompleted += (_, arg) =>

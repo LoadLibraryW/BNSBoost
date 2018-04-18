@@ -207,7 +207,6 @@ namespace BNSBoost.BNSDat
                     IsEncrypted = true,
                     FileDataOffset = (int)fileTableStream.Position,
                     FileDataSizeUnpacked = unpackedFileBuffer.Length
-
                 };
 
                 byte[] packedFileBuffer = Pack(unpackedFileBuffer, out entry.FileDataSizeSheared, out entry.FileDataSizeStored, entry.IsEncrypted, entry.IsCompressed, compression);
