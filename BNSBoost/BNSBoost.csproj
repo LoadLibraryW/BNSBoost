@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BNSDat\BPKG.cs" />
     <Compile Include="BNSDat\BNSDat.cs" />
     <Compile Include="BNSDat\BPKG_FTE.cs" />
     <Compile Include="BNSDat\BXML.cs" />
