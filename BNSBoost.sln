@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Agent", "Agent\Agent.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Injector", "Injector\Injector.vcxproj", "{678B62F1-F8DC-4C03-A95A-F0D5375C1250}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "X3Bypass32", "X3Bypass32\X3Bypass32.vcxproj", "{48A6380E-2AD5-485F-A2D4-4E6F245321BC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "X3Bypass", "X3Bypass\X3Bypass.vcxproj", "{48A6380E-2AD5-485F-A2D4-4E6F245321BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
