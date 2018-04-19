@@ -341,6 +341,10 @@ namespace BNSBoost
                 Show();
                 Focus();
                 MessageBox.Show(message);
+
+                // Launch failed :(
+                LaunchButton.Enabled = true;
+                LaunchButton.Text = "Launch!";
             };
 
             worker.WorkerReportsProgress = true;
