@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
@@ -88,6 +89,21 @@ namespace BNSBoost
             throw new ArgumentException();
         }
 
+        public static string GetPatchFileFor(string what)
+        {
+            switch (what)
+            {
+                case "xml.dat":
+                case "xml64.dat":
+                    return "client.config2.xml";
+                case "config.dat":
+                case "config64.dat":
+                    return "system.config2.xml";
+            }
+
+            throw new ArgumentException();
+        }
+
         public static string GetDatfilePath(string what)
         {
             return Path.Combine(Settings.Default.GameDirectoryPath, "contents", "Local", "NCWEST", "data", what);
@@ -108,18 +124,18 @@ namespace BNSBoost
             Settings.Default.Save();
         }
 
-        public static void PatchFile(string what, bool is64)
+        public static void PatchFile(BackgroundWorker worker, string what, bool is64)
         {
             string datPath = GetDatfilePath(what);
 
             BNSDat.BNSDat.Extract(datPath, (number, of) =>
             {
-                Debug.WriteLine($"Extracting {what}: {number} / {of}...");
+                worker.ReportProgress(0, $"Decompiling {what}... {number} / {of}");
             }, is64);
 
-            Debug.WriteLine($"Patching {what}...");
+            worker.ReportProgress(0, $"Patching {what}...");
 
-            string xmlPath = Path.Combine($"{datPath}.files", "system.config2.xml");
+            string xmlPath = Path.Combine($"{datPath}.files", GetPatchFileFor(what));
             XmlDocument document = new XmlDocument();
             document.Load(xmlPath);
             ApplyPatchList(GetPatchesFor(what), document);
@@ -127,7 +143,7 @@ namespace BNSBoost
 
             BNSDat.BNSDat.Compress($"{datPath}.files", (number, of) =>
             {
-                Debug.WriteLine($"Recompiling {what}: {number} / {of}...");
+                worker.ReportProgress(0, $"Recompiling {what}... {number} / {of}");
             }, is64);
         }
 
@@ -171,7 +187,7 @@ namespace BNSBoost
             return node != null;
         }
 
-        public static void Patch()
+        public static void Patch(BackgroundWorker worker)
         {
             bool is64 = Settings.Default.Is64Bit;
             string bit = is64 ? "64" : "";
@@ -179,9 +195,11 @@ namespace BNSBoost
             foreach (string file in new[] { $"xml{bit}.dat", $"config{bit}.dat" })
                 if (HasPatchChanges(file) || IsHashOutdatedAndUpdate(file) && HasPatchesEnabled(file))
                 {
-                    PatchFile(file, is64);
+                    PatchFile(worker, file, is64);
                     UpdateHash(file);
                 }
+
+            worker.ReportProgress(100, "Launching...");
         }
     }
 }
