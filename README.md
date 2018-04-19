@@ -4,7 +4,7 @@ BNSBoost is a simple loader for starting NCSoft's Blade and Soul. Not endorsed b
 
 BNSBoost bypasses NCSoft's file verification, so you can run a patched game straight from the official launcher.
 
-![](https://cloud.githubusercontent.com/assets/1403503/25560753/7538c358-2d2a-11e7-8ae2-b9eae9a9dd26.png)
+![](https://i.imgur.com/be93xbx.png)
 
 It features options for:
 
