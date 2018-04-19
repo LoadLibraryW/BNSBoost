@@ -163,8 +163,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:X3Bypass32 /p:Configuration=$(Configuration) /p:Platform=x86
-"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:X3Bypass32 /p:Configuration=$(Configuration) /p:Platform=x64
+    <PostBuildEvent>"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:X3Bypass /p:Configuration=$(Configuration) /p:Platform=x86
+"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:X3Bypass /p:Configuration=$(Configuration) /p:Platform=x64
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
