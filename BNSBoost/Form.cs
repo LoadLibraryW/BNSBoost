@@ -264,6 +264,8 @@ namespace BNSBoost
 
         private async void LaunchButton_Click(object sender, EventArgs e)
         {
+            LaunchButton.Enabled = false;
+
             // Need to save ourself since form doesn't do it automatically :/
             Properties.Settings.Default.Region = (string)RegionComboBox.SelectedItem;
             Properties.Settings.Default.Save();
@@ -271,46 +273,62 @@ namespace BNSBoost
             ToggleX3(Properties.Settings.Default.DisableX3);
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
-
-            Patcher.Patch();
-
-            string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
-            foreach (string decompFile in Directory.GetDirectories(baseDatDir))
-            {
-                if (!decompFile.EndsWith(".files")) continue;
-                Directory.Delete(decompFile, true);
-            }
-
-            string extraClientFlags = " -UNATTENDED";
-            if (DisableTextureStreamingCheckbox.Checked)
-                extraClientFlags += " -NOTEXTURESTREAMING";
-            if (UseAllCoresCheckbox.Checked)
-                extraClientFlags += " -USEALLAVAILABLECORES";
-
             ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
 
-            string launcherPath = LauncherPathTextBox.Text;
-
-            Hide();
-
-            int exitcode = await LaunchAsync(launcherPath, extraClientFlags);
-            string message;
-            switch (exitcode)
+            var worker = new BackgroundWorker();
+            worker.DoWork += (_, arg) =>
             {
-                case 0:
-                    Application.Exit();
-                    return;
-                case 740:
-                    message = "You must run BNSBoost with administrator rights.";
-                    break;
-                default:
-                    message = "Launcher exited with error: " + exitcode;
-                    break;
-            }
+               Patcher.Patch(worker);
+            };
 
-            Show();
-            Focus();
-            MessageBox.Show(message);
+            worker.ProgressChanged += (_, arg) =>
+            {
+                string display = arg.UserState as string;
+                Debug.WriteLine(display);
+                LaunchButton.Text = display;
+            };
+            
+            worker.RunWorkerCompleted += async (_, arg) =>
+            {
+                string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
+                foreach (string decompFile in Directory.GetDirectories(baseDatDir))
+                {
+                    if (!decompFile.EndsWith(".files")) continue;
+                    Directory.Delete(decompFile, true);
+                }
+
+                string extraClientFlags = " -UNATTENDED";
+                if (DisableTextureStreamingCheckbox.Checked)
+                    extraClientFlags += " -NOTEXTURESTREAMING";
+                if (UseAllCoresCheckbox.Checked)
+                    extraClientFlags += " -USEALLAVAILABLECORES";
+
+                string launcherPath = LauncherPathTextBox.Text;
+
+                Hide();
+
+                int exitcode = await LaunchAsync(launcherPath, extraClientFlags);
+                string message;
+                switch (exitcode)
+                {
+                    case 0:
+                        Application.Exit();
+                        return;
+                    case 740:
+                        message = "You must run BNSBoost with administrator rights.";
+                        break;
+                    default:
+                        message = "Launcher exited with error: " + exitcode;
+                        break;
+                }
+
+                Show();
+                Focus();
+                MessageBox.Show(message);
+            };
+
+            worker.WorkerReportsProgress = true;
+            worker.RunWorkerAsync();
         }
 
         private async Task<int> LaunchAsync(string launcherPath, string extraClientFlags)
