@@ -19,7 +19,9 @@ namespace BNSBoost
         static void Main()
         {
             UseEmbeddedDependencies();
+            Patcher.Initialize();
             // Patcher.Patch();
+            //  return;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new BNSBoostForm());

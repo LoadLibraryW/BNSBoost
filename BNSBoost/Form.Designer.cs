@@ -82,9 +82,9 @@
             this.OpenDatFileButton = new System.Windows.Forms.Button();
             this.RecompileDatButton = new System.Windows.Forms.Button();
             this.RestoreDatButton = new System.Windows.Forms.Button();
+            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
-            this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
@@ -385,6 +385,7 @@
             // 
             // LatencyDurationUpDown
             // 
+            this.LatencyDurationUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BNSBoost.Properties.Settings.Default, "LatencyShowTimeValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.LatencyDurationUpDown.Enabled = false;
             this.LatencyDurationUpDown.Location = new System.Drawing.Point(546, 358);
             this.LatencyDurationUpDown.Maximum = new decimal(new int[] {
@@ -395,25 +396,26 @@
             this.LatencyDurationUpDown.Name = "LatencyDurationUpDown";
             this.LatencyDurationUpDown.Size = new System.Drawing.Size(120, 38);
             this.LatencyDurationUpDown.TabIndex = 10;
-            this.LatencyDurationUpDown.Value = new decimal(new int[] {
-            600,
-            0,
-            0,
-            0});
+            this.LatencyDurationUpDown.Value = global::BNSBoost.Properties.Settings.Default.LatencyShowTimeValue;
             // 
             // LatencyDisplayCheckbox
             // 
             this.LatencyDisplayCheckbox.AutoSize = true;
+            this.LatencyDisplayCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.ChangeLatencyDisplayTime;
+            this.LatencyDisplayCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "ChangeLatencyDisplayTime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.LatencyDisplayCheckbox.Location = new System.Drawing.Point(9, 358);
             this.LatencyDisplayCheckbox.Name = "LatencyDisplayCheckbox";
             this.LatencyDisplayCheckbox.Size = new System.Drawing.Size(531, 36);
             this.LatencyDisplayCheckbox.TabIndex = 9;
             this.LatencyDisplayCheckbox.Text = "Show latency display after combat for:";
             this.LatencyDisplayCheckbox.UseVisualStyleBackColor = true;
+            this.LatencyDisplayCheckbox.CheckedChanged += new System.EventHandler(this.LatencyDisplayCheckbox_CheckedChanged);
             // 
             // FastExitCheckbox
             // 
             this.FastExitCheckbox.AutoSize = true;
+            this.FastExitCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.ExitGameImmediately;
+            this.FastExitCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "ExitGameImmediately", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.FastExitCheckbox.Location = new System.Drawing.Point(10, 315);
             this.FastExitCheckbox.Name = "FastExitCheckbox";
             this.FastExitCheckbox.Size = new System.Drawing.Size(610, 36);
@@ -424,6 +426,8 @@
             // DisableEULACheckbox
             // 
             this.DisableEULACheckbox.AutoSize = true;
+            this.DisableEULACheckbox.Checked = global::BNSBoost.Properties.Settings.Default.DisableEULAPrompt;
+            this.DisableEULACheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "DisableEULAPrompt", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DisableEULACheckbox.Location = new System.Drawing.Point(10, 272);
             this.DisableEULACheckbox.Name = "DisableEULACheckbox";
             this.DisableEULACheckbox.Size = new System.Drawing.Size(433, 36);
@@ -467,6 +471,7 @@
             // 
             // SkillbookDelayUpDown
             // 
+            this.SkillbookDelayUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::BNSBoost.Properties.Settings.Default, "SwitchDelayValue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.SkillbookDelayUpDown.DecimalPlaces = 2;
             this.SkillbookDelayUpDown.Enabled = false;
             this.SkillbookDelayUpDown.Increment = new decimal(new int[] {
@@ -478,11 +483,7 @@
             this.SkillbookDelayUpDown.Name = "SkillbookDelayUpDown";
             this.SkillbookDelayUpDown.Size = new System.Drawing.Size(120, 38);
             this.SkillbookDelayUpDown.TabIndex = 3;
-            this.SkillbookDelayUpDown.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            65536});
+            this.SkillbookDelayUpDown.Value = global::BNSBoost.Properties.Settings.Default.SwitchDelayValue;
             // 
             // EnableSkillbookDelayCheckbox
             // 
@@ -593,28 +594,6 @@
             this.RestoreDatButton.UseVisualStyleBackColor = true;
             this.RestoreDatButton.Click += new System.EventHandler(this.RestoreDatButton_Click);
             // 
-            // SettingsTabPage
-            // 
-            this.SettingsTabPage.Controls.Add(this.UpdateCheckBox);
-            this.SettingsTabPage.Location = new System.Drawing.Point(10, 48);
-            this.SettingsTabPage.Name = "SettingsTabPage";
-            this.SettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SettingsTabPage.Size = new System.Drawing.Size(853, 511);
-            this.SettingsTabPage.TabIndex = 2;
-            this.SettingsTabPage.Text = "Settings";
-            this.SettingsTabPage.UseVisualStyleBackColor = true;
-            // 
-            // UpdateCheckBox
-            // 
-            this.UpdateCheckBox.AutoSize = true;
-            this.UpdateCheckBox.Enabled = false;
-            this.UpdateCheckBox.Location = new System.Drawing.Point(11, 5);
-            this.UpdateCheckBox.Name = "UpdateCheckBox";
-            this.UpdateCheckBox.Size = new System.Drawing.Size(282, 36);
-            this.UpdateCheckBox.TabIndex = 26;
-            this.UpdateCheckBox.Text = "Check for updates";
-            this.UpdateCheckBox.UseVisualStyleBackColor = true;
-            // 
             // FileDataTreeView
             // 
             this.FileDataTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -647,6 +626,28 @@
             this.FileDataTreeView.Size = new System.Drawing.Size(601, 430);
             this.FileDataTreeView.TabIndex = 2;
             this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
+            // 
+            // SettingsTabPage
+            // 
+            this.SettingsTabPage.Controls.Add(this.UpdateCheckBox);
+            this.SettingsTabPage.Location = new System.Drawing.Point(10, 48);
+            this.SettingsTabPage.Name = "SettingsTabPage";
+            this.SettingsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.SettingsTabPage.Size = new System.Drawing.Size(853, 511);
+            this.SettingsTabPage.TabIndex = 2;
+            this.SettingsTabPage.Text = "Settings";
+            this.SettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // UpdateCheckBox
+            // 
+            this.UpdateCheckBox.AutoSize = true;
+            this.UpdateCheckBox.Enabled = false;
+            this.UpdateCheckBox.Location = new System.Drawing.Point(11, 5);
+            this.UpdateCheckBox.Name = "UpdateCheckBox";
+            this.UpdateCheckBox.Size = new System.Drawing.Size(282, 36);
+            this.UpdateCheckBox.TabIndex = 26;
+            this.UpdateCheckBox.Text = "Check for updates";
+            this.UpdateCheckBox.UseVisualStyleBackColor = true;
             // 
             // bNSBoostFormBindingSource
             // 

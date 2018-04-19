@@ -190,5 +190,113 @@ namespace BNSBoost.Properties {
                 this["Is64Bit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ChangeLatencyDisplayTime {
+            get {
+                return ((bool)(this["ChangeLatencyDisplayTime"]));
+            }
+            set {
+                this["ChangeLatencyDisplayTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.5")]
+        public decimal SwitchDelayValue {
+            get {
+                return ((decimal)(this["SwitchDelayValue"]));
+            }
+            set {
+                this["SwitchDelayValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
+        public decimal LatencyShowTimeValue {
+            get {
+                return ((decimal)(this["LatencyShowTimeValue"]));
+            }
+            set {
+                this["LatencyShowTimeValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExitGameImmediately {
+            get {
+                return ((bool)(this["ExitGameImmediately"]));
+            }
+            set {
+                this["ExitGameImmediately"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableEULAPrompt {
+            get {
+                return ((bool)(this["DisableEULAPrompt"]));
+            }
+            set {
+                this["DisableEULAPrompt"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Hash_xml_dat {
+            get {
+                return ((string)(this["Hash_xml_dat"]));
+            }
+            set {
+                this["Hash_xml_dat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Hash_xml64_dat {
+            get {
+                return ((string)(this["Hash_xml64_dat"]));
+            }
+            set {
+                this["Hash_xml64_dat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Hash_config_dat {
+            get {
+                return ((string)(this["Hash_config_dat"]));
+            }
+            set {
+                this["Hash_config_dat"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Hash_config64_dat {
+            get {
+                return ((string)(this["Hash_config64_dat"]));
+            }
+            set {
+                this["Hash_config64_dat"] = value;
+            }
+        }
     }
 }
