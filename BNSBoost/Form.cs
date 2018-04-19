@@ -117,24 +117,28 @@ namespace BNSBoost
             return new IniFile(launcherIni);
         }
 
+        private string GetServerIP()
+        {
+            // > netstat -atn | grep 10100
+            //   TCP    192.168.20.103:64029   64.25.37.235:10100     ESTABLISHED InHost
+            switch (Properties.Settings.Default.Region)
+            {
+                case "NA":
+                    return "64.25.37.235";
+                case "EU":
+                    return "18.194.180.254";
+            }
+
+            throw new ArgumentException();
+        }
+
         private void InitializePingThread()
         {
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer { Interval = 1000 };
-            timer.Tick += (sender, e) =>
-            {
-                PingLabel.Text = "Game delay: " + (Ping != null ? Ping?.ToString("0.00") + "ms" : "N/A");
-            };
-            timer.Start();
-
-            new Thread(() =>
+            var worker = new BackgroundWorker();
+            worker.DoWork += (_, arg) =>
             {
                 while (Visible)
                 {
-                    // This is only NA IP, but that's all we support right now
-                    // > netstat -atn | grep 10100
-                    //   TCP    192.168.20.103:64029   64.25.37.235:10100     ESTABLISHED InHost
-                    string ip = "64.25.37.235";
-
                     var time = new Stopwatch();
                     time.Start();
                     var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
@@ -146,7 +150,7 @@ namespace BNSBoost
 
                     try
                     {
-                        socket.Connect(ip, 10100);
+                        socket.Connect(GetServerIP(), 10100);
                     }
                     catch (SocketException ex)
                     {
@@ -161,9 +165,19 @@ namespace BNSBoost
 
                     socket.Close();
 
+                    worker.ReportProgress(0, Ping);
+
                     Thread.Sleep(2000);
                 }
-            }).Start();
+            };
+
+            worker.ProgressChanged += (_, arg) =>
+            {
+                PingLabel.Text = "Game delay: " + (Ping != null ? Ping?.ToString("0.00") + "ms" : "N/A");
+            };
+
+            worker.WorkerReportsProgress = true;
+            worker.RunWorkerAsync();
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -262,7 +276,7 @@ namespace BNSBoost
             }
         }
 
-        private async void LaunchButton_Click(object sender, EventArgs e)
+        private void LaunchButton_Click(object sender, EventArgs e)
         {
             LaunchButton.Enabled = false;
 
@@ -535,6 +549,11 @@ namespace BNSBoost
         private void EnableSkillbookDelayCheckbox_CheckStateChanged(object sender, EventArgs e)
         {
             SkillbookDelayUpDown.Enabled = EnableSkillbookDelayCheckbox.CheckState == CheckState.Checked;
+        }
+
+        private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Region = RegionComboBox.SelectedItem as string;
         }
     }
 
