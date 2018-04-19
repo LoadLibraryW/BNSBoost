@@ -40,6 +40,7 @@ namespace BNSBoost
             // Form autogeneration doesn't handle this properly for some reason
             RegionComboBox.SelectedItem = Properties.Settings.Default.Region;
             SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
+            LatencyDurationUpDown.Enabled = Properties.Settings.Default.ChangeLatencyDisplayTime;
         }
 
         private void InitializeGamePaths()
@@ -271,6 +272,8 @@ namespace BNSBoost
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
 
+            Patcher.Patch();
+
             string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
             foreach (string decompFile in Directory.GetDirectories(baseDatDir))
             {
@@ -481,11 +484,6 @@ namespace BNSBoost
             }
         }
 
-        private void EnableSkillbookDelayCheckbox_CheckStateChanged(object sender, EventArgs e)
-        {
-            SkillbookDelayUpDown.Enabled = EnableSkillbookDelayCheckbox.CheckState == CheckState.Checked;
-        }
-
         class DATState
         {
             public TreeNode node;
@@ -509,6 +507,16 @@ namespace BNSBoost
                 state.node.Nodes[0].Text = "Decompiling... " + state.number + "/" + state.of;
 
             DATProgressBar.Value = WorkerDenominator == 0 ? 100 : (int)Math.Round(100.0 * WorkerNumerator / WorkerDenominator);
+        }
+
+        private void LatencyDisplayCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            LatencyDurationUpDown.Enabled = LatencyDisplayCheckbox.CheckState == CheckState.Checked;
+        }
+
+        private void EnableSkillbookDelayCheckbox_CheckStateChanged(object sender, EventArgs e)
+        {
+            SkillbookDelayUpDown.Enabled = EnableSkillbookDelayCheckbox.CheckState == CheckState.Checked;
         }
     }
 
