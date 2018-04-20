@@ -11,174 +11,161 @@
 #include <Shlwapi.h>
 #include <Strsafe.h>
 
-void Patch(const char *function, void *hook, HANDLE module)
-{
-    // https://guidedhacking.com/showthread.php?4244-IAT-hook-Import-Address-Table-Hooking-Explained
-    PIMAGE_DOS_HEADER pImgDosHeaders = (PIMAGE_DOS_HEADER) module;
-    PIMAGE_NT_HEADERS pImgNTHeaders = (PIMAGE_NT_HEADERS)((LPBYTE) pImgDosHeaders + pImgDosHeaders->e_lfanew);
-    PIMAGE_IMPORT_DESCRIPTOR pImgImportDesc = (PIMAGE_IMPORT_DESCRIPTOR)((LPBYTE)pImgDosHeaders + pImgNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);
-    
-    int sz = (int)((LPBYTE)pImgDosHeaders + pImgNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size);
-    for (IMAGE_IMPORT_DESCRIPTOR* iid = pImgImportDesc; iid->Name != NULL; iid++)
-    {
-        for (int funcIdx = 0; *(funcIdx + (LPVOID*)(iid->FirstThunk + (SIZE_T)module)) != NULL; funcIdx++)
-        {
-            char* modFuncName = (char*)(*(funcIdx + (SIZE_T*)(iid->OriginalFirstThunk + (SIZE_T)module)) + (SIZE_T)module + 2);
-            fflush(stdout);
-            
-            if (!_stricmp(function, modFuncName))
-            {
-                LPVOID *funcptr = (funcIdx + (LPVOID*)(iid->FirstThunk + (SIZE_T)module));
-                
-                DWORD oldrights;
-                DWORD newrights = PAGE_READWRITE;
-                
-                VirtualProtect(funcptr, sizeof(LPVOID), newrights, &oldrights);
-                
-                *funcptr = hook;
-                
-                VirtualProtect(funcptr, sizeof(LPVOID), oldrights, &newrights);
-                return;
-            }
-        }
-    }
-    return;
+#include <detours.h>
+
+typedef HANDLE(WINAPI *CreateFile_t)(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
+
+static CreateFile_t Real_CreateFile;
+static HANDLE WINAPI Hook_CreateFile(
+	_In_     LPCWSTR               lpFileName,
+	_In_     DWORD                 dwDesiredAccess,
+	_In_     DWORD                 dwShareMode,
+	_In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+	_In_     DWORD                 dwCreationDisposition,
+	_In_     DWORD                 dwFlagsAndAttributes,
+	_In_opt_ HANDLE                hTemplateFile
+) {
+	DWORD dwSize = (lstrlen(lpFileName) + 1) * sizeof(wchar_t);
+	LPWSTR lpBaseDir = malloc(dwSize);
+	LPWSTR lpFileSpec = malloc(dwSize);
+	LPWSTR lpRealFileName = malloc(dwSize);
+	LPCWSTR lpUnpatchedDir = L"\\unpatched\\";
+
+	StringCbCopy(lpRealFileName, dwSize, lpFileName);
+
+	// Convert all / into \, since otherwise PathStripPath and PathRemoveFileSpec
+	// treat e.g. "C:\\Program Files (x86)\\NCWest\\NCLauncher/Message.pak" as
+	// lpBaseDir: C:\Program Files (x86)\NCWest
+	// lpFileSpec: NCLauncher/Message.pak
+	wchar_t *slash;
+	while (lstrlen(slash = wcsstr(lpRealFileName, L"/")))
+		*slash = L'\\';
+
+	StringCbCopy(lpBaseDir, dwSize, lpRealFileName);
+	StringCbCopy(lpFileSpec, dwSize, lpRealFileName);
+
+	PathStripPath(lpFileSpec);
+	PathRemoveFileSpec(lpBaseDir);
+
+	dwSize = (lstrlen(lpBaseDir) + lstrlen(lpFileSpec) + lstrlen(lpUnpatchedDir) + 1) * sizeof(wchar_t);
+
+	LPWSTR lpUnpatchedFileName = malloc(dwSize);
+	StringCbCopy(lpUnpatchedFileName, dwSize, lpBaseDir);
+	StringCbCat(lpUnpatchedFileName, dwSize, lpUnpatchedDir);
+	StringCbCat(lpUnpatchedFileName, dwSize, lpFileSpec);
+
+	wprintf(L"CreateFile: %ls (checked %ls)\n", lpFileName, lpUnpatchedFileName);
+	if (PathFileExists(lpUnpatchedFileName)) {
+		wprintf(L"\t Patched %ls to %ls\n", lpFileName, lpUnpatchedFileName);
+		fflush(stdout);
+		lpFileName = lpUnpatchedFileName;
+	}
+
+	HANDLE ret = Real_CreateFile(lpFileName,
+		dwDesiredAccess,
+		dwShareMode,
+		lpSecurityAttributes,
+		dwCreationDisposition,
+		dwFlagsAndAttributes,
+		hTemplateFile);
+
+	free(lpBaseDir);
+	free(lpFileSpec);
+	free(lpUnpatchedFileName);
+
+	return ret;
 }
 
-HANDLE WINAPI MyCreateFile(
-  _In_     LPCWSTR               lpFileName,
-  _In_     DWORD                 dwDesiredAccess,
-  _In_     DWORD                 dwShareMode,
-  _In_opt_ LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-  _In_     DWORD                 dwCreationDisposition,
-  _In_     DWORD                 dwFlagsAndAttributes,
-  _In_opt_ HANDLE                hTemplateFile
+typedef HANDLE(WINAPI *CreateProcess_t) (LPCWSTR, LPWSTR, LPSECURITY_ATTRIBUTES, LPSECURITY_ATTRIBUTES,
+	BOOL, DWORD, LPVOID, LPCWSTR, LPSTARTUPINFO, LPPROCESS_INFORMATION);
+
+static CreateProcess_t Real_CreateProcess;
+BOOL WINAPI Hook_CreateProcess(
+	_In_opt_    LPCWSTR               lpApplicationName,
+	_Inout_opt_ LPWSTR                lpCommandLine,
+	_In_opt_    LPSECURITY_ATTRIBUTES lpProcessAttributes,
+	_In_opt_    LPSECURITY_ATTRIBUTES lpThreadAttributes,
+	_In_        BOOL                  bInheritHandles,
+	_In_        DWORD                 dwCreationFlags,
+	_In_opt_    LPVOID                lpEnvironment,
+	_In_opt_    LPCWSTR               lpCurrentDirectory,
+	_In_        LPSTARTUPINFO         lpStartupInfo,
+	_Out_       LPPROCESS_INFORMATION lpProcessInformation
 ) {
-    DWORD dwSize = (lstrlen(lpFileName) + 1) * sizeof(wchar_t);
-    LPWSTR lpBaseDir = malloc(dwSize);
-    LPWSTR lpFileSpec = malloc(dwSize);
-    LPWSTR lpRealFileName = malloc(dwSize);
-    LPCWSTR lpUnpatchedDir = L"\\unpatched\\";
-
-    StringCbCopy(lpRealFileName, dwSize, lpFileName);
-
-    // Convert all / into \, since otherwise PathStripPath and PathRemoveFileSpec
-    // treat e.g. "C:\\Program Files (x86)\\NCWest\\NCLauncher/Message.pak" as
-    // lpBaseDir: C:\Program Files (x86)\NCWest
-    // lpFileSpec: NCLauncher/Message.pak
-    wchar_t *slash;
-    while (lstrlen(slash = wcsstr(lpRealFileName, L"/")))
-        *slash = L'\\';
-
-    StringCbCopy(lpBaseDir, dwSize, lpRealFileName);
-    StringCbCopy(lpFileSpec, dwSize, lpRealFileName);
-    
-    PathStripPath(lpFileSpec);
-    PathRemoveFileSpec(lpBaseDir);
-    
-    dwSize = (lstrlen(lpBaseDir) + lstrlen(lpFileSpec) + lstrlen(lpUnpatchedDir) + 1) * sizeof(wchar_t);
-    
-    LPWSTR lpUnpatchedFileName = malloc(dwSize);
-    StringCbCopy(lpUnpatchedFileName, dwSize, lpBaseDir);
-    StringCbCat(lpUnpatchedFileName, dwSize, lpUnpatchedDir);
-    StringCbCat(lpUnpatchedFileName, dwSize, lpFileSpec);
-    
-    wprintf(L"CreateFile: %ls (checked %ls)\n", lpFileName, lpUnpatchedFileName);
-    fflush(stdout);
-    if (PathFileExists(lpUnpatchedFileName)) {
-        wprintf(L"\t Patched %ls to %ls\n", lpFileName, lpUnpatchedFileName);
-        fflush(stdout);
-        lpFileName = lpUnpatchedFileName;
-    }
-
-    HANDLE ret = CreateFile(lpFileName,
-                            dwDesiredAccess,
-                            dwShareMode,
-                            lpSecurityAttributes,
-                            dwCreationDisposition,
-                            dwFlagsAndAttributes,
-                            hTemplateFile);
-                       
-    free(lpBaseDir);
-    free(lpFileSpec);
-    free(lpUnpatchedFileName);
-
-    return ret;
-}
-
-BOOL WINAPI MyCreateProcess(
-  _In_opt_    LPCWSTR               lpApplicationName,
-  _Inout_opt_ LPWSTR                lpCommandLine,
-  _In_opt_    LPSECURITY_ATTRIBUTES lpProcessAttributes,
-  _In_opt_    LPSECURITY_ATTRIBUTES lpThreadAttributes,
-  _In_        BOOL                  bInheritHandles,
-  _In_        DWORD                 dwCreationFlags,
-  _In_opt_    LPVOID                lpEnvironment,
-  _In_opt_    LPCWSTR               lpCurrentDirectory,
-  _In_        LPSTARTUPINFO         lpStartupInfo,
-  _Out_       LPPROCESS_INFORMATION lpProcessInformation
-) {
-    wprintf(L"CreateProcess: %ls (%ls)\n", lpApplicationName, lpCommandLine); 
-    fflush(stdout);
+	MessageBox(NULL, L"CreateProcess!", L"", 0);
+	wprintf(L"CreateProcess: %ls (%ls)\n", lpApplicationName, lpCommandLine);
+	fflush(stdout);
 
 	wchar_t ExtraClientFlags[100];
 	if (!GetEnvironmentVariable(L"__BNSBOOST_CLIENTFLAGS", ExtraClientFlags, sizeof(ExtraClientFlags))) {
 		exit(GetLastError());
 	}
-    
-    DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(ExtraClientFlags) + 1) * sizeof(wchar_t);
-    LPWSTR lpNewCommandLine = malloc(dwSize);
-    StringCbCopy(lpNewCommandLine, dwSize, lpCommandLine);
-    StringCbCat(lpNewCommandLine, dwSize, ExtraClientFlags);
 
-    wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, lpNewCommandLine); 
+	DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(ExtraClientFlags) + 2) * sizeof(wchar_t);
+	LPWSTR lpNewCommandLine = malloc(dwSize);
+	StringCbCopy(lpNewCommandLine, dwSize, lpCommandLine);
+	StringCbCat(lpNewCommandLine, dwSize, L" ");
+	StringCbCat(lpNewCommandLine, dwSize, ExtraClientFlags);
 
-    BOOL ret = CreateProcess(lpApplicationName,
-                             lpNewCommandLine,
-                             lpProcessAttributes,
-                             lpThreadAttributes,
-                             bInheritHandles,
-                             dwCreationFlags,
-                             lpEnvironment,
-                             lpCurrentDirectory,
-                             lpStartupInfo,
-                             lpProcessInformation);
+	wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, lpNewCommandLine);
 
-    free(lpNewCommandLine);
-    exit(0xB00573D);
+	BOOL ret = Real_CreateProcess(lpApplicationName,
+		lpNewCommandLine,
+		lpProcessAttributes,
+		lpThreadAttributes,
+		bInheritHandles,
+		dwCreationFlags,
+		lpEnvironment,
+		lpCurrentDirectory,
+		lpStartupInfo,
+		lpProcessInformation);
+
+	free(lpNewCommandLine);
+	exit(0xB00573D);
 }
 
-HMODULE WINAPI MyLoadLibrary(
-  _In_ LPCWSTR lpFileName
-) {    
-    wprintf(L"LoadLibrary: %ls\n", lpFileName);
-    fflush(stdout);
-    HMODULE mod = LoadLibrary(lpFileName);
-    Patch("CreateFileW", &MyCreateFile, mod);
-    return mod;
-}
-
-__declspec(dllexport) VOID WINAPI InjectMain()
+void InjectMain()
 {
-    printf("Entered injector!\n");
-    MessageBeep(-1);
-    Patch("CreateFileW", &MyCreateFile, GetModuleHandle(NULL));
-    Patch("LoadLibraryW", &MyLoadLibrary, GetModuleHandle(NULL));
-    Patch("CreateProcessW", &MyCreateProcess, GetModuleHandle(NULL));
-    printf("Injected!\n");
+	printf("Entered injector!\n");
+
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+
+	Real_CreateFile = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "CreateFileW");
+	if (DetourAttach(&Real_CreateFile, Hook_CreateFile)) {
+		MessageBox(NULL, L"Failed CreateFile hook", L"", 0);
+	}
+
+	Real_CreateProcess = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "CreateProcessW");
+	if (DetourAttach(&Real_CreateProcess, Hook_CreateProcess)) {
+		MessageBox(NULL, L"Failed CreateProcess hook", L"", 0);
+	}
+
+	int error = DetourTransactionCommit();
+	if (error != NO_ERROR)
+	{
+		MessageBox(NULL, L"Hooking error!", L"", 0);
+		exit(error);
+	}
+
+	printf("Injected!\n");
 }
 
 INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
-    freopen("log.txt", "a", stdout);
-    switch(Reason) {
-        case DLL_PROCESS_ATTACH:
-            printf("Agent attached!\n");
-            break;
-        case DLL_PROCESS_DETACH:
-            printf("Agent detached!\n");
-            break;
-    }
-    fflush(stdout);
+	switch (Reason) {
+	case DLL_PROCESS_ATTACH:
+		DisableThreadLibraryCalls(hDLL);
 
-    return TRUE;
+		freopen("log.txt", "w", stdout);
+		MessageBeep(-1);
+		printf("Agent attached!\n");
+		InjectMain();
+		break;
+	case DLL_PROCESS_DETACH:
+		printf("Agent detached!\n");
+		break;
+	}
+
+	fflush(stdout);
+	return TRUE;
 }
