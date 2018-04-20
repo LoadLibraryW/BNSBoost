@@ -11,8 +11,6 @@
 #include <Shlwapi.h>
 #include <Strsafe.h>
 
-LPWSTR lpExtraClientFlags;
-
 void Patch(const char *function, void *hook, HANDLE module)
 {
     // https://guidedhacking.com/showthread.php?4244-IAT-hook-Import-Address-Table-Hooking-Explained
@@ -122,11 +120,16 @@ BOOL WINAPI MyCreateProcess(
 ) {
     wprintf(L"CreateProcess: %ls (%ls)\n", lpApplicationName, lpCommandLine); 
     fflush(stdout);
+
+	wchar_t ExtraClientFlags[100];
+	if (!GetEnvironmentVariable(L"__BNSBOOST_CLIENTFLAGS", ExtraClientFlags, sizeof(ExtraClientFlags))) {
+		exit(GetLastError());
+	}
     
-    DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(lpExtraClientFlags) + 1) * sizeof(wchar_t);
+    DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(ExtraClientFlags) + 1) * sizeof(wchar_t);
     LPWSTR lpNewCommandLine = malloc(dwSize);
     StringCbCopy(lpNewCommandLine, dwSize, lpCommandLine);
-    StringCbCat(lpNewCommandLine, dwSize, lpExtraClientFlags);
+    StringCbCat(lpNewCommandLine, dwSize, ExtraClientFlags);
 
     wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, lpNewCommandLine); 
 
@@ -155,9 +158,8 @@ HMODULE WINAPI MyLoadLibrary(
     return mod;
 }
 
-__declspec(dllexport) VOID WINAPI InjectMain(LPWSTR ExtraClientFlags)
+__declspec(dllexport) VOID WINAPI InjectMain()
 {
-    lpExtraClientFlags = ExtraClientFlags;
     printf("Entered injector!\n");
     MessageBeep(-1);
     Patch("CreateFileW", &MyCreateFile, GetModuleHandle(NULL));
