@@ -19,9 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="main.def">
-      <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
 </Project>

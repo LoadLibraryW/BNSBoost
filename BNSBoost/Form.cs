@@ -20,13 +20,30 @@ namespace BNSBoost
 
     public partial class BNSBoostForm : Form
     {
-        private static class NativeMethods
+        private static class ClientMethods
         {
-            [DllImport("Injector.dll")]
-            public static extern int Launch(
-                [MarshalAs(UnmanagedType.LPWStr)] string lpLauncherBaseDir,
-                [MarshalAs(UnmanagedType.LPWStr)] string lpExtraClientFlags
-            );
+            public static int Launch(
+                string lpLauncher,
+                string lpExtraClientFlags
+            )
+            {
+                Process process = new Process
+                {
+                    StartInfo =
+                    {
+                        EnvironmentVariables = {{ "__BNSBOOST_CLIENTFLAGS", lpExtraClientFlags }},
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        FileName = "Injector.exe",
+                        Arguments = $"Agent.dll \"\\\"{lpLauncher}\\\" /LauncherID:\\\"NCWest\\\" /CompanyID:\\\"12\\\" /GameID:\\\"BnS\\\" /LUpdateAddr:\\\"updater.nclauncher.ncsoft.com\\\"\""
+                    }
+                };
+                process.Start();
+                process.WaitForExit();
+
+                // 0xB00573D is regular agent exit code
+                return process.ExitCode == 0xB00573D ? 0 : process.ExitCode;
+            }
         }
 
         private double? Ping;
@@ -294,7 +311,7 @@ namespace BNSBoost
             var worker = new BackgroundWorker();
             worker.DoWork += (_, arg) =>
             {
-               Patcher.Patch(worker);
+                Patcher.Patch(worker);
             };
 
             worker.ProgressChanged += (_, arg) =>
@@ -303,7 +320,7 @@ namespace BNSBoost
                 Debug.WriteLine(display);
                 LaunchButton.Text = display;
             };
-            
+
             worker.RunWorkerCompleted += async (_, arg) =>
             {
                 string baseDatDir = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\");
@@ -353,7 +370,7 @@ namespace BNSBoost
 
         private async Task<int> LaunchAsync(string launcherPath, string extraClientFlags)
         {
-            return await Task.Run(() => { return NativeMethods.Launch(launcherPath, extraClientFlags); });
+            return await Task.Run(() => { return ClientMethods.Launch(launcherPath, extraClientFlags); });
         }
 
         private void FileDataTreeView_AfterExpand(object sender, TreeViewEventArgs e)
