@@ -34,7 +34,7 @@ namespace BNSBoost
                         EnvironmentVariables = {{ "__BNSBOOST_CLIENTFLAGS", lpExtraClientFlags }},
                         UseShellExecute = false,
                         CreateNoWindow = true,
-                        FileName = "Injector.exe",
+                        FileName = "inject32.exe",
                         Arguments = $"Agent.dll \"\\\"{lpLauncher}\\\" /LauncherID:\\\"NCWest\\\" /CompanyID:\\\"12\\\" /GameID:\\\"BnS\\\" /LUpdateAddr:\\\"updater.nclauncher.ncsoft.com\\\"\""
                     }
                 };
