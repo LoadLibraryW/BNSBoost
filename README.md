@@ -15,8 +15,7 @@ It features options for:
 * Arbitrary game XML edits
 
 <sup><b>*</b></sup> If you are not disabling XIGNCODE3,  BNSBoost never touches the game client (`Client.exe`), only its launcher. If you are, it replaces the game's
-`x3.xem` from [this Reddit thread](https://www.reddit.com/r/bladeandsoul/comments/6vj9ih/does_xigncode_bypass_work_now_after_the_update/dm2nx02/). **Only use this option
-if you trust the source of the binary.** A future update will have the bypass being built alongside BNSBoost, so there are no magic binaries floating around.
+`x3.xem` and `xcorona_x64.xem` files.
 
 ## Installation
 
