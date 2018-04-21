@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BNSBoost.BNSDat
 {
-    public partial class BNSDat
+    public class BNSDat
     {
         public const string AES_KEY = "bns_obt_kr_2014#";
         public static readonly byte[] XOR_KEY = { 164, 159, 216, 179, 246, 142, 57, 194, 45, 224, 97, 117, 92, 75, 26, 7 };

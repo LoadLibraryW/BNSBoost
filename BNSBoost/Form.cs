@@ -39,18 +39,22 @@ namespace BNSBoost
                 if (Properties.Settings.Default.Is64Bit)
                     Environment.SetEnvironmentVariable("__BNSBOOST_IS64", "1");
 
-                if (Properties.Settings.Default.DisableX3 && Properties.Settings.Default.MultiClientEnabled)
-                    Environment.SetEnvironmentVariable("__BNSBOOST_MULTICLIENT", "1");
+                if (Properties.Settings.Default.DisableX3)
+                {
+                    Environment.SetEnvironmentVariable("__BNSBOOST_NOX3", "1");
+                    if (Properties.Settings.Default.MultiClientEnabled)
+                        Environment.SetEnvironmentVariable("__BNSBOOST_MULTICLIENT", "1");
+                }
 
                 if (!CreateProcess(null,
                     $"\"{lpLauncher}\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"",
-                    IntPtr.Zero, 
-                    IntPtr.Zero, 
+                    IntPtr.Zero,
+                    IntPtr.Zero,
                     false,
                     CREATE_SUSPENDED,
                     IntPtr.Zero,
-                    null, 
-                    ref si, 
+                    null,
+                    ref si,
                     out pi))
                 {
                     MessageBox.Show($"Failed to spawn launcher: {Marshal.GetLastWin32Error()} :-(");
@@ -260,56 +264,6 @@ namespace BNSBoost
             RegionComboBox.SelectedItem = code;
         }
 
-        private void ToggleX3(bool shouldPatch)
-        {
-            Dictionary<string, string> patches = new Dictionary<string, string>()
-            {
-                {@"bin64\XignCode\xcorona_x64.xem", "xcorona_x64.xem"},
-                {@"bin\XignCode\x3.xem", "x3.xem"}
-            };
-
-            foreach (KeyValuePair<string, string> patch in patches)
-            {
-                string gameX3 = Path.Combine(GameDirectoryPathTextBox.Text, patch.Key);
-                string ourX3 = patch.Value;
-                bool isPatched = File.ReadAllBytes(gameX3).SequenceEqual(File.ReadAllBytes(ourX3));
-
-                Debug.WriteLine("checking " + gameX3 + " == " + ourX3 + " : " + isPatched);
-
-                string unpatched = Path.Combine(Path.GetDirectoryName(gameX3), "unpatched");
-                string unpatchedX3 = Path.Combine(unpatched, patch.Value);
-
-                if (shouldPatch == isPatched)
-                {
-                    Debug.WriteLine("X3 is already patched out");
-                }
-                else if (shouldPatch && !isPatched)
-                {
-                    Debug.WriteLine("Patching out X3");
-
-                    if (Directory.Exists(unpatched)) Directory.Delete(unpatched, true);
-                    Directory.CreateDirectory(unpatched);
-
-                    File.Move(gameX3, unpatchedX3);
-                    File.Copy(ourX3, gameX3, true);
-                }
-                else if (isPatched && !shouldPatch)
-                {
-                    Debug.WriteLine("Restoring original X3");
-                    if (Directory.Exists(unpatched))
-                    {
-                        File.Delete(gameX3);
-                        File.Move(unpatchedX3, gameX3);
-                        Directory.Delete(unpatched, true);
-                    }
-                    else
-                    {
-                        Debug.WriteLine("X3 was not patched");
-                    }
-                }
-            }
-        }
-
         private void ToggleLoadingScreens(bool disabled)
         {
             string cookedPCBase = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\ENGLISH\CookedPC");
@@ -344,7 +298,6 @@ namespace BNSBoost
             Properties.Settings.Default.Region = (string)RegionComboBox.SelectedItem;
             Properties.Settings.Default.Save();
 
-            ToggleX3(Properties.Settings.Default.DisableX3);
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
             ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
