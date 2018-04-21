@@ -47,22 +47,68 @@ static HANDLE WINAPI Hook_CreateFile(
 		lpSecurityAttributes,
 		dwCreationDisposition,
 		dwFlagsAndAttributes,
-		hTemplateFile);;
+		hTemplateFile);
+}
+
+typedef HANDLE(WINAPI *LoadLibrary_t)(LPCWSTR);
+
+static LoadLibrary_t Real_LoadLibrary;
+static HMODULE WINAPI Hook_LoadLibrary(
+	_In_ LPCWSTR lpFileName
+) {
+	OutputDebugStringW(L"LoadLibrary:");
+	OutputDebugStringW(lpFileName);
+
+	wchar_t *patch = NULL;
+
+	if (wcsstr(lpFileName, L"xcorona_x64.xem") != NULL) {
+		patch = L"\\xcorona_x64.xem";
+	}
+	else if (wcsstr(lpFileName, L"x3.xem") != NULL) {
+		patch = L"\\x3.xem";
+	}
+
+	if (patch) {
+		OutputDebugStringW(L"Hooking!");
+
+		wchar_t patchPath[MAX_PATH];
+		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", patchPath, sizeof(patchPath));
+		wcscat(patchPath, patch);
+
+		OutputDebugStringW(patchPath);
+
+		lpFileName = patchPath;
+	}
+
+	return Real_LoadLibrary(lpFileName);
 }
 
 void InjectMain()
 {
+	wchar_t envBuf[100];
+
+	BOOL bMulticlientEnabled = GetEnvironmentVariable(L"__BNSBOOST_MULTICLIENT", envBuf, sizeof(envBuf));
+
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 
-	Real_CreateFile = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "CreateFileW");
-	if (DetourAttach(&Real_CreateFile, Hook_CreateFile)) {
-		MessageBox(NULL, L"Failed CreateFile hook", L"", 0);
+	if (bMulticlientEnabled) {
+		OutputDebugStringW(L"Patching multiclient support");
+
+		Real_CreateFile = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "CreateFileW");
+		if (DetourAttach(&Real_CreateFile, Hook_CreateFile)) {
+			MessageBox(NULL, L"Failed CreateFile hook", L"", 0);
+		}
+
+		Real_CreateMutex = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "CreateMutexW");
+		if (DetourAttach(&Real_CreateMutex, Hook_CreateMutex)) {
+			MessageBox(NULL, L"Failed CreateMutex hook", L"", 0);
+		}
 	}
 
-	Real_CreateMutex = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "CreateMutexW");
-	if (DetourAttach(&Real_CreateMutex, Hook_CreateMutex)) {
-		MessageBox(NULL, L"Failed CreateMutex hook", L"", 0);
+	Real_LoadLibrary = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "LoadLibraryW");
+	if (DetourAttach(&Real_LoadLibrary, Hook_LoadLibrary)) {
+		MessageBox(NULL, L"Failed LoadLibrary hook", L"", 0);
 	}
 
 	int error = DetourTransactionCommit();

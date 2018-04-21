@@ -54,8 +54,15 @@ static HANDLE WINAPI Hook_CreateFile(
 	StringCbCat(lpUnpatchedFileName, dwSize, lpUnpatchedDir);
 	StringCbCat(lpUnpatchedFileName, dwSize, lpFileSpec);
 
+	//OutputDebugString(L"CreateFile:");
+	//OutputDebugString(lpFileName);
+	//OutputDebugString(lpUnpatchedFileName);
+
 	wprintf(L"CreateFile: %ls (checked %ls)\n", lpFileName, lpUnpatchedFileName);
 	if (PathFileExists(lpUnpatchedFileName)) {
+		OutputDebugString(L"Patched!");
+		OutputDebugString(lpFileName);
+		OutputDebugString(lpUnpatchedFileName);
 		wprintf(L"\t Patched %ls to %ls\n", lpFileName, lpUnpatchedFileName);
 		fflush(stdout);
 		lpFileName = lpUnpatchedFileName;
@@ -103,20 +110,20 @@ BOOL WINAPI Hook_CreateProcess(
 	wcscat(lpNewCommandLine, L" ");
 	wcscat(lpNewCommandLine, envBuf);
 
-	BOOL bMulticlientEnabled = GetEnvironmentVariable(L"__BNSBOOST_MULTICLIENT", envBuf, sizeof(envBuf));
+	BOOL bX3Disabled = GetEnvironmentVariable(L"__BNSBOOST_NOX3", envBuf, sizeof(envBuf));
 
 	Real_CreateProcess(lpApplicationName,
 		lpNewCommandLine,
 		lpProcessAttributes,
 		lpThreadAttributes,
 		bInheritHandles,
-		dwCreationFlags | (bMulticlientEnabled ? CREATE_SUSPENDED : 0),
+		dwCreationFlags | (bX3Disabled ? CREATE_SUSPENDED : 0),
 		lpEnvironment,
 		lpCurrentDirectory,
 		lpStartupInfo,
 		lpProcessInformation);
 
-	if (bMulticlientEnabled) {
+	if (bX3Disabled) {
 		BOOL bIs64 = GetEnvironmentVariable(L"__BNSBOOST_IS64", envBuf, sizeof(envBuf));
 
 		wchar_t agentPath[MAX_PATH];
