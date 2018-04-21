@@ -53,7 +53,7 @@ namespace BNSBoost
                     ref si, 
                     out pi))
                 {
-                    MessageBox.Show($"Failed to spawn injector: {Marshal.GetLastWin32Error()} :-(");
+                    MessageBox.Show($"Failed to spawn launcher: {Marshal.GetLastWin32Error()} :-(");
                     return -1;
                 }
 
@@ -69,6 +69,11 @@ namespace BNSBoost
                 };
                 process.Start();
                 process.WaitForExit();
+
+                if (process.ExitCode != 0)
+                {
+                    MessageBox.Show($"Injector failed: {process.ExitCode} :-(");
+                }
 
                 ResumeThread(pi.hThread);
                 WaitForSingleObject(pi.hProcess, UInt32.MaxValue);
@@ -214,7 +219,7 @@ namespace BNSBoost
                     // Ping calculation is totally arbitrary based on TCP connection time,
                     // scaled to sort of match up the delay visible in the in-game overlay
                     if (failed) Ping = null;
-                    else Ping = time.Elapsed.TotalMilliseconds * 3 * 2; // Round trip
+                    else Ping = time.Elapsed.TotalMilliseconds * 3; // Round trip + server delay
 
                     socket.Close();
 
