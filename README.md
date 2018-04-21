@@ -12,7 +12,8 @@ It features options for:
 * Disabling texture streaming
 * Disabling loading screens
 * Disabling XIGNCODE3<sup>*</sup>
-* Enables multi-client support
+* Enabling multi-client support
+* Autopatching common XML edits (DPS meter, AFK check, etc.)
 * Arbitrary game XML edits
 
 <sup><b>*</b></sup> If you are not disabling XIGNCODE3,  BNSBoost never touches the game client (`Client.exe`), only its launcher. If you are, it injects an agent DLL (see below) into it.
