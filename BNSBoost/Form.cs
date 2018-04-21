@@ -13,13 +13,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using BNSBoost.BNSDat;
-using BNSBoost.MyProg;
+using static BNSBoost.NativeMethods;
+using static BNSBoost.NativeMethods.ProcessCreationFlags;
 
 namespace BNSBoost
 {
 
     public partial class BNSBoostForm : Form
     {
+
         private static class ClientMethods
         {
             public static int Launch(
@@ -27,22 +29,52 @@ namespace BNSBoost
                 string lpExtraClientFlags
             )
             {
+                STARTUPINFO si = new STARTUPINFO();
+                PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
+
+                string baseDir = new FileInfo(System.Reflection.Assembly.GetEntryAssembly().Location).DirectoryName;
+                Environment.SetEnvironmentVariable("__BNSBOOST_CLIENTFLAGS", lpExtraClientFlags);
+                Environment.SetEnvironmentVariable("__BNSBOOST_BASEDIR", baseDir);
+
+                if (Properties.Settings.Default.Is64Bit)
+                    Environment.SetEnvironmentVariable("__BNSBOOST_IS64", "1");
+
+                if (!CreateProcess(null,
+                    $"\"{lpLauncher}\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"",
+                    IntPtr.Zero, 
+                    IntPtr.Zero, 
+                    false,
+                    CREATE_SUSPENDED,
+                    IntPtr.Zero,
+                    null, 
+                    ref si, 
+                    out pi))
+                {
+                    MessageBox.Show($"Failed to spawn injector: {Marshal.GetLastWin32Error()} :-(");
+                    return -1;
+                }
+
                 Process process = new Process
                 {
                     StartInfo =
                     {
-                        EnvironmentVariables = {{ "__BNSBOOST_CLIENTFLAGS", lpExtraClientFlags }},
                         UseShellExecute = false,
-                        CreateNoWindow = true,
+                        //CreateNoWindow = true,
                         FileName = "inject32.exe",
-                        Arguments = $"agent_launcher.dll \"\\\"{lpLauncher}\\\" /LauncherID:\\\"NCWest\\\" /CompanyID:\\\"12\\\" /GameID:\\\"BnS\\\" /LUpdateAddr:\\\"updater.nclauncher.ncsoft.com\\\"\""
+                        Arguments = $"\"{Path.Combine(baseDir, "agent_launcher.dll")}\" {pi.dwProcessId}"
                     }
                 };
                 process.Start();
                 process.WaitForExit();
 
-                // 0xB00573D is regular agent exit code
-                return process.ExitCode == 0xB00573D ? 0 : process.ExitCode;
+                ResumeThread(pi.hThread);
+                WaitForSingleObject(pi.hProcess, UInt32.MaxValue);
+
+                uint exitcode;
+                GetExitCodeProcess(pi.hProcess, out exitcode);
+
+                // // 0xB00573D is regular agent exit code
+                return exitcode == 0xB00573D ? 0 : (int)exitcode;
             }
         }
 

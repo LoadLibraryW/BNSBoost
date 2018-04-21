@@ -13,73 +13,65 @@
 
 #include <detours.h>
 
-int LaunchImageWithAgent(LPWSTR lpImageCommandLine, LPWSTR lpAgentPath) {
-	STARTUPINFO si;
-	PROCESS_INFORMATION pi;
-
-	ZeroMemory(&si, sizeof(si));
-	si.cb = sizeof(si);
-	ZeroMemory(&pi, sizeof(pi));
-
+int InjectProcessWithAgent(int pid, LPWSTR lpAgentPath) {
+	printf("Injecting PID: %d\n", pid);
 	wprintf(L"Agent: %ls\n", lpAgentPath);
 
-	char agentPath[MAX_PATH];
-	wcstombs(agentPath, lpAgentPath, sizeof(agentPath));
+	DWORD dwSize = (wcslen(lpAgentPath) + 1) * sizeof(wchar_t);
 
-	if (!DetourCreateProcessWithDll(NULL,
-		lpImageCommandLine,
-		NULL,
-		NULL,
-		FALSE,
-		67108864,
-		NULL,
-		NULL,
-		&si,
-		&pi,
-		agentPath,
-		NULL))
-	{
-		printf("DetourCreateProcessWithDll failed (%d).\n", GetLastError());
-		return GetLastError();
+	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+	if (!hProcess) {
+		fprintf(stderr, "Could not open process: %d\n", GetLastError());
+		return -1;
 	}
 
-	printf("Launched PID!: %d\n", pi.dwProcessId);
+	LPVOID lpAgentMem = VirtualAllocEx(hProcess, NULL, dwSize, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	if (!lpAgentMem) {
+		fprintf(stderr, "Could not allocate memory for agent path: %d\n", GetLastError());
+		return -1;
+	}
 
-	WaitForSingleObject(pi.hProcess, INFINITE);
-	DWORD exitcode;
-	GetExitCodeProcess(pi.hProcess, &exitcode);
-	printf("Exited with: %04X\n", exitcode);
-	CloseHandle(pi.hProcess);
-	CloseHandle(pi.hThread);
+	if (!WriteProcessMemory(hProcess, lpAgentMem, lpAgentPath, dwSize, NULL)) {
+		fprintf(stderr, "Could write agent path: %d\n", GetLastError());
+		return -1;
+	}
 
-	getch();
+	LPVOID lpLoadLibraryW = GetProcAddress(GetModuleHandle(L"kernel32.dll"), "LoadLibraryW");
 
-	return exitcode;
+	if (!lpLoadLibraryW) {
+		fprintf(stderr, "Could get LoadLibraryW address: %d\n", GetLastError());
+		return -1;
+	}
+
+	HANDLE hThread = CreateRemoteThread(hProcess, NULL, NULL, (LPTHREAD_START_ROUTINE)lpLoadLibraryW, lpAgentMem, NULL, NULL);
+
+	if (!hThread) {
+		fprintf(stderr, "Could not create remote thread: %d\n", GetLastError());
+		return -1;
+	}
+
+	WaitForSingleObject(hThread, INFINITE);
+	CloseHandle(hThread);
+
+	fprintf(stderr, "Done!\n");
+
+	CloseHandle(hProcess);
+
+	// free mem
+
+	return 0;
 }
 
 int wmain(int argc, const wchar_t **argv)
 {
-	if (argc < 3) {
-		fprintf(stderr, "Usage!s:\n\tinject.exe [agent dll] [executable and arguments]\n");
+	if (argc != 3) {
+		fprintf(stderr, "Usage!s:\n\tinject.exe [agent dll] [process id]\n");
 		exit(1);
 	}
 
-	wchar_t *line = GetCommandLine();
-	wprintf(L">>> %ls\n", line);
-
-	int spaces = 0;
-	BOOL quoteOpen = FALSE;
-	int i;
-	for (i = 0; i < wcslen(line); i++) {
-		if (!quoteOpen && line[i] != L' ' && i - 1 > 0 && line[i - 1] == L' ') {
-			spaces++;
-
-			if (spaces == 2) break;
-		}
-
-		quoteOpen ^= line[i] == L'"' && (i - 1 == 0 || line[i - 1] != L'\\');
-	}
-
-	wprintf(L"command line: [%ls]\n", line + i);
-	return LaunchImageWithAgent(line + i, argv[1]);
+	int pid = wcstol(argv[2], NULL, 10);
+	int ret = InjectProcessWithAgent(pid, argv[1]);
+	fflush(stderr);
+	getchar();
+	return ret;
 }

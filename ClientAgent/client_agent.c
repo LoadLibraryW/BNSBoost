@@ -13,6 +13,19 @@
 
 #include <detours.h>
 
+typedef HANDLE(WINAPI *CreateMutex_t) (LPSECURITY_ATTRIBUTES, BOOL, LPCTSTR);
+
+static CreateMutex_t Real_CreateMutex;
+HANDLE WINAPI Hook_CreateMutex(
+	_In_opt_ LPSECURITY_ATTRIBUTES lpMutexAttributes,
+	_In_     BOOL                  bInitialOwner,
+	_In_opt_ LPCTSTR               lpName
+) {
+	// The game grabs a mutex named "BnSGameClient" so that a new instance can stop when another is already running
+	// To prevent this, if the name is "BnSGameClient", just make it a regular (unnamed) mutex instead
+	return Real_CreateMutex(lpMutexAttributes, bInitialOwner, (lpName && !wcscmp(L"BnSGameClient", lpName)) ? NULL : lpName);
+}
+
 typedef HANDLE(WINAPI *CreateFile_t)(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUTES, DWORD, DWORD, HANDLE);
 
 static CreateFile_t Real_CreateFile;
@@ -25,34 +38,20 @@ static HANDLE WINAPI Hook_CreateFile(
 	_In_     DWORD                 dwFlagsAndAttributes,
 	_In_opt_ HANDLE                hTemplateFile
 ) {
-	HANDLE ret = Real_CreateFile(lpFileName,
+
+	// The game grabs exclusive access to xml[bit].dat and config[bit].dat, which prevents a second client
+	// from successfully starting, so force it to share read on all files at least
+	return Real_CreateFile(lpFileName,
 		dwDesiredAccess,
 		dwShareMode ? dwShareMode : FILE_SHARE_READ,
 		lpSecurityAttributes,
 		dwCreationDisposition,
 		dwFlagsAndAttributes,
-		hTemplateFile);
-
-	return ret;
-}
-
-typedef HANDLE(WINAPI *CreateMutex_t) (LPSECURITY_ATTRIBUTES, BOOL, LPCTSTR);
-
-static CreateMutex_t Real_CreateMutex;
-HANDLE WINAPI Hook_CreateMutex(
-	_In_opt_ LPSECURITY_ATTRIBUTES lpMutexAttributes,
-	_In_     BOOL                  bInitialOwner,
-	_In_opt_ LPCTSTR               lpName
-) {
-	//MessageBox(NULL, lpName, L"CreateMutex!", 0);
-	return Real_CreateMutex(lpMutexAttributes, bInitialOwner, lpName);
+		hTemplateFile);;
 }
 
 void InjectMain()
 {
-	printf("Entered injector!\n");
-
-	MessageBox(NULL, L"Injecting!!", L"", 0);
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 
@@ -72,26 +71,16 @@ void InjectMain()
 		MessageBox(NULL, L"Hooking error!", L"", 0);
 		exit(error);
 	}
-
-	printf("Injected!\n");
 }
 
 INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
 	switch (Reason) {
 	case DLL_PROCESS_ATTACH:
-		//DisableThreadLibraryCalls(hDLL);
-
-		MessageBox(NULL, L"We're in!!", L"", 0);
-		freopen("C:\\dev\\BNSBoost\\log-client.txt", "w", stdout);
+		DisableThreadLibraryCalls(hDLL);
 		MessageBeep(-1);
-		printf("Agent attached!\n");
-		//InjectMain();
-		break;
-	case DLL_PROCESS_DETACH:
-		printf("Agent detached!\n");
+		InjectMain();
 		break;
 	}
 
-	fflush(stdout);
 	return TRUE;
 }

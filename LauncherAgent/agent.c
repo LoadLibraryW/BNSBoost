@@ -109,25 +109,52 @@ BOOL WINAPI Hook_CreateProcess(
 
 	wchar_t commandLine[8191];
 	memset(commandLine, 0, sizeof(commandLine));
-	wcscpy(commandLine, L"C:\\dev\\BNSBoost\\bin\\Debug\\inject32.exe C:\\dev\\BNSBoost\\bin\\Debug\\agent_client32.dll ");
-	wcscat(commandLine, lpCommandLine);
+	//wcscpy(commandLine, L"C:\\dev\\BNSBoost\\bin\\Debug\\inject32.exe C:\\dev\\BNSBoost\\bin\\Debug\\agent_client32.dll ");
+	wcscpy(commandLine, lpCommandLine);
 	wcscat(commandLine, L" ");
 	wcscat(commandLine, ExtraClientFlags);
 
 	wprintf(L"[%ls]\n", commandLine);
 
-	wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, commandLine);
+	wprintf(L"!CreateProcess (new): %ls (%ls)\n", lpApplicationName, commandLine);
 	wprintf(L"handles=%d, creation=%d, env=%ls\n", bInheritHandles, dwCreationFlags, lpEnvironment);
 	BOOL ret = Real_CreateProcess(lpApplicationName,
 		commandLine,
 		lpProcessAttributes,
 		lpThreadAttributes,
 		bInheritHandles,
-		dwCreationFlags,
+		dwCreationFlags | CREATE_SUSPENDED,
 		lpEnvironment,
 		lpCurrentDirectory,
 		lpStartupInfo,
 		lpProcessInformation);
+
+	wchar_t injector[8191];
+	wsprintf(injector, L"\"%ls\" \"%ls\" %d", L"C:\\dev\\BNSBoost\\bin\\Debug\\inject32.exe", L"C:\\dev\\BNSBoost\\bin\\Debug\\agent_client32.dll", lpProcessInformation->dwProcessId);
+
+	MessageBox(NULL, injector, L"ExtraCreateProcess!", 0);
+
+
+	wchar_t self[MAX_PATH];
+	GetModuleFileNameW(GetModuleHandle(NULL), self, _countof(self));
+
+	MessageBox(NULL, self, L"Self path", 0);
+
+
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	if (!Real_CreateProcess(NULL, injector, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+		MessageBox(NULL, L"Couldn't create injector process", L"", 0);
+	}
+
+	WaitForSingleObject(pi.hProcess, INFINITE);
+
+	ResumeThread(lpProcessInformation->hThread);
 
 	free(lpNewCommandLine);
 	exit(0xB00573D);
@@ -161,6 +188,7 @@ void InjectMain()
 }
 
 INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
+	//MessageBeep(-1);
 	switch (Reason) {
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls(hDLL);
