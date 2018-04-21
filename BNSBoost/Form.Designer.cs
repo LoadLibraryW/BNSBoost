@@ -469,9 +469,9 @@
             this.ShowOpposingTeamCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "ShowOpposingTeam", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.ShowOpposingTeamCheckbox.Location = new System.Drawing.Point(9, 229);
             this.ShowOpposingTeamCheckbox.Name = "ShowOpposingTeamCheckbox";
-            this.ShowOpposingTeamCheckbox.Size = new System.Drawing.Size(428, 36);
+            this.ShowOpposingTeamCheckbox.Size = new System.Drawing.Size(512, 36);
             this.ShowOpposingTeamCheckbox.TabIndex = 5;
-            this.ShowOpposingTeamCheckbox.Text = "Show opposing team in arena";
+            this.ShowOpposingTeamCheckbox.Text = "Show names of low-rated opponents";
             this.ShowOpposingTeamCheckbox.UseVisualStyleBackColor = true;
             // 
             // ShowAverageScoreCheckbox

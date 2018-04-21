@@ -26,7 +26,7 @@ namespace BNSBoost
                 }) ApplyOption(document, opt, Settings.Default.ShowDPSMeter? 2 : 0);
             },
             document => ApplyOption(document, "use-team-average-score", Settings.Default.ShowAverageScore ? "true" : "false"),
-            document => { /* See opposing team */ },
+            document => ApplyOption(document, "hidden-pc-name-rating", Settings.Default.ShowOpposingTeam ? 0 : 160000),
             document => ApplyOption(document, "exit-game-waiting-time", Settings.Default.ExitGameImmediately ? 1.0 : 10.0),
             document => ApplyOption(document, "show-duration", Settings.Default.ChangeLatencyDisplayTime? Settings.Default.LatencyShowTimeValue : (decimal)2.0)
         };
