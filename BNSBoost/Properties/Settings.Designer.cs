@@ -298,5 +298,17 @@ namespace BNSBoost.Properties {
                 this["Hash_config64_dat"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MultiClientEnabled {
+            get {
+                return ((bool)(this["MultiClientEnabled"]));
+            }
+            set {
+                this["MultiClientEnabled"] = value;
+            }
+        }
     }
 }
