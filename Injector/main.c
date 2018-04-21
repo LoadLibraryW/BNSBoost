@@ -21,43 +21,65 @@ int LaunchImageWithAgent(LPWSTR lpImageCommandLine, LPWSTR lpAgentPath) {
 	si.cb = sizeof(si);
 	ZeroMemory(&pi, sizeof(pi));
 
-	fwprintf(stderr, "Agent: %ls\n", lpAgentPath);
+	wprintf(L"Agent: %ls\n", lpAgentPath);
+
+	char agentPath[MAX_PATH];
+	wcstombs(agentPath, lpAgentPath, sizeof(agentPath));
 
 	if (!DetourCreateProcessWithDll(NULL,
 		lpImageCommandLine,
 		NULL,
 		NULL,
-		TRUE,
-		0,
+		FALSE,
+		67108864,
 		NULL,
 		NULL,
 		&si,
 		&pi,
-		"Agent.dll",
+		agentPath,
 		NULL))
 	{
-		fprintf(stderr, "DetourCreateProcessWithDll failed (%d).\n", GetLastError());
+		printf("DetourCreateProcessWithDll failed (%d).\n", GetLastError());
 		return GetLastError();
 	}
 
-	fprintf(stderr, "Launched PID!: %d\n", pi.dwProcessId);
+	printf("Launched PID!: %d\n", pi.dwProcessId);
 
 	WaitForSingleObject(pi.hProcess, INFINITE);
 	DWORD exitcode;
 	GetExitCodeProcess(pi.hProcess, &exitcode);
-	fprintf(stderr, "Exited with: %04X\n", exitcode);
+	printf("Exited with: %04X\n", exitcode);
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
+
+	getch();
 
 	return exitcode;
 }
 
 int wmain(int argc, const wchar_t **argv)
 {
-	if (argc != 3) {
-		fprintf(stderr, "Usage:\n\tinject.exe [agent dll] [executable and arguments]\n");
+	if (argc < 3) {
+		fprintf(stderr, "Usage!s:\n\tinject.exe [agent dll] [executable and arguments]\n");
 		exit(1);
 	}
 
-	return LaunchImageWithAgent(argv[2], argv[1]);
+	wchar_t *line = GetCommandLine();
+	wprintf(L">>> %ls\n", line);
+
+	int spaces = 0;
+	BOOL quoteOpen = FALSE;
+	int i;
+	for (i = 0; i < wcslen(line); i++) {
+		if (!quoteOpen && line[i] != L' ' && i - 1 > 0 && line[i - 1] == L' ') {
+			spaces++;
+
+			if (spaces == 2) break;
+		}
+
+		quoteOpen ^= line[i] == L'"' && (i - 1 == 0 || line[i - 1] != L'\\');
+	}
+
+	wprintf(L"command line: [%ls]\n", line + i);
+	return LaunchImageWithAgent(line + i, argv[1]);
 }
