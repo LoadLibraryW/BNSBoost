@@ -39,6 +39,9 @@ namespace BNSBoost
                 if (Properties.Settings.Default.Is64Bit)
                     Environment.SetEnvironmentVariable("__BNSBOOST_IS64", "1");
 
+                if (Properties.Settings.Default.DisableX3 && Properties.Settings.Default.MultiClientEnabled)
+                    Environment.SetEnvironmentVariable("__BNSBOOST_MULTICLIENT", "1");
+
                 if (!CreateProcess(null,
                     $"\"{lpLauncher}\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"",
                     IntPtr.Zero, 
@@ -59,7 +62,7 @@ namespace BNSBoost
                     StartInfo =
                     {
                         UseShellExecute = false,
-                        //CreateNoWindow = true,
+                        CreateNoWindow = true,
                         FileName = "inject32.exe",
                         Arguments = $"\"{Path.Combine(baseDir, "agent_launcher.dll")}\" {pi.dwProcessId}"
                     }
@@ -90,6 +93,7 @@ namespace BNSBoost
             RegionComboBox.SelectedItem = Properties.Settings.Default.Region;
             SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
             LatencyDurationUpDown.Enabled = Properties.Settings.Default.ChangeLatencyDisplayTime;
+            MultiClientCheckbox.Enabled = Properties.Settings.Default.DisableX3;
         }
 
         private void InitializeGamePaths()
@@ -609,6 +613,11 @@ namespace BNSBoost
         private void RegionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.Region = RegionComboBox.SelectedItem as string;
+        }
+
+        private void DisableX3Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            MultiClientCheckbox.Enabled = DisableX3Checkbox.Checked;
         }
     }
 

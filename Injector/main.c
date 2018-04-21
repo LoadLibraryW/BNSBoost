@@ -72,6 +72,5 @@ int wmain(int argc, const wchar_t **argv)
 	int pid = wcstol(argv[2], NULL, 10);
 	int ret = InjectProcessWithAgent(pid, argv[1]);
 	fflush(stderr);
-	getchar();
 	return ret;
 }

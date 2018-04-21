@@ -92,69 +92,69 @@ BOOL WINAPI Hook_CreateProcess(
 	_In_        LPSTARTUPINFO         lpStartupInfo,
 	_Out_       LPPROCESS_INFORMATION lpProcessInformation
 ) {
-	MessageBox(NULL, L"CreateProcess!", L"", 0);
-	wprintf(L"CreateProcess: %ls (%ls)\n", lpApplicationName, lpCommandLine);
-	fflush(stdout);
-
-	wchar_t ExtraClientFlags[100];
-	if (!GetEnvironmentVariable(L"__BNSBOOST_CLIENTFLAGS", ExtraClientFlags, sizeof(ExtraClientFlags))) {
+	wchar_t envBuf[100];
+	if (!GetEnvironmentVariable(L"__BNSBOOST_CLIENTFLAGS", envBuf, sizeof(envBuf))) {
 		exit(GetLastError());
 	}
 
-	DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(ExtraClientFlags) + 2) * sizeof(wchar_t);
+	DWORD dwSize = (lstrlen(lpCommandLine) + lstrlen(envBuf) + 2) * sizeof(wchar_t);
 	LPWSTR lpNewCommandLine = malloc(dwSize);
-	StringCbCopy(lpNewCommandLine, dwSize, lpCommandLine);
-	StringCbCat(lpNewCommandLine, dwSize, L" ");
-	StringCbCat(lpNewCommandLine, dwSize, ExtraClientFlags);
+	wcscpy(lpNewCommandLine, lpCommandLine);
+	wcscat(lpNewCommandLine, L" ");
+	wcscat(lpNewCommandLine, envBuf);
 
-	wchar_t commandLine[8191];
-	memset(commandLine, 0, sizeof(commandLine));
-	//wcscpy(commandLine, L"C:\\dev\\BNSBoost\\bin\\Debug\\inject32.exe C:\\dev\\BNSBoost\\bin\\Debug\\agent_client32.dll ");
-	wcscpy(commandLine, lpCommandLine);
-	wcscat(commandLine, L" ");
-	wcscat(commandLine, ExtraClientFlags);
+	BOOL bMulticlientEnabled = GetEnvironmentVariable(L"__BNSBOOST_MULTICLIENT", envBuf, sizeof(envBuf));
 
-	wprintf(L"[%ls]\n", commandLine);
-
-	wprintf(L"!CreateProcess (new): %ls (%ls)\n", lpApplicationName, commandLine);
-	wprintf(L"handles=%d, creation=%d, env=%ls\n", bInheritHandles, dwCreationFlags, lpEnvironment);
-	BOOL ret = Real_CreateProcess(lpApplicationName,
-		commandLine,
+	Real_CreateProcess(lpApplicationName,
+		lpNewCommandLine,
 		lpProcessAttributes,
 		lpThreadAttributes,
 		bInheritHandles,
-		dwCreationFlags | CREATE_SUSPENDED,
+		dwCreationFlags | (bMulticlientEnabled ? CREATE_SUSPENDED : 0),
 		lpEnvironment,
 		lpCurrentDirectory,
 		lpStartupInfo,
 		lpProcessInformation);
 
-	wchar_t injector[8191];
-	wsprintf(injector, L"\"%ls\" \"%ls\" %d", L"C:\\dev\\BNSBoost\\bin\\Debug\\inject32.exe", L"C:\\dev\\BNSBoost\\bin\\Debug\\agent_client32.dll", lpProcessInformation->dwProcessId);
+	if (bMulticlientEnabled) {
+		BOOL bIs64 = GetEnvironmentVariable(L"__BNSBOOST_IS64", envBuf, sizeof(envBuf));
 
-	MessageBox(NULL, injector, L"ExtraCreateProcess!", 0);
+		wchar_t agentPath[MAX_PATH];
+		wchar_t injectPath[MAX_PATH];
 
+		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", agentPath, sizeof(agentPath));
+		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", injectPath, sizeof(injectPath));
 
-	wchar_t self[MAX_PATH];
-	GetModuleFileNameW(GetModuleHandle(NULL), self, _countof(self));
+		wcscat(agentPath, L"\\");
+		wcscat(injectPath, L"\\");
 
-	MessageBox(NULL, self, L"Self path", 0);
+		if (bIs64) {
+			wcscat(agentPath, L"agent_client64.dll");
+			wcscat(injectPath, L"inject64.exe");
+		}
+		else {
+			wcscat(agentPath, L"agent_client32.dll");
+			wcscat(injectPath, L"inject32.exe");
+		}
 
+		wchar_t injector[8191];
+		wsprintf(injector, L"\"%ls\" \"%ls\" %d", injectPath, agentPath, lpProcessInformation->dwProcessId);
 
-	STARTUPINFO si;
-	PROCESS_INFORMATION pi;
+		STARTUPINFO si;
+		PROCESS_INFORMATION pi;
 
-	ZeroMemory(&si, sizeof(si));
-	si.cb = sizeof(si);
-	ZeroMemory(&pi, sizeof(pi));
+		ZeroMemory(&si, sizeof(si));
+		si.cb = sizeof(si);
+		ZeroMemory(&pi, sizeof(pi));
 
-	if (!Real_CreateProcess(NULL, injector, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
-		MessageBox(NULL, L"Couldn't create injector process", L"", 0);
+		if (!Real_CreateProcess(NULL, injector, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi)) {
+			MessageBox(NULL, L"Couldn't create injector process :-(", L"", 0);
+			exit(GetLastError());
+		}
+
+		WaitForSingleObject(pi.hProcess, INFINITE);
+		ResumeThread(lpProcessInformation->hThread);
 	}
-
-	WaitForSingleObject(pi.hProcess, INFINITE);
-
-	ResumeThread(lpProcessInformation->hThread);
 
 	free(lpNewCommandLine);
 	exit(0xB00573D);
@@ -162,8 +162,6 @@ BOOL WINAPI Hook_CreateProcess(
 
 void InjectMain()
 {
-	printf("Entered injector!\n");
-
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 
@@ -183,23 +181,14 @@ void InjectMain()
 		MessageBox(NULL, L"Hooking error!", L"", 0);
 		exit(error);
 	}
-
-	printf("Injected!\n");
 }
 
 INT APIENTRY DllMain(HMODULE hDLL, DWORD Reason, LPVOID Reserved) {
-	//MessageBeep(-1);
 	switch (Reason) {
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls(hDLL);
-
-		freopen("log.txt", "w", stdout);
 		MessageBeep(-1);
-		printf("Agent attached!\n");
 		InjectMain();
-		break;
-	case DLL_PROCESS_DETACH:
-		printf("Agent detached!\n");
 		break;
 	}
 
