@@ -12,10 +12,10 @@ It features options for:
 * Disabling texture streaming
 * Disabling loading screens
 * Disabling XIGNCODE3<sup>*</sup>
+* Enables multi-client support
 * Arbitrary game XML edits
 
-<sup><b>*</b></sup> If you are not disabling XIGNCODE3,  BNSBoost never touches the game client (`Client.exe`), only its launcher. If you are, it replaces the game's
-`x3.xem` and `xcorona_x64.xem` files.
+<sup><b>*</b></sup> If you are not disabling XIGNCODE3,  BNSBoost never touches the game client (`Client.exe`), only its launcher. If you are, it injects an agent DLL (see below) into it.
 
 ## Installation
 
@@ -43,20 +43,38 @@ You can use this to run your own version of `xinput.dll`, run custom voice packs
 
 ## How it works
 
-The code itself is pretty short and fairly easy to follow, but in general:
+There's a bunch of files included alongside BNSBoost that are necessary for it to function. Below is a brief overview of what each does.
 
-* BNSBoost detects your launcher path from the registry
-* Launches it suspended
-* Writes the agent DLL into the memory of the launcher, and runs it
-  * At this point there will likely be an audible beep, and BNSBoost can be safely closed
-* Unsuspends the game; NCSoft login page shows up
-* The agent modifies the game's [import address table (IAT)](https://en.wikipedia.org/wiki/Portable_Executable#Import_Table)
-  * Redirects all calls to `CreateFile`, `CreateProcess` and `LoadLibrary`
-  * Relevant calls to `CreateFile` are sourced from the `unpatched` directory
-  * `CreateProcess` hook adds no texture streaming and use all CPU core flags to the game
-  * `LoadLibrary` hook applies the `CreateFile` hook to any libraries loaded later
+### `inject32.exe` / `inject64.exe`
 
-The injection procedure itself is mostly sourced from the [DMOJ's](https://dmoj.ca/) Windows sandbox, which is [also open source](https://github.com/DMOJ/judge).
+Writes a DLL into a given process' memory. BNSBoost uses these to write agent DLLs into either the launcher or the client.
+
+### `agent_launcher.dll`
+
+Injected into `NCLauncherR.exe` by BNSBoost. Sets up two hooks:
+
+* #### `CreateFileW` hook
+    Used to bypass file verification by redirecting calls to the `unpatched` directory, when it exists.
+
+* #### `CreateProcessW` hook
+    Used to add client flags (`-UNATTENDED`, `-NOTEXTURESTREAMING`, `-USEALLAVAILABLECORES`) when the launcher spawns the client. If bypassing XIGNCODE3, launches `inject32.exe` or `inject64.exe` (depending on client bitness) to inject `agent_client32.dll` or `agent_client64.dll` into the client.
+
+### `agent_client32.dll` / `agent_client64.dll`
+
+Injected into `Client.exe` by the `agent_launcher.dll`'s `CreateProcessW` hook. Sets up three hooks:
+
+* #### `LoadLibraryW` hook
+    Detects if the client is trying to load `x3.xem` or `xcorona_x64.xem`, and if so redirects the library to our patched ones instead.
+
+* #### `CreateMutexW` hook
+    Used for multi-client support. The game creates a named mutex "BnSGameClient" to prevent multiple instances from starting; this hook strips the name from it and allows further clients to be started.
+
+* #### `CreateFileW` hook
+    The client grabs exclusive access to `xml[bit].dat` / `config[bit].dat`, which causes clients to exit with "corrupt game file" messages even if the mutex is patched out. This hook is used to ensure that exclusive access cannot be obtained on any file used by the client, downgrading to sharing read access.
+
+### `x3.xem` / `xcorona_x64.xem`
+
+[VirtualPuppet/**XignCode3-bypass**](https://github.com/VirtualPuppet/XignCode3-bypass) built for 32-bit and 64-bit targets, respectively.
 
 ## Reporting an issue
 
@@ -65,9 +83,5 @@ However, since I figure this may be useful for others, I'll be happy to provide 
 errors caused by BNSBoost.
 
 You can use the [ticket tracker](https://github.com/Xyene/BNSBoost/issues/) to [report issues](https://github.com/Xyene/BNSBoost/issues/new), and I'll probably get to them fairly quickly. 
-
-Where possible, include a copy of your `log.txt` from the folder containing BNSBoost.
-If that's not possible because BNSBoost is crashing too early (e.g., a flickering black window), open an **administrator**
-command prompt, `cd` to your BNSBoost directory, and run `BNSBoost.exe` from there. There'll probably be some extra info printed there.
 
 Good luck!
