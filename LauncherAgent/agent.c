@@ -107,10 +107,19 @@ BOOL WINAPI Hook_CreateProcess(
 	StringCbCat(lpNewCommandLine, dwSize, L" ");
 	StringCbCat(lpNewCommandLine, dwSize, ExtraClientFlags);
 
-	wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, lpNewCommandLine);
+	wchar_t commandLine[8191];
+	memset(commandLine, 0, sizeof(commandLine));
+	wcscpy(commandLine, L"C:\\dev\\BNSBoost\\bin\\Debug\\inject32.exe C:\\dev\\BNSBoost\\bin\\Debug\\agent_client32.dll ");
+	wcscat(commandLine, lpCommandLine);
+	wcscat(commandLine, L" ");
+	wcscat(commandLine, ExtraClientFlags);
 
+	wprintf(L"[%ls]\n", commandLine);
+
+	wprintf(L"CreateProcess (new): %ls (%ls)\n", lpApplicationName, commandLine);
+	wprintf(L"handles=%d, creation=%d, env=%ls\n", bInheritHandles, dwCreationFlags, lpEnvironment);
 	BOOL ret = Real_CreateProcess(lpApplicationName,
-		lpNewCommandLine,
+		commandLine,
 		lpProcessAttributes,
 		lpThreadAttributes,
 		bInheritHandles,

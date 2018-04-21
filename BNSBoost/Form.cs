@@ -35,7 +35,7 @@ namespace BNSBoost
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         FileName = "inject32.exe",
-                        Arguments = $"Agent.dll \"\\\"{lpLauncher}\\\" /LauncherID:\\\"NCWest\\\" /CompanyID:\\\"12\\\" /GameID:\\\"BnS\\\" /LUpdateAddr:\\\"updater.nclauncher.ncsoft.com\\\"\""
+                        Arguments = $"agent_launcher.dll \"\\\"{lpLauncher}\\\" /LauncherID:\\\"NCWest\\\" /CompanyID:\\\"12\\\" /GameID:\\\"BnS\\\" /LUpdateAddr:\\\"updater.nclauncher.ncsoft.com\\\"\""
                     }
                 };
                 process.Start();

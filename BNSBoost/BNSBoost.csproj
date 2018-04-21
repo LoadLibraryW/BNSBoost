@@ -170,7 +170,10 @@
 "$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:Injector /p:Configuration=$(Configuration) /p:Platform=x86
 
 "$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:Injector /p:Configuration=$(Configuration) /p:Platform=x64
-</PostBuildEvent>
+
+"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x86
+
+"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x64</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
