@@ -40,7 +40,7 @@ namespace BNSBoost
 
         public static void Initialize()
         {
-            foreach (string file in new[] {"xml.dat", "xml64.dat", "config.dat", "config64.dat"})
+            foreach (string file in new[] { "xml.dat", "xml64.dat", "config.dat", "config64.dat" })
             {
                 foreach (string setting in GetPatchSettingsFor(file))
                 {
@@ -113,6 +113,7 @@ namespace BNSBoost
         {
             string newHash = GetSHA1Hash(GetDatfilePath(what));
             string oldHash = Settings.Default[$"Hash_{what.Replace('.', '_')}"] as string;
+
             bool outdated = oldHash != newHash;
             Debug.WriteLine($"Check if {what} patch is outdated: '{oldHash}' != '{newHash}': {outdated} ");
             return outdated;
@@ -124,9 +125,17 @@ namespace BNSBoost
             Settings.Default.Save();
         }
 
-        public static void PatchFile(BackgroundWorker worker, string what, bool is64)
+        public static void PatchFile(BackgroundWorker worker, string what, bool isOutdated, bool is64)
         {
             string datPath = GetDatfilePath(what);
+
+            if (isOutdated)
+            {
+                string unpatchedDir = Path.Combine(Settings.Default.GameDirectoryPath, "contents", "Local", "NCWEST",
+                    "data", "unpatched");
+                Directory.CreateDirectory(unpatchedDir);
+                File.Copy(datPath, Path.Combine(unpatchedDir, what), true);
+            }
 
             BNSDat.BNSDat.Extract(datPath, (number, of) =>
             {
@@ -192,13 +201,15 @@ namespace BNSBoost
             bool is64 = Settings.Default.Is64Bit;
             string bit = is64 ? "64" : "";
 
-            foreach (string file in new[] { $"xml{bit}.dat", $"config{bit}.dat" })
-                if (HasPatchChanges(file) || IsHashOutdatedAndUpdate(file) && HasPatchesEnabled(file))
+            foreach (string file in new[] {$"xml{bit}.dat", $"config{bit}.dat"})
+            {
+                bool outdated = IsHashOutdatedAndUpdate(file);
+                if (HasPatchChanges(file) || outdated && HasPatchesEnabled(file))
                 {
-                    PatchFile(worker, file, is64);
+                    PatchFile(worker, file, outdated, is64);
                     UpdateHash(file);
                 }
-
+            }
             worker.ReportProgress(100, "Launching...");
         }
     }
