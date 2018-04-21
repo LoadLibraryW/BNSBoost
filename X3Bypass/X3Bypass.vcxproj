@@ -110,6 +110,7 @@
     <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <TargetName>xcorona_x64</TargetName>
     <TargetExt>.xem</TargetExt>
+    <IntDir>$(Platform)\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
