@@ -38,7 +38,6 @@ static HANDLE WINAPI Hook_CreateFile(
 	_In_     DWORD                 dwFlagsAndAttributes,
 	_In_opt_ HANDLE                hTemplateFile
 ) {
-
 	// The game grabs exclusive access to xml[bit].dat and config[bit].dat, which prevents a second client
 	// from successfully starting, so force it to share read on all files at least
 	return Real_CreateFile(lpFileName,
@@ -85,8 +84,7 @@ static HMODULE WINAPI Hook_LoadLibrary(
 
 void InjectMain()
 {
-	wchar_t envBuf[100];
-
+	wchar_t envBuf[1];
 	BOOL bMulticlientEnabled = GetEnvironmentVariable(L"__BNSBOOST_MULTICLIENT", envBuf, sizeof(envBuf));
 
 	DetourTransactionBegin();
