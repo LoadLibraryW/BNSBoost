@@ -11,8 +11,6 @@
 #include <Strsafe.h>
 #include <Shlwapi.h>
 
-#include <detours.h>
-
 int InjectProcessWithAgent(int pid, LPWSTR lpAgentPath) {
 	printf("Injecting PID: %d\n", pid);
 	wprintf(L"Agent: %ls\n", lpAgentPath);
