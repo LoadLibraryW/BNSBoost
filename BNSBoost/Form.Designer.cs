@@ -367,7 +367,7 @@
             this.PatchTabPanel.Controls.Add(this.ShowDPSMeterCheckbox);
             this.PatchTabPanel.Location = new System.Drawing.Point(4, 4);
             this.PatchTabPanel.Name = "PatchTabPanel";
-            this.PatchTabPanel.Size = new System.Drawing.Size(846, 504);
+            this.PatchTabPanel.Size = new System.Drawing.Size(846, 552);
             this.PatchTabPanel.TabIndex = 0;
             // 
             // DisableAFKDisconnectCheckbox
@@ -554,7 +554,7 @@
             // 
             // DATProgressBar
             // 
-            this.DATProgressBar.Location = new System.Drawing.Point(7, 442);
+            this.DATProgressBar.Location = new System.Drawing.Point(7, 494);
             this.DATProgressBar.Name = "DATProgressBar";
             this.DATProgressBar.Size = new System.Drawing.Size(600, 59);
             this.DATProgressBar.TabIndex = 3;
@@ -575,7 +575,7 @@
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.DatEditorButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 499);
+            this.DatEditorButtonTable.Size = new System.Drawing.Size(234, 547);
             this.DatEditorButtonTable.TabIndex = 1;
             // 
             // OpenDatFileButton
@@ -583,7 +583,7 @@
             this.OpenDatFileButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OpenDatFileButton.Location = new System.Drawing.Point(3, 3);
             this.OpenDatFileButton.Name = "OpenDatFileButton";
-            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 243);
+            this.OpenDatFileButton.Size = new System.Drawing.Size(228, 267);
             this.OpenDatFileButton.TabIndex = 0;
             this.OpenDatFileButton.Text = "Open";
             this.OpenDatFileButton.UseVisualStyleBackColor = true;
@@ -592,9 +592,9 @@
             // RecompileDatButton
             // 
             this.RecompileDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RecompileDatButton.Location = new System.Drawing.Point(3, 252);
+            this.RecompileDatButton.Location = new System.Drawing.Point(3, 276);
             this.RecompileDatButton.Name = "RecompileDatButton";
-            this.RecompileDatButton.Size = new System.Drawing.Size(228, 118);
+            this.RecompileDatButton.Size = new System.Drawing.Size(228, 130);
             this.RecompileDatButton.TabIndex = 1;
             this.RecompileDatButton.Text = "Recompile all";
             this.RecompileDatButton.UseVisualStyleBackColor = true;
@@ -603,9 +603,9 @@
             // RestoreDatButton
             // 
             this.RestoreDatButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RestoreDatButton.Location = new System.Drawing.Point(3, 376);
+            this.RestoreDatButton.Location = new System.Drawing.Point(3, 412);
             this.RestoreDatButton.Name = "RestoreDatButton";
-            this.RestoreDatButton.Size = new System.Drawing.Size(228, 120);
+            this.RestoreDatButton.Size = new System.Drawing.Size(228, 132);
             this.RestoreDatButton.TabIndex = 2;
             this.RestoreDatButton.Text = "Restore all";
             this.RestoreDatButton.UseVisualStyleBackColor = true;
@@ -640,7 +640,7 @@
             treeNode4,
             treeNode6,
             treeNode8});
-            this.FileDataTreeView.Size = new System.Drawing.Size(601, 430);
+            this.FileDataTreeView.Size = new System.Drawing.Size(601, 482);
             this.FileDataTreeView.TabIndex = 2;
             this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
