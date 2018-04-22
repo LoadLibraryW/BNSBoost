@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="agent.c">
+    <ClCompile Include="launcher_agent.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="agent.def">
+    <None Include="launcher_agent.def">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
