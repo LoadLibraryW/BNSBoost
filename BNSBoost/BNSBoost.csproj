@@ -117,7 +117,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
-    <None Include="bnsdattool_LICENSE" />
+    <None Include="BNSDat\bnsdattool_LICENSE" />
     <None Include="Properties\DataSources\BNSBoost.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\BNSBoost.Properties.Settings.datasource" />
     <None Include="Properties\DataSources\BNSBoostForm.datasource" />
