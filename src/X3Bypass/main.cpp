@@ -24,7 +24,9 @@ BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	}
 	else if (fdwReason == DLL_PROCESS_DETACH)
 	{
+#ifdef _DEBUG
 		FreeConsole();
+#endif
 	}
 
 	return TRUE;
