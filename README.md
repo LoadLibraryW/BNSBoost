@@ -1,4 +1,6 @@
-# BNSBoost [![Build status](https://ci.appveyor.com/api/projects/status/pdx1o24nlghtx64g?svg=true)](https://ci.appveyor.com/project/Xyene/bnsboost)
+# BNSBoost [![Build Status](https://ci.appveyor.com/api/projects/status/pdx1o24nlghtx64g?svg=true)](https://ci.appveyor.com/project/Xyene/bnsboost) [![Releases](https://img.shields.io/github/downloads/Xyene/BNSBoost/total.svg)](https://github.com/Xyene/BNSBoost/releases) [![Chat on Discord](https://img.shields.io/discord/438880622472331271.svg?label=discord&logo=discord&colorA=7078C2&colorB=7B81D8&x=x)](https://discord.gg/yAvFxET)
+
+
 
 BNSBoost is a simple loader for starting NCSoft's Blade and Soul. Not endorsed by them in any way, shape, or form; Blade and Soul, etc. are all trademarks of NCSoft.
 
@@ -41,6 +43,25 @@ This'll trick the launcher's verifier into thinking you're running an unmodified
 The game does no further verification.
 
 You can use this to run your own version of `xinput.dll`, run custom voice packs, and so on.
+
+## FAQ
+
+### Can I be banned using this?
+Absolutely! The use of any 3rd-party tools to run the game is strictly against [NCSoft's EULA](http://us.ncsoft.com/en/legal/user-agreements/blade-and-soul-user-agreement.php), and could land you a ban. But if you've already been using a 3rd-party launcher, this isn't really any different.
+
+### But you're using injection! Isn't that more likely to get me banned?
+I figure half the reason people shy away from injection is that it sounds like you're getting a flu shot, and relate that unpleasant idea to what's going on in the launcher. However, injection is a pretty common practice in tools that interface with games nowadays.
+
+So let's be clear: **if you're using Discord, Steam, TeamSpeak, etc., you're already injecting into Blade and Soul.** These tools inject into the game to provide things like overlays. Though, they avoid mentioning words like "injection" or "hooking" to avoid sounding "scary".
+
+### So what's being injected?
+
+| Feature                | Launcher | Client |
+|------------------------|----------|--------|
+| Extra game flags       | ✔️        | ❌      |
+| XML patching           | ✔️        | ❌      |
+| XIGNCODE3 bypass       | ✔️        | ✔️      |
+| Multi-client enabling  | ✔️        | ✔️      |
 
 ## How it works
 
