@@ -31,7 +31,7 @@ namespace BNSBoost
             return File.GetLastWriteTime(System.Reflection.Assembly.GetEntryAssembly().Location);
         }
 
-        public static BNSBoostRelease LastReleaseTime()
+        public static BNSBoostRelease GetLatestRelease()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             using (var client = new WebClient())

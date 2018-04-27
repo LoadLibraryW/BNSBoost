@@ -447,6 +447,9 @@
             // UpdateCheckBox
             // 
             resources.ApplyResources(this.UpdateCheckBox, "UpdateCheckBox");
+            this.UpdateCheckBox.Checked = global::BNSBoost.Properties.Settings.Default.CheckForUpdates;
+            this.UpdateCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UpdateCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "CheckForUpdates", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.UpdateCheckBox.Name = "UpdateCheckBox";
             this.UpdateCheckBox.UseVisualStyleBackColor = true;
             // 

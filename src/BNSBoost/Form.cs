@@ -103,6 +103,26 @@ namespace BNSBoost
             SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
             LatencyDurationUpDown.Enabled = Properties.Settings.Default.ChangeLatencyDisplayTime;
             MultiClientCheckbox.Enabled = Properties.Settings.Default.DisableX3;
+
+            CheckForUpdates();
+        }
+
+        private void CheckForUpdates()
+        {
+            if (!Properties.Settings.Default.CheckForUpdates) return;
+
+            var release = Updater.GetLatestRelease();
+            if (release.IsNewerVersion())
+            {
+                var result = MessageBox.Show(this,
+                                             $"A newer version of BNSBoost is available: {release.Name}. Open release on Github?",
+                                             "Update available!",
+                                             MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start(release.URL);
+                }
+            }
         }
 
         private void InitializeGamePaths()
