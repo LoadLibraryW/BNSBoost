@@ -103,6 +103,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Updater.cs" />
     <Compile Include="Win32FileIO.cs" />
     <EmbeddedResource Include="Form.resx">
       <DependentUpon>Form.cs</DependentUpon>
