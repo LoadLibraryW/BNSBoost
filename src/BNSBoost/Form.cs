@@ -169,7 +169,7 @@ namespace BNSBoost
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to determine client settings: " + ex.Message);
+                MessageBox.Show($"Failed to determine client settings: {ex.Message}");
             }
         }
 
