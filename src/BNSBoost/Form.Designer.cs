@@ -73,6 +73,8 @@
             this.RestoreDatButton = new System.Windows.Forms.Button();
             this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
+            this.LanguageComboBox = new System.Windows.Forms.ComboBox();
+            this.LanguageLabel = new System.Windows.Forms.Label();
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.GameTabPage.SuspendLayout();
@@ -439,10 +441,26 @@
             // 
             // SettingsTabPage
             // 
+            this.SettingsTabPage.Controls.Add(this.LanguageComboBox);
+            this.SettingsTabPage.Controls.Add(this.LanguageLabel);
             this.SettingsTabPage.Controls.Add(this.UpdateCheckBox);
             resources.ApplyResources(this.SettingsTabPage, "SettingsTabPage");
             this.SettingsTabPage.Name = "SettingsTabPage";
             this.SettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // LanguageComboBox
+            // 
+            this.LanguageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LanguageComboBox.FormattingEnabled = true;
+            this.LanguageComboBox.Items.AddRange(new object[] {
+            resources.GetString("LanguageComboBox.Items")});
+            resources.ApplyResources(this.LanguageComboBox, "LanguageComboBox");
+            this.LanguageComboBox.Name = "LanguageComboBox";
+            // 
+            // LanguageLabel
+            // 
+            resources.ApplyResources(this.LanguageLabel, "LanguageLabel");
+            this.LanguageLabel.Name = "LanguageLabel";
             // 
             // UpdateCheckBox
             // 
@@ -530,6 +548,8 @@
         private System.Windows.Forms.RadioButton Bit64RadioButton;
         private System.Windows.Forms.RadioButton Bit32RadioButton;
         private System.Windows.Forms.CheckBox MultiClientCheckbox;
+        private System.Windows.Forms.Label LanguageLabel;
+        private System.Windows.Forms.ComboBox LanguageComboBox;
     }
 }
 
