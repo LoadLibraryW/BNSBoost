@@ -426,10 +426,29 @@ namespace BNSBoost
                     else
                     {
                         dat.Nodes.Clear();
-                        foreach (string decompFile in Directory.GetFiles(datFile + ".files"))
+                        var Q = new LinkedList<KeyValuePair<TreeNode, string>>();
+                        Q.AddFirst(new KeyValuePair<TreeNode, string>(dat, datFile + ".files"));
+
+
+                        while (Q.Count > 0)
                         {
-                            string name = Path.GetFileName(decompFile);
-                            dat.Nodes.Add(new TreeNode { Text = name, Name = name });
+                            var kv = Q.First();
+                            Q.RemoveFirst();
+
+                            var node = kv.Key;
+                            var path = kv.Value;
+
+                            foreach (string decompFile in Directory.GetFiles(path))
+                            {
+                                node.Nodes.Add(new TreeNode { Text = Path.GetFileName(decompFile), Name = decompFile });
+                            }
+
+                            foreach (string decompDir in Directory.GetDirectories(path))
+                            {
+                                var newNode = new TreeNode { Text = Path.GetFileName(decompDir), Name = decompDir };
+                                node.Nodes.Add(newNode);
+                                Q.AddFirst(new KeyValuePair<TreeNode, string>(newNode, decompDir));
+                            }
                         }
 
                         if (WorkerDenominator == 0)
@@ -456,7 +475,7 @@ namespace BNSBoost
             {
                 if (dat.Text != "Decompiling...")
                 {
-                    string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Parent.Text + @".files\", dat.Text);
+                    string datFile = Path.Combine(GameDirectoryPathTextBox.Text, @"contents\Local\NCWEST\data\", dat.Name);
                     Debug.WriteLine(datFile);
                     Process.Start(datFile);
                 }
