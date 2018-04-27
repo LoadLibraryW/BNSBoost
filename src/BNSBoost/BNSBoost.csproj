@@ -67,6 +67,9 @@
       <HintPath>lib\Ionic.Zlib.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -118,6 +121,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="BNSDat\bnsdattool_LICENSE" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\BNSBoost.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\BNSBoost.Properties.Settings.datasource" />
     <None Include="Properties\DataSources\BNSBoostForm.datasource" />
