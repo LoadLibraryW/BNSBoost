@@ -150,6 +150,255 @@
   <data name="&gt;&gt;LaunchButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;GameTabPanel.Name" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.Parent" xml:space="preserve">
+    <value>GameTabPage</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="GameTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 48</value>
+  </data>
+  <data name="GameTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="GameTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="GameTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>853, 559</value>
+  </data>
+  <data name="GameTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="GameTabPage.Text" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="&gt;&gt;GameTabPage.Name" xml:space="preserve">
+    <value>GameTabPage</value>
+  </data>
+  <data name="&gt;&gt;GameTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameTabPage.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;GameTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MultiClientCheckbox.Name" xml:space="preserve">
+    <value>MultiClientCheckbox</value>
+  </data>
+  <data name="&gt;&gt;MultiClientCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MultiClientCheckbox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;MultiClientCheckbox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;BitnessLabel.Name" xml:space="preserve">
+    <value>BitnessLabel</value>
+  </data>
+  <data name="&gt;&gt;BitnessLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BitnessLabel.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;BitnessLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Bit64RadioButton.Name" xml:space="preserve">
+    <value>Bit64RadioButton</value>
+  </data>
+  <data name="&gt;&gt;Bit64RadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Bit64RadioButton.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;Bit64RadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Bit32RadioButton.Name" xml:space="preserve">
+    <value>Bit32RadioButton</value>
+  </data>
+  <data name="&gt;&gt;Bit32RadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Bit32RadioButton.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;Bit32RadioButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;PingLabel.Name" xml:space="preserve">
+    <value>PingLabel</value>
+  </data>
+  <data name="&gt;&gt;PingLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PingLabel.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;PingLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;DisableX3Checkbox.Name" xml:space="preserve">
+    <value>DisableX3Checkbox</value>
+  </data>
+  <data name="&gt;&gt;DisableX3Checkbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisableX3Checkbox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;DisableX3Checkbox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;RegionComboBox.Name" xml:space="preserve">
+    <value>RegionComboBox</value>
+  </data>
+  <data name="&gt;&gt;RegionComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RegionComboBox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;RegionComboBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;RegionLabel.Name" xml:space="preserve">
+    <value>RegionLabel</value>
+  </data>
+  <data name="&gt;&gt;RegionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RegionLabel.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;RegionLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathTextBox.Name" xml:space="preserve">
+    <value>GameDirectoryPathTextBox</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathTextBox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathTextBox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathLabel.Name" xml:space="preserve">
+    <value>GameDirectoryPathLabel</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathLabel.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;GameDirectoryPathLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;DisableLoadingScreensCheckBox.Name" xml:space="preserve">
+    <value>DisableLoadingScreensCheckBox</value>
+  </data>
+  <data name="&gt;&gt;DisableLoadingScreensCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisableLoadingScreensCheckBox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;DisableLoadingScreensCheckBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathTextBox.Name" xml:space="preserve">
+    <value>LauncherPathTextBox</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathTextBox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathTextBox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;UseAllCoresCheckbox.Name" xml:space="preserve">
+    <value>UseAllCoresCheckbox</value>
+  </data>
+  <data name="&gt;&gt;UseAllCoresCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UseAllCoresCheckbox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;UseAllCoresCheckbox.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathLabel.Name" xml:space="preserve">
+    <value>LauncherPathLabel</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathLabel.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;LauncherPathLabel.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;DisableTextureStreamingCheckbox.Name" xml:space="preserve">
+    <value>DisableTextureStreamingCheckbox</value>
+  </data>
+  <data name="&gt;&gt;DisableTextureStreamingCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisableTextureStreamingCheckbox.Parent" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;DisableTextureStreamingCheckbox.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="GameTabPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="GameTabPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 2</value>
+  </data>
+  <data name="GameTabPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="GameTabPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>847, 555</value>
+  </data>
+  <data name="GameTabPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.Name" xml:space="preserve">
+    <value>GameTabPanel</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.Parent" xml:space="preserve">
+    <value>GameTabPage</value>
+  </data>
+  <data name="&gt;&gt;GameTabPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="MultiClientCheckbox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -573,61 +822,427 @@
   <data name="&gt;&gt;DisableTextureStreamingCheckbox.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
-  <data name="GameTabPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;PatchTabPanel.Name" xml:space="preserve">
+    <value>PatchTabPanel</value>
   </data>
-  <data name="GameTabPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 2</value>
-  </data>
-  <data name="GameTabPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="GameTabPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>847, 555</value>
-  </data>
-  <data name="GameTabPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;GameTabPanel.Name" xml:space="preserve">
-    <value>GameTabPanel</value>
-  </data>
-  <data name="&gt;&gt;GameTabPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;PatchTabPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GameTabPanel.Parent" xml:space="preserve">
-    <value>GameTabPage</value>
+  <data name="&gt;&gt;PatchTabPanel.Parent" xml:space="preserve">
+    <value>PatchSelectTabPage</value>
   </data>
-  <data name="&gt;&gt;GameTabPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PatchTabPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="GameTabPage.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="PatchSelectTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 48</value>
   </data>
-  <data name="GameTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="GameTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="GameTabPage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="PatchSelectTabPage.Size" type="System.Drawing.Size, System.Drawing">
     <value>853, 559</value>
   </data>
-  <data name="GameTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="PatchSelectTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="GameTabPage.Text" xml:space="preserve">
-    <value>Game</value>
+  <data name="PatchSelectTabPage.Text" xml:space="preserve">
+    <value>Patches</value>
   </data>
-  <data name="&gt;&gt;GameTabPage.Name" xml:space="preserve">
-    <value>GameTabPage</value>
+  <data name="&gt;&gt;PatchSelectTabPage.Name" xml:space="preserve">
+    <value>PatchSelectTabPage</value>
   </data>
-  <data name="&gt;&gt;GameTabPage.Type" xml:space="preserve">
+  <data name="&gt;&gt;PatchSelectTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;GameTabPage.Parent" xml:space="preserve">
+  <data name="&gt;&gt;PatchSelectTabPage.Parent" xml:space="preserve">
     <value>MainTabControl</value>
   </data>
-  <data name="&gt;&gt;GameTabPage.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;PatchSelectTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DATProgressBar.Name" xml:space="preserve">
+    <value>DATProgressBar</value>
+  </data>
+  <data name="&gt;&gt;DATProgressBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DATProgressBar.Parent" xml:space="preserve">
+    <value>DatEditorTabPage</value>
+  </data>
+  <data name="&gt;&gt;DATProgressBar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.Name" xml:space="preserve">
+    <value>DatEditorButtonTable</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.Parent" xml:space="preserve">
+    <value>DatEditorTabPage</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="DatEditorButtonTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="OpenDatFileButton" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RecompileDatButton" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RestoreDatButton" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,50,Percent,25,Percent,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;FileDataTreeView.Name" xml:space="preserve">
+    <value>FileDataTreeView</value>
+  </data>
+  <data name="&gt;&gt;FileDataTreeView.Type" xml:space="preserve">
+    <value>BNSBoost.BufferedTreeView, BNSBoost, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;FileDataTreeView.Parent" xml:space="preserve">
+    <value>DatEditorTabPage</value>
+  </data>
+  <data name="&gt;&gt;FileDataTreeView.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DatEditorTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 48</value>
+  </data>
+  <data name="DatEditorTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="DatEditorTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>853, 559</value>
+  </data>
+  <data name="DatEditorTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="DatEditorTabPage.Text" xml:space="preserve">
+    <value>DAT Editor</value>
+  </data>
+  <data name="&gt;&gt;DatEditorTabPage.Name" xml:space="preserve">
+    <value>DatEditorTabPage</value>
+  </data>
+  <data name="&gt;&gt;DatEditorTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DatEditorTabPage.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;DatEditorTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="LanguageComboBox.Items" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguageComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>166, 48</value>
+  </data>
+  <data name="LanguageComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 39</value>
+  </data>
+  <data name="LanguageComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;LanguageComboBox.Name" xml:space="preserve">
+    <value>LanguageComboBox</value>
+  </data>
+  <data name="&gt;&gt;LanguageComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LanguageComboBox.Parent" xml:space="preserve">
+    <value>SettingsTabPage</value>
+  </data>
+  <data name="&gt;&gt;LanguageComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LanguageLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LanguageLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 51</value>
+  </data>
+  <data name="LanguageLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 32</value>
+  </data>
+  <data name="LanguageLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="LanguageLabel.Text" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="&gt;&gt;LanguageLabel.Name" xml:space="preserve">
+    <value>LanguageLabel</value>
+  </data>
+  <data name="&gt;&gt;LanguageLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LanguageLabel.Parent" xml:space="preserve">
+    <value>SettingsTabPage</value>
+  </data>
+  <data name="&gt;&gt;LanguageLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="UpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="UpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 4</value>
+  </data>
+  <data name="UpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>282, 36</value>
+  </data>
+  <data name="UpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="UpdateCheckBox.Text" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="&gt;&gt;UpdateCheckBox.Name" xml:space="preserve">
+    <value>UpdateCheckBox</value>
+  </data>
+  <data name="&gt;&gt;UpdateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UpdateCheckBox.Parent" xml:space="preserve">
+    <value>SettingsTabPage</value>
+  </data>
+  <data name="&gt;&gt;UpdateCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SettingsTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 48</value>
+  </data>
+  <data name="SettingsTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="SettingsTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>853, 559</value>
+  </data>
+  <data name="SettingsTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="SettingsTabPage.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;SettingsTabPage.Name" xml:space="preserve">
+    <value>SettingsTabPage</value>
+  </data>
+  <data name="&gt;&gt;SettingsTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SettingsTabPage.Parent" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;SettingsTabPage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="MainTabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="MainTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 10</value>
+  </data>
+  <data name="MainTabControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
+  </data>
+  <data name="MainTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>873, 617</value>
+  </data>
+  <data name="MainTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Name" xml:space="preserve">
+    <value>MainTabControl</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DisableAFKDisconnectCheckbox.Name" xml:space="preserve">
+    <value>DisableAFKDisconnectCheckbox</value>
+  </data>
+  <data name="&gt;&gt;DisableAFKDisconnectCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisableAFKDisconnectCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;DisableAFKDisconnectCheckbox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;LatencyDurationUpDown.Name" xml:space="preserve">
+    <value>LatencyDurationUpDown</value>
+  </data>
+  <data name="&gt;&gt;LatencyDurationUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LatencyDurationUpDown.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;LatencyDurationUpDown.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;LatencyDisplayCheckbox.Name" xml:space="preserve">
+    <value>LatencyDisplayCheckbox</value>
+  </data>
+  <data name="&gt;&gt;LatencyDisplayCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LatencyDisplayCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;LatencyDisplayCheckbox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;FastExitCheckbox.Name" xml:space="preserve">
+    <value>FastExitCheckbox</value>
+  </data>
+  <data name="&gt;&gt;FastExitCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FastExitCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;FastExitCheckbox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;DisableEULACheckbox.Name" xml:space="preserve">
+    <value>DisableEULACheckbox</value>
+  </data>
+  <data name="&gt;&gt;DisableEULACheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisableEULACheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;DisableEULACheckbox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;ShowOpposingTeamCheckbox.Name" xml:space="preserve">
+    <value>ShowOpposingTeamCheckbox</value>
+  </data>
+  <data name="&gt;&gt;ShowOpposingTeamCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShowOpposingTeamCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;ShowOpposingTeamCheckbox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;ShowAverageScoreCheckbox.Name" xml:space="preserve">
+    <value>ShowAverageScoreCheckbox</value>
+  </data>
+  <data name="&gt;&gt;ShowAverageScoreCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShowAverageScoreCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;ShowAverageScoreCheckbox.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;SkillbookDelayUpDown.Name" xml:space="preserve">
+    <value>SkillbookDelayUpDown</value>
+  </data>
+  <data name="&gt;&gt;SkillbookDelayUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SkillbookDelayUpDown.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;SkillbookDelayUpDown.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;EnableSkillbookDelayCheckbox.Name" xml:space="preserve">
+    <value>EnableSkillbookDelayCheckbox</value>
+  </data>
+  <data name="&gt;&gt;EnableSkillbookDelayCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EnableSkillbookDelayCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;EnableSkillbookDelayCheckbox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;EnableOptimizedModeCheckbox.Name" xml:space="preserve">
+    <value>EnableOptimizedModeCheckbox</value>
+  </data>
+  <data name="&gt;&gt;EnableOptimizedModeCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EnableOptimizedModeCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;EnableOptimizedModeCheckbox.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;ShowDPSMeterCheckbox.Name" xml:space="preserve">
+    <value>ShowDPSMeterCheckbox</value>
+  </data>
+  <data name="&gt;&gt;ShowDPSMeterCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShowDPSMeterCheckbox.Parent" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;ShowDPSMeterCheckbox.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="PatchTabPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="PatchTabPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>846, 552</value>
+  </data>
+  <data name="PatchTabPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;PatchTabPanel.Name" xml:space="preserve">
+    <value>PatchTabPanel</value>
+  </data>
+  <data name="&gt;&gt;PatchTabPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PatchTabPanel.Parent" xml:space="preserve">
+    <value>PatchSelectTabPage</value>
+  </data>
+  <data name="&gt;&gt;PatchTabPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="DisableAFKDisconnectCheckbox.AutoSize" type="System.Boolean, mscorlib">
@@ -1005,51 +1620,6 @@
   <data name="&gt;&gt;ShowDPSMeterCheckbox.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="PatchTabPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="PatchTabPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>846, 552</value>
-  </data>
-  <data name="PatchTabPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;PatchTabPanel.Name" xml:space="preserve">
-    <value>PatchTabPanel</value>
-  </data>
-  <data name="&gt;&gt;PatchTabPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PatchTabPanel.Parent" xml:space="preserve">
-    <value>PatchSelectTabPage</value>
-  </data>
-  <data name="&gt;&gt;PatchTabPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PatchSelectTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 48</value>
-  </data>
-  <data name="PatchSelectTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>853, 559</value>
-  </data>
-  <data name="PatchSelectTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="PatchSelectTabPage.Text" xml:space="preserve">
-    <value>Patches</value>
-  </data>
-  <data name="&gt;&gt;PatchSelectTabPage.Name" xml:space="preserve">
-    <value>PatchSelectTabPage</value>
-  </data>
-  <data name="&gt;&gt;PatchSelectTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PatchSelectTabPage.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;PatchSelectTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="DATProgressBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 494</value>
   </data>
@@ -1076,6 +1646,69 @@
   </data>
   <data name="DatEditorButtonTable.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="&gt;&gt;OpenDatFileButton.Name" xml:space="preserve">
+    <value>OpenDatFileButton</value>
+  </data>
+  <data name="&gt;&gt;OpenDatFileButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenDatFileButton.Parent" xml:space="preserve">
+    <value>DatEditorButtonTable</value>
+  </data>
+  <data name="&gt;&gt;OpenDatFileButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;RecompileDatButton.Name" xml:space="preserve">
+    <value>RecompileDatButton</value>
+  </data>
+  <data name="&gt;&gt;RecompileDatButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RecompileDatButton.Parent" xml:space="preserve">
+    <value>DatEditorButtonTable</value>
+  </data>
+  <data name="&gt;&gt;RecompileDatButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;RestoreDatButton.Name" xml:space="preserve">
+    <value>RestoreDatButton</value>
+  </data>
+  <data name="&gt;&gt;RestoreDatButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RestoreDatButton.Parent" xml:space="preserve">
+    <value>DatEditorButtonTable</value>
+  </data>
+  <data name="&gt;&gt;RestoreDatButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DatEditorButtonTable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>613, 6</value>
+  </data>
+  <data name="DatEditorButtonTable.RowCount" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="DatEditorButtonTable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 547</value>
+  </data>
+  <data name="DatEditorButtonTable.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.Name" xml:space="preserve">
+    <value>DatEditorButtonTable</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.Parent" xml:space="preserve">
+    <value>DatEditorTabPage</value>
+  </data>
+  <data name="&gt;&gt;DatEditorButtonTable.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="DatEditorButtonTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="OpenDatFileButton" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RecompileDatButton" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RestoreDatButton" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,50,Percent,25,Percent,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="OpenDatFileButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1158,33 +1791,6 @@
   <data name="&gt;&gt;RestoreDatButton.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="DatEditorButtonTable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>613, 6</value>
-  </data>
-  <data name="DatEditorButtonTable.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="DatEditorButtonTable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 547</value>
-  </data>
-  <data name="DatEditorButtonTable.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;DatEditorButtonTable.Name" xml:space="preserve">
-    <value>DatEditorButtonTable</value>
-  </data>
-  <data name="&gt;&gt;DatEditorButtonTable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DatEditorButtonTable.Parent" xml:space="preserve">
-    <value>DatEditorTabPage</value>
-  </data>
-  <data name="&gt;&gt;DatEditorButtonTable.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="DatEditorButtonTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="OpenDatFileButton" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RecompileDatButton" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="RestoreDatButton" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,50,Percent,25,Percent,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
   <data name="FileDataTreeView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1264,114 +1870,6 @@
   </data>
   <data name="&gt;&gt;FileDataTreeView.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="DatEditorTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 48</value>
-  </data>
-  <data name="DatEditorTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="DatEditorTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>853, 559</value>
-  </data>
-  <data name="DatEditorTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="DatEditorTabPage.Text" xml:space="preserve">
-    <value>DAT Editor</value>
-  </data>
-  <data name="&gt;&gt;DatEditorTabPage.Name" xml:space="preserve">
-    <value>DatEditorTabPage</value>
-  </data>
-  <data name="&gt;&gt;DatEditorTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DatEditorTabPage.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;DatEditorTabPage.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="UpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="UpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 5</value>
-  </data>
-  <data name="UpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 36</value>
-  </data>
-  <data name="UpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="UpdateCheckBox.Text" xml:space="preserve">
-    <value>Check for updates</value>
-  </data>
-  <data name="&gt;&gt;UpdateCheckBox.Name" xml:space="preserve">
-    <value>UpdateCheckBox</value>
-  </data>
-  <data name="&gt;&gt;UpdateCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UpdateCheckBox.Parent" xml:space="preserve">
-    <value>SettingsTabPage</value>
-  </data>
-  <data name="&gt;&gt;UpdateCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="SettingsTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 48</value>
-  </data>
-  <data name="SettingsTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="SettingsTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>853, 559</value>
-  </data>
-  <data name="SettingsTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="SettingsTabPage.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="&gt;&gt;SettingsTabPage.Name" xml:space="preserve">
-    <value>SettingsTabPage</value>
-  </data>
-  <data name="&gt;&gt;SettingsTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SettingsTabPage.Parent" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;SettingsTabPage.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="MainTabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="MainTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 10</value>
-  </data>
-  <data name="MainTabControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
-  </data>
-  <data name="MainTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>873, 617</value>
-  </data>
-  <data name="MainTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Name" xml:space="preserve">
-    <value>MainTabControl</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MainTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="bNSBoostFormBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

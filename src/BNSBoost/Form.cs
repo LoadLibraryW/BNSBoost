@@ -103,6 +103,7 @@ namespace BNSBoost
             SkillbookDelayUpDown.Enabled = Properties.Settings.Default.SkillbookDelayEnabled;
             LatencyDurationUpDown.Enabled = Properties.Settings.Default.ChangeLatencyDisplayTime;
             MultiClientCheckbox.Enabled = Properties.Settings.Default.DisableX3;
+            LanguageComboBox.SelectedItem = "English";
 
             CheckForUpdates();
         }
