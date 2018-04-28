@@ -74,15 +74,17 @@
             this.FileDataTreeView = new BNSBoost.BufferedTreeView();
             this.ModTabPage = new System.Windows.Forms.TabPage();
             this.ModListView = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
+            this.AlwaysRunBNSBoostCheckbox = new System.Windows.Forms.CheckBox();
+            this.PerformLauncherCheckbox = new System.Windows.Forms.CheckBox();
             this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.LanguageLabel = new System.Windows.Forms.Label();
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
@@ -467,6 +469,10 @@
             this.ModListView.UseCompatibleStateImageBehavior = false;
             this.ModListView.View = System.Windows.Forms.View.List;
             // 
+            // columnHeader1
+            // 
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
+            // 
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
@@ -490,12 +496,32 @@
             // 
             // SettingsTabPage
             // 
+            this.SettingsTabPage.Controls.Add(this.AlwaysRunBNSBoostCheckbox);
+            this.SettingsTabPage.Controls.Add(this.PerformLauncherCheckbox);
             this.SettingsTabPage.Controls.Add(this.LanguageComboBox);
             this.SettingsTabPage.Controls.Add(this.LanguageLabel);
             this.SettingsTabPage.Controls.Add(this.UpdateCheckBox);
             resources.ApplyResources(this.SettingsTabPage, "SettingsTabPage");
             this.SettingsTabPage.Name = "SettingsTabPage";
             this.SettingsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // AlwaysRunBNSBoostCheckbox
+            // 
+            resources.ApplyResources(this.AlwaysRunBNSBoostCheckbox, "AlwaysRunBNSBoostCheckbox");
+            this.AlwaysRunBNSBoostCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.HijiackLauncher;
+            this.AlwaysRunBNSBoostCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AlwaysRunBNSBoostCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "HijiackLauncher", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.AlwaysRunBNSBoostCheckbox.Name = "AlwaysRunBNSBoostCheckbox";
+            this.AlwaysRunBNSBoostCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // PerformLauncherCheckbox
+            // 
+            resources.ApplyResources(this.PerformLauncherCheckbox, "PerformLauncherCheckbox");
+            this.PerformLauncherCheckbox.Checked = global::BNSBoost.Properties.Settings.Default.PerformLauncherCheck;
+            this.PerformLauncherCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.PerformLauncherCheckbox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::BNSBoost.Properties.Settings.Default, "PerformLauncherCheck", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PerformLauncherCheckbox.Name = "PerformLauncherCheckbox";
+            this.PerformLauncherCheckbox.UseVisualStyleBackColor = true;
             // 
             // LanguageComboBox
             // 
@@ -523,10 +549,6 @@
             // bNSBoostFormBindingSource
             // 
             this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
-            // 
-            // columnHeader1
-            // 
-            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // BNSBoostForm
             // 
@@ -611,6 +633,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListView ModListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.CheckBox PerformLauncherCheckbox;
+        private System.Windows.Forms.CheckBox AlwaysRunBNSBoostCheckbox;
     }
 }
 
