@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Xml;
 using BNSBoost.Properties;
+using Microsoft.Web.XmlTransform;
 
 namespace BNSBoost
 {

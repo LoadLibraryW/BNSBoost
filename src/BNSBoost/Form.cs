@@ -62,7 +62,8 @@ namespace BNSBoost
                 {
                     Text = mod.Name + (mod.Description != null ? " (" + mod.Description + ")" : ""),
                     ToolTipText = mod.Description,
-                    Name = mod.Name
+                    Name = mod.Name,
+                    Checked = mod.Enabled
                 };
 
                 ModListView.Items.Add(modCheckBox);
@@ -280,6 +281,7 @@ namespace BNSBoost
             worker.DoWork += (_, arg) =>
             {
                 Patcher.Patch(worker);
+                ModManager.ApplyMods();
             };
 
             worker.ProgressChanged += (_, arg) =>
