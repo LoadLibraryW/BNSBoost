@@ -13,83 +13,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using BNSBoost.BNSDat;
-using static BNSBoost.NativeMethods;
-using static BNSBoost.NativeMethods.ProcessCreationFlags;
 
 namespace BNSBoost
 {
-
     public partial class BNSBoostForm : Form
     {
-
-        private static class ClientMethods
-        {
-            public static int Launch(
-                string lpLauncher,
-                string lpExtraClientFlags
-            )
-            {
-                STARTUPINFO si = new STARTUPINFO();
-                PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
-
-                string baseDir = new FileInfo(System.Reflection.Assembly.GetEntryAssembly().Location).DirectoryName;
-                Environment.SetEnvironmentVariable("__BNSBOOST_CLIENTFLAGS", lpExtraClientFlags);
-                Environment.SetEnvironmentVariable("__BNSBOOST_BASEDIR", baseDir);
-
-                if (Properties.Settings.Default.Is64Bit)
-                    Environment.SetEnvironmentVariable("__BNSBOOST_IS64", "1");
-
-                if (Properties.Settings.Default.DisableX3)
-                {
-                    Environment.SetEnvironmentVariable("__BNSBOOST_NOX3", "1");
-                    if (Properties.Settings.Default.MultiClientEnabled)
-                        Environment.SetEnvironmentVariable("__BNSBOOST_MULTICLIENT", "1");
-                }
-
-                if (!CreateProcess(null,
-                    $"\"{lpLauncher}\" /LauncherID:\"NCWest\" /CompanyID:\"12\" /GameID:\"BnS\" /LUpdateAddr:\"updater.nclauncher.ncsoft.com\"",
-                    IntPtr.Zero,
-                    IntPtr.Zero,
-                    false,
-                    CREATE_SUSPENDED,
-                    IntPtr.Zero,
-                    null,
-                    ref si,
-                    out pi))
-                {
-                    MessageBox.Show($"Failed to spawn launcher: {Marshal.GetLastWin32Error()} :-(");
-                    return -1;
-                }
-
-                Process process = new Process
-                {
-                    StartInfo =
-                    {
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        FileName = "inject32.exe",
-                        Arguments = $"\"{Path.Combine(baseDir, "agent_launcher.dll")}\" {pi.dwProcessId}"
-                    }
-                };
-                process.Start();
-                process.WaitForExit();
-
-                if (process.ExitCode != 0)
-                {
-                    MessageBox.Show($"Injector failed: {process.ExitCode} :-(");
-                }
-
-                ResumeThread(pi.hThread);
-                WaitForSingleObject(pi.hProcess, UInt32.MaxValue);
-
-                uint exitcode;
-                GetExitCodeProcess(pi.hProcess, out exitcode);
-
-                // // 0xB00573D is regular agent exit code
-                return exitcode == 0xB00573D ? 0 : (int)exitcode;
-            }
-        }
-
         private double? Ping;
         private int WorkerNumerator;
         private int WorkerDenominator;
@@ -104,8 +32,6 @@ namespace BNSBoost
             LatencyDurationUpDown.Enabled = Properties.Settings.Default.ChangeLatencyDisplayTime;
             MultiClientCheckbox.Enabled = Properties.Settings.Default.DisableX3;
             LanguageComboBox.SelectedItem = "English";
-
-            CheckForUpdates();
         }
 
         private void CheckForUpdates()
@@ -124,6 +50,28 @@ namespace BNSBoost
                     Process.Start(release.URL);
                 }
             }
+        }
+
+        private void InitializeMods()
+        {
+            var mods = ModManager.GetModList();
+            ModListView.Items.Clear();
+            foreach (var mod in mods)
+            {
+                var modCheckBox = new ListViewItem
+                {
+                    Text = mod.Name + (mod.Description != null ? " (" + mod.Description + ")" : ""),
+                    ToolTipText = mod.Description,
+                    Name = mod.Name
+                };
+
+                ModListView.Items.Add(modCheckBox);
+            }
+
+            ModListView.ItemCheck += (who, evt) =>
+            {
+                ModManager.EnableMod(ModListView.Items[evt.Index].Name, evt.NewValue == CheckState.Checked);
+            };
         }
 
         private void InitializeGamePaths()
@@ -267,6 +215,8 @@ namespace BNSBoost
         {
             InitializeGamePaths();
             InitializePingThread();
+            InitializeMods();
+            CheckForUpdates();
         }
 
         private void ToggleBitness(bool is64)
@@ -322,6 +272,9 @@ namespace BNSBoost
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
             ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
+
+            // Let our version.dll know our location
+            GetLauncherIni().Write("LastKnownLocation", System.Reflection.Assembly.GetEntryAssembly().Location, "BNSBoost_Settings");
 
             var worker = new BackgroundWorker();
             worker.DoWork += (_, arg) =>
@@ -616,6 +569,16 @@ namespace BNSBoost
         private void DisableX3Checkbox_CheckedChanged(object sender, EventArgs e)
         {
             MultiClientCheckbox.Enabled = DisableX3Checkbox.Checked;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            InitializeMods();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.Start(ModManager.MOD_LOCATION);
         }
     }
 
