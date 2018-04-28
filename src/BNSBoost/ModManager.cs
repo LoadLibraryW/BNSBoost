@@ -80,7 +80,14 @@ namespace BNSBoost
 
         public static void UnapplyMod(Mod mod)
         {
-            Directory.Delete(Path.Combine(MOD_COOKEDPC_LOCATION, mod.Name), true);
+            try
+            {
+                Directory.Delete(Path.Combine(MOD_COOKEDPC_LOCATION, mod.Name), true);
+            }
+            catch (DirectoryNotFoundException ignored)
+            {
+                // Do nothing
+            }
         }
 
         public static List<Mod> GetModList()
