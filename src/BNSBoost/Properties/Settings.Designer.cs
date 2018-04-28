@@ -322,5 +322,17 @@ namespace BNSBoost.Properties {
                 this["CheckForUpdates"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EnabledMods {
+            get {
+                return ((string)(this["EnabledMods"]));
+            }
+            set {
+                this["EnabledMods"] = value;
+            }
+        }
     }
 }

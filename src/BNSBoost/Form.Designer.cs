@@ -72,11 +72,17 @@
             this.RecompileDatButton = new System.Windows.Forms.Button();
             this.RestoreDatButton = new System.Windows.Forms.Button();
             this.FileDataTreeView = new BNSBoost.BufferedTreeView();
+            this.ModTabPage = new System.Windows.Forms.TabPage();
+            this.ModListView = new System.Windows.Forms.ListView();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
             this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.LanguageLabel = new System.Windows.Forms.Label();
             this.UpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.bNSBoostFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GameTabPage.SuspendLayout();
             this.GameTabPanel.SuspendLayout();
             this.MainTabControl.SuspendLayout();
@@ -86,6 +92,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.SkillbookDelayUpDown)).BeginInit();
             this.DatEditorTabPage.SuspendLayout();
             this.DatEditorButtonTable.SuspendLayout();
+            this.ModTabPage.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SettingsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bNSBoostFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -239,6 +247,7 @@
             this.MainTabControl.Controls.Add(this.GameTabPage);
             this.MainTabControl.Controls.Add(this.PatchSelectTabPage);
             this.MainTabControl.Controls.Add(this.DatEditorTabPage);
+            this.MainTabControl.Controls.Add(this.ModTabPage);
             this.MainTabControl.Controls.Add(this.SettingsTabPage);
             resources.ApplyResources(this.MainTabControl, "MainTabControl");
             this.MainTabControl.Name = "MainTabControl";
@@ -439,6 +448,46 @@
             ((System.Windows.Forms.TreeNode)(resources.GetObject("FileDataTreeView.Nodes3")))});
             this.FileDataTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.FileDataTreeView_AfterExpand);
             // 
+            // ModTabPage
+            // 
+            this.ModTabPage.Controls.Add(this.ModListView);
+            this.ModTabPage.Controls.Add(this.tableLayoutPanel1);
+            resources.ApplyResources(this.ModTabPage, "ModTabPage");
+            this.ModTabPage.Name = "ModTabPage";
+            this.ModTabPage.UseVisualStyleBackColor = true;
+            // 
+            // ModListView
+            // 
+            this.ModListView.CheckBoxes = true;
+            this.ModListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            resources.ApplyResources(this.ModListView, "ModListView");
+            this.ModListView.MultiSelect = false;
+            this.ModListView.Name = "ModListView";
+            this.ModListView.UseCompatibleStateImageBehavior = false;
+            this.ModListView.View = System.Windows.Forms.View.List;
+            // 
+            // tableLayoutPanel1
+            // 
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button2, 1, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // SettingsTabPage
             // 
             this.SettingsTabPage.Controls.Add(this.LanguageComboBox);
@@ -475,6 +524,10 @@
             // 
             this.bNSBoostFormBindingSource.DataSource = typeof(BNSBoost.BNSBoostForm);
             // 
+            // columnHeader1
+            // 
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
+            // 
             // BNSBoostForm
             // 
             resources.ApplyResources(this, "$this");
@@ -494,6 +547,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.SkillbookDelayUpDown)).EndInit();
             this.DatEditorTabPage.ResumeLayout(false);
             this.DatEditorButtonTable.ResumeLayout(false);
+            this.ModTabPage.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.SettingsTabPage.ResumeLayout(false);
             this.SettingsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bNSBoostFormBindingSource)).EndInit();
@@ -550,6 +605,12 @@
         private System.Windows.Forms.CheckBox MultiClientCheckbox;
         private System.Windows.Forms.Label LanguageLabel;
         private System.Windows.Forms.ComboBox LanguageComboBox;
+        private System.Windows.Forms.TabPage ModTabPage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView ModListView;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 

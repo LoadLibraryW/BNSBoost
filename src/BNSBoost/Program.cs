@@ -20,6 +20,8 @@ namespace BNSBoost
         {
             UseEmbeddedDependencies();
             Patcher.Initialize();
+            FileMapInfo.Initialize();
+            ModManager.Initialize();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
