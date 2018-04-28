@@ -222,6 +222,14 @@ namespace BNSBoost
 
         private void ToggleLauncherWarning(bool on)
         {
+            // Let our wtsapi32.dll know our location
+            GetLauncherIni().Write("LastKnownLocation", System.Reflection.Assembly.GetEntryAssembly().Location, "BNSBoost_Settings");
+
+            if (Properties.Settings.Default.HijiackLauncher)
+                GetLauncherIni().Write("AlwaysStartBNSBoost", "1", "BNSBoost_Settings");
+            else
+                GetLauncherIni().DeleteKey("AlwaysStartBNSBoost", "BNSBoost_Settings");
+
             string target = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.NCLauncherRPath), "wtsapi32.dll");
             string source = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "wtsapi32_nclauncher.dll");
             if (on)
@@ -287,15 +295,7 @@ namespace BNSBoost
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
             ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
-            ToggleLauncherWarning(PerformLauncherCheckbox.Checked);
-
-            // Let our version.dll know our location
-            GetLauncherIni().Write("LastKnownLocation", System.Reflection.Assembly.GetEntryAssembly().Location, "BNSBoost_Settings");
-
-            if (AlwaysRunBNSBoostCheckbox.Checked)
-                GetLauncherIni().Write("AlwaysStartBNSBoost", "1", "BNSBoost_Settings");
-            else
-                GetLauncherIni().DeleteKey("AlwaysStartBNSBoost", "BNSBoost_Settings");
+            ToggleLauncherWarning(Properties.Settings.Default.PerformLauncherCheck);
 
             var worker = new BackgroundWorker();
             worker.DoWork += (_, arg) =>
