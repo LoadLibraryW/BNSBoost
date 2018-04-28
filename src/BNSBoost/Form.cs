@@ -220,6 +220,20 @@ namespace BNSBoost
             CheckForUpdates();
         }
 
+        private void ToggleLauncherWarning(bool on)
+        {
+            string target = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.NCLauncherRPath), "wtsapi32.dll");
+            string source = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "wtsapi32_nclauncher.dll");
+            if (on)
+            {
+                File.Copy(source, target, true);
+            }
+            else
+            {
+                File.Delete(target);
+            }
+        }
+
         private void ToggleBitness(bool is64)
         {
             GetLauncherIni().Write("Game_64bitEnable", is64 ? "1" : "0", "Settings");
@@ -273,9 +287,15 @@ namespace BNSBoost
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
             ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
+            ToggleLauncherWarning(PerformLauncherCheckbox.Checked);
 
             // Let our version.dll know our location
             GetLauncherIni().Write("LastKnownLocation", System.Reflection.Assembly.GetEntryAssembly().Location, "BNSBoost_Settings");
+
+            if (AlwaysRunBNSBoostCheckbox.Checked)
+                GetLauncherIni().Write("AlwaysStartBNSBoost", "1", "BNSBoost_Settings");
+            else
+                GetLauncherIni().DeleteKey("AlwaysStartBNSBoost", "BNSBoost_Settings");
 
             var worker = new BackgroundWorker();
             worker.DoWork += (_, arg) =>

@@ -86,7 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BNSBoostForm.ClientMethods.cs" />
+    <Compile Include="ClientMethods.cs" />
     <Compile Include="FileMapInfo.cs" />
     <Compile Include="ModManager.cs" />
     <Compile Include="NativeMethods.cs" />
@@ -185,7 +185,9 @@
 
 "$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x86
 
-"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x64</PostBuildEvent>
+"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x64
+
+"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:LauncherStartupCheck /p:Configuration=$(Configuration) /p:Platform=x86</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -16,16 +16,16 @@ namespace BNSBoost
 
         public static void Initialize()
         {
-            string fileMapInfo = Path.Combine(Settings.Default.GameDirectoryPath, "FileInfoMap_BnS.dat");
-            foreach (string line in File.ReadAllLines(fileMapInfo))
-            {
-                var tokens = line.Split(':');
-                var hash = tokens[2];
-
-                string file = Path.Combine(Settings.Default.GameDirectoryPath, tokens[0]);
-
-                FILE_HASHES.Add(file, hash);
-            }
+            //string fileMapInfo = Path.Combine(Settings.Default.GameDirectoryPath, "FileInfoMap_BnS.dat");
+            //foreach (string line in File.ReadAllLines(fileMapInfo))
+            //{
+            //    var tokens = line.Split(':');
+            //    var hash = tokens[2];
+            //
+            //    string file = Path.Combine(Settings.Default.GameDirectoryPath, tokens[0]);
+            //
+            //    FILE_HASHES.Add(file, hash);
+            //}
         }
     }
 }

@@ -334,5 +334,29 @@ namespace BNSBoost.Properties {
                 this["EnabledMods"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PerformLauncherCheck {
+            get {
+                return ((bool)(this["PerformLauncherCheck"]));
+            }
+            set {
+                this["PerformLauncherCheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HijiackLauncher {
+            get {
+                return ((bool)(this["HijiackLauncher"]));
+            }
+            set {
+                this["HijiackLauncher"] = value;
+            }
+        }
     }
 }
