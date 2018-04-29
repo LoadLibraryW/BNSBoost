@@ -232,13 +232,22 @@ namespace BNSBoost
 
             string target = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.NCLauncherRPath), "wtsapi32.dll");
             string source = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "wtsapi32_nclauncher.dll");
-            if (Properties.Settings.Default.HijiackLauncher || Properties.Settings.Default.PerformLauncherCheck)
+
+            try
             {
-                File.Copy(source, target, true);
+                if (Properties.Settings.Default.HijiackLauncher || Properties.Settings.Default.PerformLauncherCheck)
+                {
+                    File.Copy(source, target, true);
+                }
+                else
+                {
+                    File.Delete(target);
+                }
             }
-            else
+            catch (IOException ex)
             {
-                File.Delete(target);
+                // This occurs if NC Launcher is already running, not much we can do
+                MessageBox.Show("This can happen if NC Launcher is already running. ", "Could not update NC Launcher hook");
             }
         }
 
