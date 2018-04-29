@@ -220,7 +220,7 @@ namespace BNSBoost
             CheckForUpdates();
         }
 
-        private void ToggleLauncherWarning(bool on)
+        private void ToggleLauncherWarning()
         {
             // Let our wtsapi32.dll know our location
             GetLauncherIni().Write("LastKnownLocation", System.Reflection.Assembly.GetEntryAssembly().Location, "BNSBoost_Settings");
@@ -232,7 +232,7 @@ namespace BNSBoost
 
             string target = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.NCLauncherRPath), "wtsapi32.dll");
             string source = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "wtsapi32_nclauncher.dll");
-            if (on)
+            if (Properties.Settings.Default.HijiackLauncher || Properties.Settings.Default.PerformLauncherCheck)
             {
                 File.Copy(source, target, true);
             }
@@ -295,7 +295,7 @@ namespace BNSBoost
             ToggleBitness(Properties.Settings.Default.Is64Bit);
             ToggleRegion(Properties.Settings.Default.Region);
             ToggleLoadingScreens(DisableLoadingScreensCheckBox.Checked);
-            ToggleLauncherWarning(Properties.Settings.Default.PerformLauncherCheck);
+            ToggleLauncherWarning();
 
             var worker = new BackgroundWorker();
             worker.DoWork += (_, arg) =>
