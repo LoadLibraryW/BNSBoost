@@ -112,6 +112,8 @@ BOOL WINAPI Hook_CreateProcess(
 
 	BOOL bX3Disabled = GetEnvironmentVariable(L"__BNSBOOST_NOX3", envBuf, sizeof(envBuf));
 
+	OutputDebugStringW(lpNewCommandLine);
+
 	Real_CreateProcess(lpApplicationName,
 		lpNewCommandLine,
 		lpProcessAttributes,
@@ -169,6 +171,7 @@ BOOL WINAPI Hook_CreateProcess(
 
 void InjectMain()
 {
+	OutputDebugStringW(L"Injecting launcher");
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 
