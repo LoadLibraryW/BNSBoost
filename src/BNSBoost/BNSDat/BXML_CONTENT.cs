@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -120,12 +121,12 @@ namespace BNSBoost.BNSDat
                 Type = br.ReadInt32();
             }
 
-            dynamic[] attributes = null;
+            KeyValuePair<string, string>[] attributes = null;
 
             if (Type == 1)
             {
                 int ParameterCount = br.ReadInt32();
-                attributes = new dynamic[ParameterCount];
+                attributes = new KeyValuePair<string, string>[ParameterCount];
 
                 for (int i = 0; i < ParameterCount; i++)
                 {
@@ -137,11 +138,7 @@ namespace BNSBoost.BNSDat
                     byte[] Value = br.ReadBytes(2 * ValueLength);
                     Xor(Value, 2 * ValueLength);
 
-                    attributes[i] = new
-                    {
-                        name = Encoding.Unicode.GetString(Name),
-                        value = Encoding.Unicode.GetString(Value)
-                    };
+                    attributes[i] = new KeyValuePair<string, string>(Encoding.Unicode.GetString(Name), Encoding.Unicode.GetString(Value));
                 }
             }
 
@@ -170,9 +167,9 @@ namespace BNSBoost.BNSDat
             {
 
                 node = Nodes.CreateElement(Encoding.Unicode.GetString(Tag));
-                foreach (dynamic attr in attributes)
+                foreach (var attr in attributes)
                 {
-                    ((XmlElement)node).SetAttribute(attr.name, attr.value);
+                    ((XmlElement)node).SetAttribute(attr.Key, attr.Value);
                 }
             }
 
