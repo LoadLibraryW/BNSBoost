@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -38,17 +39,24 @@ namespace BNSBoost
         {
             if (!Properties.Settings.Default.CheckForUpdates) return;
 
-            var release = Updater.GetLatestRelease();
-            if (release.IsNewerVersion())
+            try
             {
-                var result = MessageBox.Show(this,
-                                             $"A newer version of BNSBoost is available: {release.Name}. Open release on Github?",
-                                             "Update available!",
-                                             MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                var release = Updater.GetLatestRelease();
+                if (release.IsNewerVersion())
                 {
-                    Process.Start(release.URL);
+                    var result = MessageBox.Show(this,
+                        $"A newer version of BNSBoost is available: {release.Name}. Open release on Github?",
+                        "Update available!",
+                        MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        Process.Start(release.URL);
+                    }
                 }
+            }
+            catch (WebException ex)
+            {
+                MessageBox.Show($"Could not connect to GitHub: {ex.Message}", "Failed update check");
             }
         }
 
@@ -72,6 +80,37 @@ namespace BNSBoost
             ModListView.ItemCheck += (who, evt) =>
             {
                 ModManager.EnableMod(ModListView.Items[evt.Index].Name, evt.NewValue == CheckState.Checked);
+            };
+        }
+
+        private void InitializeSplash()
+        {
+            var splashes = SplashManager.GetSplashList();
+            SplashListView.LargeImageList = new ImageList
+            {
+                ImageSize = new Size(117, 90),
+                ColorDepth = ColorDepth.Depth32Bit,
+                TransparentColor = Color.Black
+            };
+
+            SplashListView.Items.Clear();
+
+            foreach (var splash in splashes)
+            {
+                SplashListView.Items.Add(new ListViewItem
+                {
+                    Text = splash.Name,
+                    Name = splash.Name,
+                    Checked = splash.Enabled,
+                    ImageIndex = SplashListView.LargeImageList.Images.Count,
+                });
+
+                SplashListView.LargeImageList.Images.Add(Image.FromFile(splash.Path));
+            }
+
+            SplashListView.ItemCheck += (who, evt) =>
+            {
+                SplashManager.EnableSplash(SplashListView.Items[evt.Index].Name, evt.NewValue == CheckState.Checked);
             };
         }
 
@@ -217,6 +256,7 @@ namespace BNSBoost
             InitializeGamePaths();
             InitializePingThread();
             InitializeMods();
+            InitializeSplash();
             CheckForUpdates();
         }
 
@@ -602,14 +642,24 @@ namespace BNSBoost
             MultiClientCheckbox.Enabled = DisableX3Checkbox.Checked;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void RefreshModListButton_Click(object sender, EventArgs e)
         {
             InitializeMods();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void OpenModFolderButton_Click(object sender, EventArgs e)
         {
             Process.Start(ModManager.MOD_LOCATION);
+        }
+
+        private void RefreshSplashListButton_Click(object sender, EventArgs e)
+        {
+            InitializeSplash();
+        }
+
+        private void OpenSplashFolderButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(SplashManager.SPLASH_LOCATION);
         }
     }
 
