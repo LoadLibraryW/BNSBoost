@@ -210,35 +210,42 @@ namespace BNSBoost
             {
                 while (Visible)
                 {
-                    var time = new Stopwatch();
-                    time.Start();
-                    var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
-                    {
-                        Blocking = true
-                    };
-
-                    bool failed = false;
-
                     try
                     {
-                        socket.Connect(GetServerIP(), 10100);
+                        var time = new Stopwatch();
+                        time.Start();
+                        var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                        {
+                            Blocking = true
+                        };
+
+                        bool failed = false;
+
+                        try
+                        {
+                            socket.Connect(GetServerIP(), 10100);
+                        }
+                        catch (SocketException ex)
+                        {
+                            Debug.WriteLine(ex);
+                            failed = true;
+                        }
+
+                        // Ping calculation is totally arbitrary based on TCP connection time,
+                        // scaled to sort of match up the delay visible in the in-game overlay
+                        if (failed) Ping = null;
+                        else Ping = time.Elapsed.TotalMilliseconds * 3; // Round trip + server delay
+
+                        socket.Close();
+
+                        worker.ReportProgress(0, Ping);
+
+                        Thread.Sleep(2000);
                     }
-                    catch (SocketException ex)
+                    catch (SocketException ignored)
                     {
-                        Debug.WriteLine(ex);
-                        failed = true;
+                        // We'll update ping once they come online
                     }
-
-                    // Ping calculation is totally arbitrary based on TCP connection time,
-                    // scaled to sort of match up the delay visible in the in-game overlay
-                    if (failed) Ping = null;
-                    else Ping = time.Elapsed.TotalMilliseconds * 3; // Round trip + server delay
-
-                    socket.Close();
-
-                    worker.ReportProgress(0, Ping);
-
-                    Thread.Sleep(2000);
                 }
             };
 
