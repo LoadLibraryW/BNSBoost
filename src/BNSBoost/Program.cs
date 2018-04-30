@@ -22,6 +22,7 @@ namespace BNSBoost
             Patcher.Initialize();
             FileMapInfo.Initialize();
             ModManager.Initialize();
+            SplashManager.Initialize();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

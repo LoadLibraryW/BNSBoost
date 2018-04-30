@@ -76,8 +76,14 @@
             this.ModListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.OpenModFolderButton = new System.Windows.Forms.Button();
+            this.RefreshModListButton = new System.Windows.Forms.Button();
+            this.SpashTabPage = new System.Windows.Forms.TabPage();
+            this.SplashListView = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.OpenSplashFolderButton = new System.Windows.Forms.Button();
+            this.RefreshSplashListButton = new System.Windows.Forms.Button();
             this.SettingsTabPage = new System.Windows.Forms.TabPage();
             this.AlwaysRunBNSBoostCheckbox = new System.Windows.Forms.CheckBox();
             this.PerformLauncherCheckbox = new System.Windows.Forms.CheckBox();
@@ -96,6 +102,8 @@
             this.DatEditorButtonTable.SuspendLayout();
             this.ModTabPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.SpashTabPage.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SettingsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bNSBoostFormBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -250,6 +258,7 @@
             this.MainTabControl.Controls.Add(this.PatchSelectTabPage);
             this.MainTabControl.Controls.Add(this.DatEditorTabPage);
             this.MainTabControl.Controls.Add(this.ModTabPage);
+            this.MainTabControl.Controls.Add(this.SpashTabPage);
             this.MainTabControl.Controls.Add(this.SettingsTabPage);
             resources.ApplyResources(this.MainTabControl, "MainTabControl");
             this.MainTabControl.Name = "MainTabControl";
@@ -476,23 +485,67 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.OpenModFolderButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.RefreshModListButton, 1, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // button1
+            // OpenModFolderButton
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.OpenModFolderButton, "OpenModFolderButton");
+            this.OpenModFolderButton.Name = "OpenModFolderButton";
+            this.OpenModFolderButton.UseVisualStyleBackColor = true;
+            this.OpenModFolderButton.Click += new System.EventHandler(this.OpenModFolderButton_Click);
             // 
-            // button2
+            // RefreshModListButton
             // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            resources.ApplyResources(this.RefreshModListButton, "RefreshModListButton");
+            this.RefreshModListButton.Name = "RefreshModListButton";
+            this.RefreshModListButton.UseVisualStyleBackColor = true;
+            this.RefreshModListButton.Click += new System.EventHandler(this.RefreshModListButton_Click);
+            // 
+            // SpashTabPage
+            // 
+            this.SpashTabPage.Controls.Add(this.SplashListView);
+            this.SpashTabPage.Controls.Add(this.tableLayoutPanel2);
+            resources.ApplyResources(this.SpashTabPage, "SpashTabPage");
+            this.SpashTabPage.Name = "SpashTabPage";
+            this.SpashTabPage.UseVisualStyleBackColor = true;
+            // 
+            // SplashListView
+            // 
+            this.SplashListView.CheckBoxes = true;
+            this.SplashListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            resources.ApplyResources(this.SplashListView, "SplashListView");
+            this.SplashListView.MultiSelect = false;
+            this.SplashListView.Name = "SplashListView";
+            this.SplashListView.TileSize = new System.Drawing.Size(64, 64);
+            this.SplashListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // columnHeader2
+            // 
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
+            // 
+            // tableLayoutPanel2
+            // 
+            resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
+            this.tableLayoutPanel2.Controls.Add(this.OpenSplashFolderButton, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.RefreshSplashListButton, 1, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            // 
+            // OpenSplashFolderButton
+            // 
+            resources.ApplyResources(this.OpenSplashFolderButton, "OpenSplashFolderButton");
+            this.OpenSplashFolderButton.Name = "OpenSplashFolderButton";
+            this.OpenSplashFolderButton.UseVisualStyleBackColor = true;
+            this.OpenSplashFolderButton.Click += new System.EventHandler(this.OpenSplashFolderButton_Click);
+            // 
+            // RefreshSplashListButton
+            // 
+            resources.ApplyResources(this.RefreshSplashListButton, "RefreshSplashListButton");
+            this.RefreshSplashListButton.Name = "RefreshSplashListButton";
+            this.RefreshSplashListButton.UseVisualStyleBackColor = true;
+            this.RefreshSplashListButton.Click += new System.EventHandler(this.RefreshSplashListButton_Click);
             // 
             // SettingsTabPage
             // 
@@ -571,6 +624,8 @@
             this.DatEditorButtonTable.ResumeLayout(false);
             this.ModTabPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.SpashTabPage.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.SettingsTabPage.ResumeLayout(false);
             this.SettingsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bNSBoostFormBindingSource)).EndInit();
@@ -629,12 +684,18 @@
         private System.Windows.Forms.ComboBox LanguageComboBox;
         private System.Windows.Forms.TabPage ModTabPage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button OpenModFolderButton;
+        private System.Windows.Forms.Button RefreshModListButton;
         private System.Windows.Forms.ListView ModListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.CheckBox PerformLauncherCheckbox;
         private System.Windows.Forms.CheckBox AlwaysRunBNSBoostCheckbox;
+        private System.Windows.Forms.TabPage SpashTabPage;
+        private System.Windows.Forms.ListView SplashListView;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button OpenSplashFolderButton;
+        private System.Windows.Forms.Button RefreshSplashListButton;
     }
 }
 

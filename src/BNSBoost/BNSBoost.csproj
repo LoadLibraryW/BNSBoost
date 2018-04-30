@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="ClientMethods.cs" />
     <Compile Include="FileMapInfo.cs" />
+    <Compile Include="SplashManager.cs" />
     <Compile Include="ModManager.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="BNSDat\BPKG.cs" />
