@@ -23,31 +23,29 @@ It features options for:
 * Randomized splash changing
 * Forcing the default launcher to open up with BNSBoost
 
-## Installation
+## Downloads
 
-[Grab a release](https://github.com/Xyene/BNSBoost/releases), and unzip! If you like living life on the edge, you can also pick up the latest build [from AppVeyor](https://ci.appveyor.com/project/Xyene/bnsboost).
+**[Latest stable build](https://github.com/Xyene/BNSBoost/releases) &mdash; you probably want this.**
 
-Your antivirus might complain since BNSBoost does some sketchy stuff (see below) to run, in which case you'll have to
-whitelist BNSBoost before proceeding. If you're jumpy about security, you can always compile it from the source in this repository
-yourself.
+[Unstable builds](https://ci.appveyor.com/project/Xyene/bnsboost/build/artifacts) &mdash; don't file bug reports regarding these builds, but feel free to mention them in Discord.
 
 ## Usage 
 Just run the `BNSBoost.exe` you got from the release archive!
 
-### Using BNSBoost to run patched files
+We also maintain [a wiki](https://github.com/Xyene/BNSBoost/wiki) on using BNSBoost. Some topics you may be interested in:
 
-When using the built-in DAT editor, BNSBoost takes care of patching details iteslf.
-
-Before you patch any file, navigate to its directory first, and create a subdirectory called `unpatched`, then copy the file(s) you wish to patch into `unpatched`.
-Then, you can use whatever game file editor you wish to patch the files however you wish. BNSBoost will make the game *launcher* read
-from the `unpatched` folder, while the regular game *client* will read from the regular folder.
-
-This'll trick the launcher's verifier into thinking you're running an unmodified game, and allow the game to start.
-The game does no further verification.
-
-You can use this to run your own version of `xinput.dll`, run custom voice packs, and so on.
+* [Changing splash screen](https://github.com/Xyene/BNSBoost/wiki/Changing-splash-screens); randomized splashes for your enjoyment
+* [Modding your game](https://github.com/Xyene/BNSBoost/wiki/Modding-your-game); voice packs, model changes, etc.
+* [Arbitrary game file patches](https://github.com/Xyene/BNSBoost/wiki/Arbitrary-game-file-patches); for running things like custom `xinput.dll` builds
 
 ## FAQ
+
+### My antivirus complains about your binaries!
+Your antivirus might complain since BNSBoost's launcher hooking can match its malware definitions, in which case you'll have to
+whitelist BNSBoost before proceeding. If you're jumpy about security, you can always compile it from the source in this repository
+yourself.
+
+Most antiviruses are alright with it, though.
 
 ### Can I be banned using this?
 Absolutely! The use of any 3rd-party tools to run the game is strictly against [NCSoft's EULA](http://us.ncsoft.com/en/legal/user-agreements/blade-and-soul-user-agreement.php), and could land you a ban. But if you've already been using a 3rd-party launcher, this isn't really any different.
@@ -100,6 +98,9 @@ Injected into `Client.exe` by the `agent_launcher.dll`'s `CreateProcessW` hook. 
 
 * #### `CreateFileW` hook
     The client grabs exclusive access to `xml[bit].dat` / `config[bit].dat`, which causes clients to exit with "corrupt game file" messages even if the mutex is patched out. This hook is used to ensure that exclusive access cannot be obtained on any file used by the client, downgrading to sharing read access.
+
+### `iphlpapi_nclauncher.dll`
+Copied into the launcher's directory as `iphlpapi.dll`, it warns you if you're launching NC Launcher without BNSBoost (as this would destroy any patches you have applied). It can also be configured to launch BNSBoost unconditionally, without first prompting. The showing of this warning can be toggled in BNSBoost's *Settings* tab.
 
 ### `x3.xem` / `xcorona_x64.xem`
 
