@@ -6,20 +6,22 @@ BNSBoost is a simple loader for starting NCSoft's Blade and Soul. Not endorsed b
 
 BNSBoost bypasses NCSoft's file verification, so you can run a patched game straight from the official launcher.
 
-![](https://i.imgur.com/be93xbx.png)
+<img src="https://i.imgur.com/hQs6SqO.png" width="275" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://i.imgur.com/FhguWrv.png" width="275" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://i.imgur.com/iIQrCKn.png" width="275" />
+
+<img src="https://i.imgur.com/AioB1QW.png" width="275" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://i.imgur.com/f6AJRJK.png" width="275" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://i.imgur.com/LF9q5b7.png" width="275" />
 
 It features options for:
 
-* Using all cores
+* Enabling game to use all cores
 * Disabling texture streaming
 * Disabling loading screens
-* Disabling XIGNCODE3<sup>*</sup>
+* Disabling XIGNCODE3
 * Enabling multi-client support
 * Autopatching common XML edits (DPS meter, AFK check, etc.)
 * Arbitrary game XML edits
 * Custom mods (voice packs, etc.)
-
-<sup><b>*</b></sup> If you are not disabling XIGNCODE3,  BNSBoost never touches the game client (`Client.exe`), only its launcher. If you are, it injects an agent DLL (see below) into it.
+* Randomized splash changing
+* Forcing the default launcher to open up with BNSBoost
 
 ## Installation
 
@@ -51,9 +53,11 @@ You can use this to run your own version of `xinput.dll`, run custom voice packs
 Absolutely! The use of any 3rd-party tools to run the game is strictly against [NCSoft's EULA](http://us.ncsoft.com/en/legal/user-agreements/blade-and-soul-user-agreement.php), and could land you a ban. But if you've already been using a 3rd-party launcher, this isn't really any different.
 
 ### But you're using injection! Isn't that more likely to get me banned?
-I figure half the reason people shy away from injection is that it sounds like you're getting a flu shot, and relate that unpleasant idea to what's going on in the launcher. However, injection is a pretty common practice in tools that interface with games nowadays.
+I figure half the reason people shy away from injection is that it sounds like you're getting a flu shot, and relate that unpleasant experience to what's going on in the launcher. However, injection is a pretty common practice in tools that interface with games nowadays.
 
-So let's be clear: **if you're using Discord, Steam, TeamSpeak, etc., you're already injecting into Blade and Soul.** These tools inject into the game to provide things like overlays. Though, they avoid mentioning words like "injection" or "hooking" to avoid sounding "scary".
+So let's be clear: **if you're using Discord, Steam, TeamSpeak, etc., you're already injecting into Blade and Soul.** These tools inject into the game to provide things like overlays. Though, they avoid mentioning words like "injection" or "hooking" to avoid sounding scary.
+
+Now, many anti-cheats know these platforms inject, and may have whitelists for them. However, if you've enabled client-injecting features, you have already disabled XIGNCODE3. The launcher is not protected by any anti-cheat, so there's no concern regarding the base functionality of BNSBoost ceasing to work if NCSoft decides to switch off XIGNCODE3 to another anti-cheat.
 
 ### So what's being injected?
 
@@ -61,6 +65,8 @@ So let's be clear: **if you're using Discord, Steam, TeamSpeak, etc., you're alr
 |------------------------|----------|--------|
 | Extra game flags       | ✔️        | ❌      |
 | XML patching           | ✔️        | ❌      |
+| Modding          | ✔️        | ❌      |
+| Splash changing           | ✔️        | ❌      |
 | XIGNCODE3 bypass       | ✔️        | ✔️      |
 | Multi-client enabling  | ✔️        | ✔️      |
 
