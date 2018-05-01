@@ -18,25 +18,18 @@ namespace BNSBoost
             public bool Enabled;
         }
 
-        public static string SPLASH_LOCATION => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BNSBoost", "splash");
-
-        private static Dictionary<string, bool> enabledSplashes = new Dictionary<string, bool>();
+        public static string SPLASH_LOCATION = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BNSBoost", "splash");
+        private static IniFile splashConfig;
 
         public static void Initialize()
         {
             Directory.CreateDirectory(SPLASH_LOCATION);
-
-            foreach (var splash in Directory.GetFiles(SPLASH_LOCATION))
-            {
-                enabledSplashes[Path.GetFileName(splash)] = true;
-            }
-
-            GetSplashList();
+            splashConfig = new IniFile(Path.Combine(SPLASH_LOCATION, "splash.ini"));
         }
 
         public static void EnableSplash(string splash, bool on)
         {
-            enabledSplashes[splash] = on;
+            splashConfig.Write(splash, on ? "1" : "0");
         }
 
         public static void ApplySplash()
@@ -55,7 +48,7 @@ namespace BNSBoost
                 {
                     Name = name,
                     Path = file,
-                    Enabled = enabledSplashes.ContainsKey(name) && enabledSplashes[name]
+                    Enabled = splashConfig.KeyExists(name) && splashConfig.Read(name) == "1"
                 });
             }
 
