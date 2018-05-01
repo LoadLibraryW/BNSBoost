@@ -351,6 +351,7 @@ namespace BNSBoost
             {
                 Patcher.Patch(worker);
                 ModManager.ApplyMods();
+                SplashManager.ApplySplash();
             };
 
             worker.ProgressChanged += (_, arg) =>
