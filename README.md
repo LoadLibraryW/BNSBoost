@@ -1,4 +1,4 @@
-# BNSBoost [![Build Status](https://ci.appveyor.com/api/projects/status/pdx1o24nlghtx64g?svg=true)](https://ci.appveyor.com/project/Xyene/bnsboost) [![Releases](https://img.shields.io/github/downloads/Xyene/BNSBoost/total.svg)](https://github.com/Xyene/BNSBoost/releases) [![Chat on Discord](https://img.shields.io/discord/438880622472331271.svg?label=discord&logo=discord&colorA=7078C2&colorB=7B81D8&x=x)](https://discord.gg/yAvFxET)
+# BNSBoost [![Build Status](https://ci.appveyor.com/api/projects/status/pdx1o24nlghtx64g?svg=true)](https://ci.appveyor.com/project/Xyene/bnsboost) [![Releases](https://img.shields.io/github/downloads/LoadLibraryW/BNSBoost/total.svg)](https://github.com/LoadLibraryW/BNSBoost/releases) [![Chat on Discord](https://img.shields.io/discord/438880622472331271.svg?label=discord&logo=discord&colorA=7078C2&colorB=7B81D8&x=x)](https://discord.gg/yAvFxET)
 
 
 
@@ -25,18 +25,18 @@ It features options for:
 
 ## Downloads
 
-**[Latest stable build](https://github.com/Xyene/BNSBoost/releases) &mdash; you probably want this.**
+**[Latest stable build](https://github.com/LoadLibraryW/BNSBoost/releases) &mdash; you probably want this.**
 
 [Unstable builds](https://ci.appveyor.com/project/Xyene/bnsboost/build/artifacts) &mdash; don't file bug reports regarding these builds, but feel free to mention them in Discord.
 
 ## Usage 
 Just run the `BNSBoost.exe` you got from the release archive!
 
-We also maintain [a wiki](https://github.com/Xyene/BNSBoost/wiki) on using BNSBoost. Some topics you may be interested in:
+We also maintain [a wiki](https://github.com/LoadLibraryW/BNSBoost/wiki) on using BNSBoost. Some topics you may be interested in:
 
-* [Changing splash screen](https://github.com/Xyene/BNSBoost/wiki/Changing-splash-screens); randomized splashes for your enjoyment
-* [Modding your game](https://github.com/Xyene/BNSBoost/wiki/Modding-your-game); voice packs, model changes, etc.
-* [Arbitrary game file patches](https://github.com/Xyene/BNSBoost/wiki/Arbitrary-game-file-patches); for running things like custom `xinput.dll` builds
+* [Changing splash screen](https://github.com/LoadLibraryW/BNSBoost/wiki/Changing-splash-screens); randomized splashes for your enjoyment
+* [Modding your game](https://github.com/LoadLibraryW/BNSBoost/wiki/Modding-your-game); voice packs, model changes, etc.
+* [Arbitrary game file patches](https://github.com/LoadLibraryW/BNSBoost/wiki/Arbitrary-game-file-patches); for running things like custom `xinput.dll` builds
 
 ## FAQ
 
@@ -112,6 +112,21 @@ I should say that I wrote this project for myself, and it works for me &mdash; i
 However, since I figure this may be useful for others, I'll be happy to provide a best-effort attempt at helping out with any
 errors caused by BNSBoost.
 
-You can use the [ticket tracker](https://github.com/Xyene/BNSBoost/issues/) to [report issues](https://github.com/Xyene/BNSBoost/issues/new), and I'll probably get to them fairly quickly. 
+You can use the [ticket tracker](https://github.com/LoadLibraryW/BNSBoost/issues/) to [report issues](https://github.com/LoadLibraryW/BNSBoost/issues/new), and I'll probably get to them fairly quickly. 
 
 Good luck!
+
+## Contributors
+
+* [**@LoadLibraryW**](https://github.com/LoadLibraryW), current maintainer
+* [**@Xyene**](https://github.com/Xyene), initial author and managing releases/documentation
+* [**@zeffy**](https://github.com/zeffy), basically a well of BNS internals knowledge
+
+## Acknowledgements
+
+BNSBoost wouldn't have been possible without the help or inspiration from:
+
+* [**@mrexodia**](https://github.com/mrexodia)'s [x64dbg](https://github.com/x64dbg/x64dbg) tool
+* [**@Evengard**](https://github.com/Evengard) for his now-defunct "bnsnogg" project
+* [**@ronny1982**](https://github.com/ronny1982) for his original work on bnsdat reversing, LokiReborn for their initial C# port of it
+* Sysinternals for their forum resources and procexp/procmon utilities
