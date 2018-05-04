@@ -1,0 +1,20 @@
+version: x.x.x.{build}
+skip_commits:
+  files:
+    - README.md
+image: Visual Studio 2017
+configuration: Release
+platform: x86
+build:
+  project: src\BNSBoost.sln
+  verbosity: minimal
+before_build:
+- ps: >-
+    cd src
+    nuget restore
+after_build:
+- cmd: >-
+    cd "%APPVEYOR_BUILD_FOLDER%\bin"
+    7z a "%APPVEYOR_BUILD_FOLDER%\BNSBoost-%APPVEYOR_REPO_COMMIT:~0,8%.zip" *
+artifacts:
+- path: '*.zip'
