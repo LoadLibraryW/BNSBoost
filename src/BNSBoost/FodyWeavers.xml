@@ -5,7 +5,7 @@
       agent_client32
       agent_client64
       agent_launcher
-      iphlpapi_nclauncher
+      wtsapi32_nclauncher
       inject32
       inject64
       x3
