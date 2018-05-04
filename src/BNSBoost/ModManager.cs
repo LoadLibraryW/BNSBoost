@@ -29,14 +29,6 @@ namespace BNSBoost
         public static void Initialize()
         {
             Directory.CreateDirectory(MOD_LOCATION);
-
-            foreach (var modPath in Directory.GetDirectories(MOD_COOKEDPC_LOCATION))
-            {
-                string mod = Path.GetFileName(modPath);
-                enabledMods[mod] = true;
-            }
-
-            GetModList();
         }
 
         public static void EnableMod(string mod, bool on)
@@ -92,6 +84,14 @@ namespace BNSBoost
 
         public static List<Mod> GetModList()
         {
+            enabledMods.Clear();
+            if (Directory.Exists(MOD_COOKEDPC_LOCATION))
+                foreach (var modPath in Directory.GetDirectories(MOD_COOKEDPC_LOCATION))
+                {
+                    string mod = Path.GetFileName(modPath);
+                    enabledMods[mod] = true;
+                }
+
             var mods = new List<Mod>();
 
             foreach (string dir in Directory.GetDirectories(MOD_LOCATION))
