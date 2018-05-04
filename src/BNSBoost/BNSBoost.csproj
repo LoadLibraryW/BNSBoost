@@ -188,6 +188,8 @@
 
 "$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:Injector /p:Configuration=$(Configuration) /p:Platform=x64
 
+"$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:LauncherAgent /p:Configuration=$(Configuration) /p:Platform=x86
+
 "$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x86
 
 "$(MSBuildBinPath)\msbuild" "$(SolutionPath)" /t:ClientAgent /p:Configuration=$(Configuration) /p:Platform=x64
