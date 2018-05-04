@@ -99,8 +99,8 @@ Injected into `Client.exe` by the `agent_launcher.dll`'s `CreateProcessW` hook. 
 * #### `CreateFileW` hook
     The client grabs exclusive access to `xml[bit].dat` / `config[bit].dat`, which causes clients to exit with "corrupt game file" messages even if the mutex is patched out. This hook is used to ensure that exclusive access cannot be obtained on any file used by the client, downgrading to sharing read access.
 
-### `iphlpapi_nclauncher.dll`
-Copied into the launcher's directory as `iphlpapi.dll`, it warns you if you're launching NC Launcher without BNSBoost (as this would destroy any patches you have applied). It can also be configured to launch BNSBoost unconditionally, without first prompting. The showing of this warning can be toggled in BNSBoost's *Settings* tab.
+### `wtsapi32_nclauncher.dll`
+Copied into the launcher's directory as `wtsapi32.dll`, it warns you if you're launching NC Launcher without BNSBoost (as this would destroy any patches you have applied). It can also be configured to launch BNSBoost unconditionally, without first prompting. The showing of this warning can be toggled in BNSBoost's *Settings* tab.
 
 ### `x3.xem` / `xcorona_x64.xem`
 
