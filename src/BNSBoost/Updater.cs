@@ -46,7 +46,7 @@ namespace BNSBoost
 
                 return new BNSBoostRelease
                 {
-                    ReleaseDate = DateTime.Parse((string)recent["published_at"]),
+                    ReleaseDate = DateTime.Parse((string)recent["published_at"]).ToLocalTime(),
                     URL = (string)recent["html_url"],
                     Name = (string) recent["name"]
                 };
