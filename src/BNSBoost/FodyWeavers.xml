@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Weavers>
+  <Costura>
+    <ExcludeAssemblies>
+      agent_client32
+      agent_client64
+      agent_launcher
+      iphlpapi_nclauncher
+      inject32
+      inject64
+      x3
+      xcorona_x64
+    </ExcludeAssemblies>
+  </Costura>
+</Weavers>
