@@ -11,10 +11,12 @@ build:
 before_build:
 - ps: >-
     cd src
+
     nuget restore
 after_build:
 - cmd: >-
     cd "%APPVEYOR_BUILD_FOLDER%\bin"
+
     7z a "%APPVEYOR_BUILD_FOLDER%\BNSBoost-%APPVEYOR_REPO_COMMIT:~0,8%.zip" *
 artifacts:
 - path: '*.zip'
