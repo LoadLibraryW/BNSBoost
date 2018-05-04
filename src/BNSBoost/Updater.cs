@@ -12,7 +12,7 @@ namespace BNSBoost
 {
     class Updater
     {
-        private const string RELEASE_API_ENDPOINT = "https://api.github.com/repos/Xyene/BNSBoost/releases";
+        private const string RELEASE_API_ENDPOINT = "https://api.github.com/repos/LoadLibraryW/BNSBoost/releases";
 
         public class BNSBoostRelease
         {
