@@ -1,4 +1,4 @@
-# BNSBoost [![Build Status](https://ci.appveyor.com/api/projects/status/pdx1o24nlghtx64g?svg=true)](https://ci.appveyor.com/project/Xyene/bnsboost) [![Releases](https://img.shields.io/github/downloads/LoadLibraryW/BNSBoost/total.svg)](https://github.com/LoadLibraryW/BNSBoost/releases) [![Chat on Discord](https://img.shields.io/discord/438880622472331271.svg?label=discord&logo=discord&colorA=7078C2&colorB=7B81D8&x=x)](https://discord.gg/yAvFxET)
+# BNSBoost [![Build Status](https://ci.appveyor.com/api/projects/status/j63g1m2s89iu05m6?svg=true)](https://ci.appveyor.com/project/LoadLibraryW/bnsboost) [![Releases](https://img.shields.io/github/downloads/LoadLibraryW/BNSBoost/total.svg)](https://github.com/LoadLibraryW/BNSBoost/releases) [![Chat on Discord](https://img.shields.io/discord/438880622472331271.svg?label=discord&logo=discord&colorA=7078C2&colorB=7B81D8&x=x)](https://discord.gg/yAvFxET)
 
 
 
@@ -27,7 +27,7 @@ It features options for:
 
 **[Latest stable build](https://github.com/LoadLibraryW/BNSBoost/releases) &mdash; you probably want this.**
 
-[Unstable builds](https://ci.appveyor.com/project/Xyene/bnsboost/build/artifacts) &mdash; don't file bug reports regarding these builds, but feel free to mention them in Discord.
+[Unstable builds](https://ci.appveyor.com/project/LoadLibraryW/bnsboost/build/artifacts) &mdash; don't file bug reports regarding these builds, but feel free to mention them in Discord.
 
 ## Usage 
 Just run the `BNSBoost.exe` you got from the release archive!
