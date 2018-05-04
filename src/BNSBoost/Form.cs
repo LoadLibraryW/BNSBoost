@@ -51,6 +51,7 @@ namespace BNSBoost
                     if (result == DialogResult.Yes)
                     {
                         Process.Start(release.URL);
+                        Application.Exit();
                     }
                 }
             }
