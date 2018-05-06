@@ -52,13 +52,6 @@ namespace BNSBoost
             }
         }
 
-        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
-        static extern bool CreateHardLink(
-            string lpFileName,
-            string lpExistingFileName,
-            IntPtr lpSecurityAttributes
-        );
-
         public static void ApplyMod(Mod mod)
         {
             string modDir = Path.Combine(MOD_COOKEDPC_LOCATION, mod.Name);
@@ -66,7 +59,7 @@ namespace BNSBoost
 
             foreach (string target in Directory.GetFiles(mod.Path))
             {
-                CreateHardLink(Path.Combine(modDir, Path.GetFileName(target)), target, IntPtr.Zero);
+                NativeMethods.CreateHardLink(Path.Combine(modDir, Path.GetFileName(target)), target, IntPtr.Zero);
             }
         }
 

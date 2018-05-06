@@ -59,6 +59,10 @@ namespace BNSBoost
             {
                 MessageBox.Show($"Could not connect to GitHub: {ex.Message}", "Failed update check");
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Exception: {ex.Message}", "Failed update check");
+            }
         }
 
         private void InitializeMods()
@@ -106,6 +110,7 @@ namespace BNSBoost
                     ImageIndex = SplashListView.LargeImageList.Images.Count,
                 });
 
+                // TODO: clone the image in memory so we don't keep a lock on the file
                 SplashListView.LargeImageList.Images.Add(Image.FromFile(splash.Path));
             }
 
