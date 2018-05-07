@@ -100,7 +100,7 @@ BOOL WINAPI Hook_CreateProcess(
 	_Out_       LPPROCESS_INFORMATION lpProcessInformation
 ) {
 	wchar_t envBuf[100];
-	if (!GetEnvironmentVariable(L"__BNSBOOST_CLIENTFLAGS", envBuf, sizeof(envBuf))) {
+	if (!GetEnvironmentVariable(L"__BNSBOOST_CLIENTFLAGS", envBuf, _countof(envBuf))) {
 		exit(GetLastError());
 	}
 
@@ -110,7 +110,7 @@ BOOL WINAPI Hook_CreateProcess(
 	wcscat(lpNewCommandLine, L" ");
 	wcscat(lpNewCommandLine, envBuf);
 
-	BOOL bX3Disabled = GetEnvironmentVariable(L"__BNSBOOST_NOX3", envBuf, sizeof(envBuf));
+	BOOL bX3Disabled = GetEnvironmentVariable(L"__BNSBOOST_NOX3", envBuf, _countof(envBuf));
 
 	OutputDebugStringW(lpNewCommandLine);
 
@@ -126,13 +126,13 @@ BOOL WINAPI Hook_CreateProcess(
 		lpProcessInformation);
 
 	if (bX3Disabled) {
-		BOOL bIs64 = GetEnvironmentVariable(L"__BNSBOOST_IS64", envBuf, sizeof(envBuf));
+		BOOL bIs64 = GetEnvironmentVariable(L"__BNSBOOST_IS64", envBuf, _countof(envBuf));
 
 		wchar_t agentPath[MAX_PATH];
 		wchar_t injectPath[MAX_PATH];
 
-		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", agentPath, sizeof(agentPath));
-		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", injectPath, sizeof(injectPath));
+		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", agentPath, _countof(agentPath));
+		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", injectPath, _countof(injectPath));
 
 		wcscat(agentPath, L"\\");
 		wcscat(injectPath, L"\\");

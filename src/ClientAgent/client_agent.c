@@ -71,7 +71,7 @@ static HMODULE WINAPI Hook_LoadLibrary(
 		OutputDebugStringW(L"Hooking!");
 
 		wchar_t patchPath[MAX_PATH];
-		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", patchPath, sizeof(patchPath));
+		GetEnvironmentVariable(L"__BNSBOOST_BASEDIR", patchPath, _countof(patchPath));
 		wcscat(patchPath, patch);
 
 		OutputDebugStringW(patchPath);
@@ -85,7 +85,7 @@ static HMODULE WINAPI Hook_LoadLibrary(
 void InjectMain()
 {
 	wchar_t envBuf[1];
-	BOOL bMulticlientEnabled = GetEnvironmentVariable(L"__BNSBOOST_MULTICLIENT", envBuf, sizeof(envBuf));
+	BOOL bMulticlientEnabled = GetEnvironmentVariable(L"__BNSBOOST_MULTICLIENT", envBuf, _countof(envBuf));
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
