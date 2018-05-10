@@ -33,6 +33,11 @@ namespace BNSBoost
             LatencyDurationUpDown.Enabled = Properties.Settings.Default.ChangeLatencyDisplayTime;
             MultiClientCheckbox.Enabled = Properties.Settings.Default.DisableX3;
             LanguageComboBox.SelectedItem = "English";
+
+            DisableX3Checkbox.Enabled = false;
+            DisableX3Checkbox.Checked = false;
+            MultiClientCheckbox.Enabled = false;
+            MultiClientCheckbox.Checked = false;
         }
 
         private void CheckForUpdates()
